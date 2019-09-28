@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "500053096187",
+    "firebase_url": "https://fun-prize.firebaseio.com",
+    "project_id": "fun-prize",
+    "storage_bucket": "fun-prize.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500053096187:android:a7a11dfa50c5f58d5c625e",
+        "android_client_info": {
+          "package_name": "io.github.dogganidhal.funprize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500053096187-5n7cprkhffvd1thpkj9k5f1vmbm817sc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9gur5ONqzYB7zS6hghhCodP69hU5yZfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500053096187-5n7cprkhffvd1thpkj9k5f1vmbm817sc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
