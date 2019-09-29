@@ -25,7 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           lastName: event.lastName,
           email: "${event.email}${Constants.audenciaEmailSuffix}",
           username: event.username,
-          password: event.password
+          password: event.password,
+          year: event.year
         );
         yield state.copy
           ..isLoading = false

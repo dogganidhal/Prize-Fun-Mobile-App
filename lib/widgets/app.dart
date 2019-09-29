@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_prize/widgets/auth/auth.dart';
-import 'package:fun_prize/widgets/home.dart';
+import 'package:fun_prize/widgets/prizes/prizes.dart';
 
 
 class App extends StatelessWidget {
@@ -36,10 +36,10 @@ class App extends StatelessWidget {
         )
       ),
       home: this.isAuthenticated ?
+        Prizes() :
         Auth(
-          postAuthWidgetBuilder: (context) => Home(),
-        ) :
-        Home()
+          postAuthWidgetBuilder: (context) => Prizes(),
+        )
     );
   }
 }

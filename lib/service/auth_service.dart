@@ -5,7 +5,7 @@ import 'package:fun_prize/exceptions/auth.dart';
 
 
 class AuthService {
-  static String _usersCollection = "users";
+  static String _kUsersCollection = "users";
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
@@ -23,16 +23,17 @@ class AuthService {
 
   Future<FirebaseUser> signUp({
     String firstName, String lastName, String email,
-    String username, String password
+    String username, String password, String year
   }) async {
     final authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-    await _firestore.collection(_usersCollection)
+    await _firestore.collection(_kUsersCollection)
       .document(authResult.user.uid)
       .setData({
         "firstName": firstName,
         "lastName": lastName,
         "username": username,
-        "email": email
+        "email": email,
+        "year": year
       });
     return authResult.user;
   }

@@ -68,6 +68,8 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 16),
                   this._usernameField,
                   SizedBox(height: 16),
+                  this._yearField,
+                  SizedBox(height: 16),
                   this._passwordAndConfirmationFields,
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
@@ -157,6 +159,41 @@ class _SignUpState extends State<SignUp> {
     ),
   );
 
+  Widget get _yearField => FormBuilderDropdown(
+    attribute: "year",
+    items: [
+      DropdownMenuItem<String>(
+        value: "2015",
+        child: Text("2015"),
+      ),
+      DropdownMenuItem<String>(
+        value: "2016",
+        child: Text("2016"),
+      ),
+      DropdownMenuItem<String>(
+        value: "2017",
+        child: Text("2017"),
+      ),
+      DropdownMenuItem<String>(
+        value: "2018",
+        child: Text("2018"),
+      ),
+      DropdownMenuItem<String>(
+        value: "2019",
+        child: Text("2019"),
+      )
+    ],
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black45, width: 0.5)
+      ),
+      labelText: "Promo"
+    ),
+    validators: [
+      FormBuilderValidators.required(errorText: "Ce champ est requis")
+    ],
+  );
+
   Widget get _passwordAndConfirmationFields => FormBuilderTextField(
     attribute: "password",
     decoration: InputDecoration(
@@ -192,12 +229,14 @@ class _SignUpState extends State<SignUp> {
     final String email = values["email"];
     final String username = values["username"];
     final String password = values["password"];
+    final String year = values["year"];
     BlocProvider.of<AuthBloc>(context).dispatch(SignUpEvent(
       firstName: firstName,
       lastName: lastName,
       username: username,
       email: email,
-      password: password
+      password: password,
+      year: year
     ));
   }
 }

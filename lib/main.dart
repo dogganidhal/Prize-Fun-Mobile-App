@@ -4,6 +4,6 @@ import 'package:fun_prize/widgets/app.dart';
 
 
 void main() async {
-  final user = AuthService().currentUser();
+  final user = await AuthService().currentUser();
   runApp(App(isAuthenticated: user != null));
 }

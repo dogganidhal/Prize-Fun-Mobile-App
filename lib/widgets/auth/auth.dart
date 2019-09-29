@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_state.dart';
