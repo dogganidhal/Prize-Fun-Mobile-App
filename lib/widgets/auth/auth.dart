@@ -23,6 +23,7 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
+  final AuthBloc _authBloc = AuthBloc();
   final GlobalKey _scaffoldBodyKey = GlobalKey(); 
   
   _AuthType _authType = _AuthType.LOGIN;
@@ -47,7 +48,7 @@ class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) => Scaffold(
     body: BlocListener<AuthBloc, AuthState>(
-      bloc: BlocProvider.of(context),
+      bloc: this._authBloc,
       listener: (context, state) {
         if (state.isLoading) {
           Scaffold.of(this._scaffoldBodyKey.currentContext)
@@ -69,17 +70,20 @@ class _AuthState extends State<Auth> {
           Scaffold.of(this._scaffoldBodyKey.currentContext).hideCurrentSnackBar();
         }
         if (state.finished) {
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: widget.postAuthWidgetBuilder
             ),
           );
         }
       },
-      child: AnimatedSwitcher(
-        key: _scaffoldBodyKey,
-        duration: Duration(milliseconds: 200),
-        child: _authType == _AuthType.LOGIN ? _login : _signUp
+      child: BlocProvider<AuthBloc>(
+        builder: (context) => this._authBloc,
+        child: AnimatedSwitcher(
+          key: _scaffoldBodyKey,
+          duration: Duration(milliseconds: 200),
+          child: _authType == _AuthType.LOGIN ? _login : _signUp
+        ),
       ),
     ),
   );

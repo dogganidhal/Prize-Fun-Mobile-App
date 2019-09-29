@@ -56,7 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield state.copy
           ..isLoading = false
           ..user = user
-          ..finished = false;
+          ..finished = true;
       } on AuthException catch (exception) {
         yield state.copy
           ..isLoading = false

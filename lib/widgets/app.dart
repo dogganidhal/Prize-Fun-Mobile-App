@@ -1,20 +1,13 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fun_prize/blocs/auth/auth_bloc.dart';
-import 'package:fun_prize/blocs/auth/auth_event.dart';
-import 'package:fun_prize/blocs/auth/auth_state.dart';
 import 'package:fun_prize/widgets/auth/auth.dart';
 import 'package:fun_prize/widgets/home.dart';
 
 
 class App extends StatelessWidget {
-  final AuthBloc _authBloc = AuthBloc();
+  final bool isAuthenticated;
 
-  App({Key key}) : super(key: key) {
-    this._authBloc.dispatch(LoadAuthEvent());
-  }
+  App({Key key, this.isAuthenticated});
 
   @override
   Widget build(BuildContext context) {
@@ -42,30 +35,11 @@ class App extends StatelessWidget {
             )
         )
       ),
-      home: BlocProvider<AuthBloc>(
-        builder: (context) => this._authBloc,
-        child: BlocBuilder<AuthBloc, AuthState>(
-          bloc: this._authBloc,
-          builder: (context, state) {
-            if (!state.isInitialized) {
-              return Container(
-                color: Colors.white,
-                child: Center(
-                  child: Platform.isIOS ?
-                    CupertinoActivityIndicator() :
-                    CircularProgressIndicator(),
-                ),
-              );
-            }
-            if (!state.isAuthenticated) {
-              return Auth(
-                postAuthWidgetBuilder: (context) => Home(),
-              );
-            }
-            return Home();
-          },
-        ),
-      )
+      home: this.isAuthenticated ?
+        Auth(
+          postAuthWidgetBuilder: (context) => Home(),
+        ) :
+        Home()
     );
   }
 }
