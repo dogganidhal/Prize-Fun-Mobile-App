@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_prize/blocs/prizes/prizes_bloc.dart';
 import 'package:fun_prize/blocs/prizes/prizes_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_state.dart';
+import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/utils/contants.dart';
 import 'package:fun_prize/widgets/prizes/prize_card.dart';
+import 'package:fun_prize/widgets/prizes/prize_details.dart';
 
 
 class Prizes extends StatelessWidget {
@@ -38,9 +40,7 @@ class Prizes extends StatelessWidget {
                   padding: EdgeInsets.all(8),
                   itemBuilder: (context, index) => PrizeCard(
                     prize: state.prizes[index],
-                    onPlayPressed: () {
-                      debugPrint("Want to play prize at index $index ?");
-                    },
+                    onPlayPressed: () => _launchPrizeDetails(context, state.prizes[index]),
                   ),
                   separatorBuilder: (context, index) => SizedBox(height: 8),
                   itemCount: state.prizes.length
@@ -62,5 +62,16 @@ class Prizes extends StatelessWidget {
         },
       )
     );
+  }
+
+  void _launchPrizeDetails(BuildContext context, Prize prize) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Theme(
+          data: Theme.of(context),
+          child: PrizeDetails(
+            prize: prize,
+          ),
+        )
+      ));
   }
 }

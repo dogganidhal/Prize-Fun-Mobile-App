@@ -124,7 +124,8 @@ class PrizeCard extends StatelessWidget {
   Stream<String> get _countdownDuration async* {
     Duration duration = prize.dueDate.difference(DateTime.now());
     while (!duration.isNegative) {
-      yield printDuration(
+
+      yield prettyDuration(
         duration,
         tersity: DurationTersity.second,
         abbreviated: true,

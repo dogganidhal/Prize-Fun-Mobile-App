@@ -33,7 +33,9 @@ class App extends StatelessWidget {
                 fontSize: 20
               )
             )
-        )
+        ),
+        backgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: this.isAuthenticated ?
         Prizes() :
