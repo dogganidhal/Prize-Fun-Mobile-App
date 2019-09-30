@@ -35,7 +35,7 @@ class PrizeCard extends StatelessWidget {
                   right: 8,
                   bottom: 8,
                   child: MaterialButton(
-                    color: Colors.amberAccent,
+                    color: Colors.amber,
                     onPressed: onPlayPressed,
                     child: Text("Jouer".toUpperCase()),
                     shape: RoundedRectangleBorder(

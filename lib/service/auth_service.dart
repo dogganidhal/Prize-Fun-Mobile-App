@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseUser, FirebaseAuth;
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseUser, FirebaseAuth, AuthResult;
 import 'package:flutter/services.dart';
 import 'package:fun_prize/exceptions/auth.dart';
+import 'package:fun_prize/utils/concurrent.dart';
 
 
 class AuthService {
@@ -12,9 +13,9 @@ class AuthService {
 
   Future<FirebaseUser> login({String email, String password}) async {
     try {
-      final authResult = await _firebaseAuth.signInWithEmailAndPassword(
+      AuthResult authResult = await delayed(_firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password
-      );
+      ));
       return authResult.user;
     } on PlatformException catch (exception) {
       throw AuthException.fromPlatformException(exception);
@@ -25,7 +26,10 @@ class AuthService {
     String firstName, String lastName, String email,
     String username, String password, String year
   }) async {
-    final authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    final authResult = await delayed(_firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password
+    ));
     await _firestore.collection(_kUsersCollection)
       .document(authResult.user.uid)
       .setData({

@@ -4,8 +4,6 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Prize {
-  static String _kStandingCollection = "standing";
-
   final int winnerCount;
   final DateTime dueDate;
   final String imageUrl;

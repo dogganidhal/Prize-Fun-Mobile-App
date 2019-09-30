@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
       child: Center(
         child: FormBuilder(
           key: _formKey,
-          autovalidate: true,
+          autovalidate: false,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 SizedBox(
                   height: 64,
-                  child: Image.asset(Constants.medalAsset),
+                  child: Image.asset(Constants.logoAsset),
                 ),
                 Padding(
                   padding: EdgeInsets.all(16),
@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
                   ),
                   validators: [
                     FormBuilderValidators.required(errorText: "Ce champ est requis"),
-                    FormBuilderValidators.pattern(r'', errorText: "Adresse email non valide")
+                    FormBuilderValidators.pattern(r'^[a-zA-Z0-9\-_\.]+$', errorText: "Adresse email non valide")
                   ],
                 ),
                 SizedBox(height: 16),
@@ -103,13 +103,18 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       FlatButton(
-                        textColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        textColor: Colors.amber,
                         onPressed: this.widget.onSignUpButtonTapped,
                         child: Text("S'inscrire"),
                       ),
                       FlatButton(
-                        color: Colors.blue,
-                        colorBrightness: Brightness.dark,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        color: Colors.amber,
                         onPressed: _login,
                         child: Text("Se connecter"),
                       )

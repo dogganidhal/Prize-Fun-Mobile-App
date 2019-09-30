@@ -31,3 +31,7 @@ class LoginEvent extends AuthEvent {
 
   LoginEvent({this.email, this.password}) : super([email, password]);
 }
+
+class LogoutEvent extends AuthEvent {
+
+}

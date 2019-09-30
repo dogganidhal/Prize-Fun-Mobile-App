@@ -3,11 +3,14 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fun_prize/blocs/auth/auth_bloc.dart';
+import 'package:fun_prize/blocs/auth/auth_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_bloc.dart';
 import 'package:fun_prize/blocs/prizes/prizes_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/utils/contants.dart';
+import 'package:fun_prize/widgets/auth/auth.dart';
 import 'package:fun_prize/widgets/prizes/prize_card.dart';
 import 'package:fun_prize/widgets/prizes/prize_details.dart';
 
@@ -25,10 +28,25 @@ class Prizes extends StatelessWidget {
       appBar: AppBar(
         brightness: Brightness.light,
         title: Padding(
-          padding: EdgeInsets.only(bottom: 8),
+          padding: EdgeInsets.symmetric(vertical: 8),
           child: Image.asset(Constants.logoAsset),
         ),
         centerTitle: true,
+        actions: <Widget>[
+          ButtonTheme(
+            focusColor: Colors.black54,
+            child: PopupMenuButton(
+              onSelected: (index) => _onPopupItemPressed(context, index),
+              icon: Icon(Icons.more_vert, color: Colors.black87),
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text("Se déconnecter"),
+                )
+              ],
+            ),
+          )
+        ],
       ),
       body: BlocBuilder<PrizesBloc, PrizesState>(
         bloc: _bloc,
@@ -73,5 +91,17 @@ class Prizes extends StatelessWidget {
           ),
         )
       ));
+  }
+
+  void _onPopupItemPressed(BuildContext context, int index) {
+    switch(index) {
+      case 0:
+        BlocProvider.of<AuthBloc>(context).dispatch(LogoutEvent());
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => Auth(
+            postAuthWidgetBuilder: (context) => Prizes(),
+          )
+        ));
+    }
   }
 }

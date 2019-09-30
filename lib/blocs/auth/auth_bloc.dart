@@ -36,6 +36,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield state.copy
           ..isLoading = false
           ..exception = exception;
+        yield state.copy
+          ..exception = null;
       }
     }
 
@@ -62,8 +64,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield state.copy
           ..isLoading = false
           ..exception = exception;
+        yield state.copy
+          ..exception = null;
       }
     }
 
+    if (event is LogoutEvent) {
+      await authService.logout();
+      yield state.copy
+        ..user = null;
+    }
   }
 }

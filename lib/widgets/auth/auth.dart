@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +5,8 @@ import 'package:fun_prize/blocs/auth/auth_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_state.dart';
 import 'package:fun_prize/widgets/auth/login.dart';
 import 'package:fun_prize/widgets/auth/sign_up.dart';
+import 'package:fun_prize/widgets/mixins/error.dart';
+import 'package:fun_prize/widgets/mixins/loader.dart';
 
 enum _AuthType {
   LOGIN, SIGN_UP
@@ -20,9 +21,9 @@ class Auth extends StatefulWidget {
   _AuthState createState() => _AuthState();
 }
 
-class _AuthState extends State<Auth> {
-  final AuthBloc _authBloc = AuthBloc();
-  final GlobalKey _scaffoldBodyKey = GlobalKey(); 
+class _AuthState extends State<Auth> with LoaderMixin, ErrorModalMixin {
+  AuthBloc _authBloc;
+  GlobalKey _scaffoldBodyKey = GlobalKey();
   
   _AuthType _authType = _AuthType.LOGIN;
   Login _login;
@@ -41,6 +42,7 @@ class _AuthState extends State<Auth> {
         setState(() => _authType = _AuthType.LOGIN);
       },
     );
+    _authBloc = BlocProvider.of<AuthBloc>(context);
   }
 
   @override
@@ -49,23 +51,12 @@ class _AuthState extends State<Auth> {
       bloc: this._authBloc,
       listener: (context, state) {
         if (state.isLoading) {
-          Scaffold.of(this._scaffoldBodyKey.currentContext)
-            .showSnackBar(SnackBar(
-              content: Container(
-                height: 48,
-                child: Row(
-                  children: <Widget>[
-                    Platform.isIOS ?
-                      CupertinoActivityIndicator() :
-                      CircularProgressIndicator(),
-                    SizedBox(width: 16),
-                    Text("Chargement ...")
-                  ],
-                ),
-              ),
-            ));
+          showLoader();
         } else {
-          Scaffold.of(this._scaffoldBodyKey.currentContext).hideCurrentSnackBar();
+          hideLoader();
+        }
+        if (state.exception != null) {
+          showErrorModal(message: state.exception.message);
         }
         if (state.finished) {
           Navigator.of(context).pushReplacement(

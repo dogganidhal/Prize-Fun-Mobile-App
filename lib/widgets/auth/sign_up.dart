@@ -27,7 +27,7 @@ class _SignUpState extends State<SignUp> {
         child: Center(
           child: FormBuilder(
             key: _formKey,
-            autovalidate: true,
+            autovalidate: false,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -36,7 +36,7 @@ class _SignUpState extends State<SignUp> {
                 children: <Widget>[
                   SizedBox(
                     height: 64,
-                    child: Image.asset(Constants.medalAsset),
+                    child: Image.asset(Constants.logoAsset),
                   ),
                   Padding(
                     padding: EdgeInsets.all(16),
@@ -77,13 +77,18 @@ class _SignUpState extends State<SignUp> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         FlatButton(
-                          textColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)
+                          ),
+                          textColor: Colors.amber,
                           onPressed: this.widget.onLoginButtonTapped,
                           child: Text("Se connecter"),
                         ),
                         FlatButton(
-                          color: Colors.blue,
-                          colorBrightness: Brightness.dark,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)
+                          ),
+                          color: Colors.amber,
                           onPressed: _signUp,
                           child: Text("S'inscrire"),
                         )
@@ -157,6 +162,9 @@ class _SignUpState extends State<SignUp> {
       ),
       labelText: "Pseudo"
     ),
+    validators: [
+      FormBuilderValidators.required(errorText: "Ce champ est requis")
+    ],
   );
 
   Widget get _yearField => FormBuilderDropdown(

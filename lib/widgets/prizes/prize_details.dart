@@ -30,7 +30,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                   pinned: true,
                   brightness: Brightness.light,
                   iconTheme: IconThemeData(
-                    color: Colors.amberAccent
+                    color: Colors.amber
                   ),
                   flexibleSpace: LayoutBuilder(
                     builder: (context, constraints) => FlexibleSpaceBar(
@@ -93,7 +93,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                 minWidth: double.infinity,
                 height: 48,
                 child: MaterialButton(
-                  color: Colors.amberAccent,
+                  color: Colors.amber,
                   onPressed: () {},
                   child: Text("Jouer".toUpperCase()),
                 ),
