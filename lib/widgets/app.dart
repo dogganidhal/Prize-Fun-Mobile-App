@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
+import 'package:fun_prize/utils/contants.dart';
 import 'package:fun_prize/widgets/auth/auth.dart';
 import 'package:fun_prize/widgets/prizes/prizes.dart';
 
@@ -19,15 +20,28 @@ class App extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           fontFamily: "GoogleSans",
-          primarySwatch: Colors.amber,
+          primaryColor: Constants.primaryColor,
+          colorScheme: ColorScheme.light(
+            primary: Constants.primaryColor
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            fillColor: Constants.primaryColor,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Constants.primaryColor,
+              ),
+              borderRadius: BorderRadius.circular(4)
+            ),
+            focusColor: Constants.primaryColor,
+          ),
           appBarTheme: AppBarTheme(
             color: Colors.white,
             elevation: 1,
             iconTheme: IconThemeData(
-              color: Colors.blue
+              color: Constants.primaryColor
             ),
             actionsIconTheme: IconThemeData(
-              color: Colors.blue
+              color: Constants.primaryColor
             ),
             textTheme: Theme.of(context)
               .textTheme
@@ -40,6 +54,7 @@ class App extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
           scaffoldBackgroundColor: Colors.white,
+          cursorColor: Constants.primaryColor,
         ),
         home: this.isAuthenticated ?
           Prizes() :

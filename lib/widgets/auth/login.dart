@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 SizedBox(
-                  height: 64,
+                  height: 192,
                   child: Image.asset(Constants.logoAsset),
                 ),
                 Padding(
@@ -66,7 +66,10 @@ class _LoginState extends State<Login> {
                   attribute: "email",
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black45, width: 0.5)
+                      borderSide: BorderSide(
+                        color: Constants.primaryColor,
+                        width: 0.5,
+                      ),
                     ),
                     labelText: "Adresse Email",
                     suffixText: Constants.audenciaEmailSuffix
@@ -80,6 +83,7 @@ class _LoginState extends State<Login> {
                 FormBuilderTextField(
                   attribute: "password",
                   decoration: InputDecoration(
+                    focusColor: Constants.primaryColor,
                     border: OutlineInputBorder(),
                     labelText: "Mot de passe",
                     suffixIcon: IconButton(
@@ -106,15 +110,16 @@ class _LoginState extends State<Login> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)
                         ),
-                        textColor: Colors.amber,
+                        textColor: Constants.primaryColor,
                         onPressed: this.widget.onSignUpButtonTapped,
                         child: Text("S'inscrire"),
                       ),
                       FlatButton(
+                        colorBrightness: Brightness.dark,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)
                         ),
-                        color: Colors.amber,
+                        color: Constants.primaryColor,
                         onPressed: _login,
                         child: Text("Se connecter"),
                       )

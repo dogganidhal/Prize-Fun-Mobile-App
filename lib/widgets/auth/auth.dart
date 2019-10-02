@@ -6,7 +6,7 @@ import 'package:fun_prize/blocs/auth/auth_state.dart';
 import 'package:fun_prize/widgets/auth/login.dart';
 import 'package:fun_prize/widgets/auth/sign_up.dart';
 import 'package:fun_prize/widgets/mixins/error.dart';
-import 'package:fun_prize/widgets/mixins/loader.dart';
+import 'package:fun_prize/widgets/mixins/modal_loader.dart';
 
 enum _AuthType {
   LOGIN, SIGN_UP
@@ -21,7 +21,7 @@ class Auth extends StatefulWidget {
   _AuthState createState() => _AuthState();
 }
 
-class _AuthState extends State<Auth> with LoaderMixin, ErrorModalMixin {
+class _AuthState extends State<Auth> with ModalLoaderMixin, ErrorModalMixin {
   AuthBloc _authBloc;
   GlobalKey _scaffoldBodyKey = GlobalKey();
   

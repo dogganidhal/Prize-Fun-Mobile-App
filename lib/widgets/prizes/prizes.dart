@@ -41,6 +41,10 @@ class Prizes extends StatelessWidget {
               itemBuilder: (context) => [
                 PopupMenuItem<int>(
                   value: 0,
+                  child: Text("Rafraîchir"),
+                ),
+                PopupMenuItem<int>(
+                  value: 1,
                   child: Text("Se déconnecter"),
                 )
               ],
@@ -70,8 +74,8 @@ class Prizes extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                     child: Center(
                       child: Platform.isIOS ?
-                      CupertinoActivityIndicator() :
-                      CircularProgressIndicator()
+                        CupertinoActivityIndicator() :
+                        CircularProgressIndicator()
                     ),
                   )
                 ),
@@ -96,12 +100,16 @@ class Prizes extends StatelessWidget {
   void _onPopupItemPressed(BuildContext context, int index) {
     switch(index) {
       case 0:
+        _bloc.dispatch(LoadPrizesEvent());
+        break;
+      case 1:
         BlocProvider.of<AuthBloc>(context).dispatch(LogoutEvent());
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => Auth(
             postAuthWidgetBuilder: (context) => Prizes(),
           )
         ));
+        break;
     }
   }
 }

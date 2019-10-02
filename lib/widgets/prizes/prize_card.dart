@@ -2,6 +2,7 @@ import 'package:duration/duration.dart';
 import 'package:duration/locale.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_prize/model/prize.dart';
+import 'package:fun_prize/utils/contants.dart';
 
 
 class PrizeCard extends StatelessWidget {
@@ -35,9 +36,13 @@ class PrizeCard extends StatelessWidget {
                   right: 8,
                   bottom: 8,
                   child: MaterialButton(
-                    color: Colors.amber,
-                    onPressed: onPlayPressed,
-                    child: Text("Jouer".toUpperCase()),
+                    color: Constants.primaryColor,
+                    disabledColor: Colors.grey,
+                    colorBrightness: Brightness.dark,
+                    onPressed: prize.closed ?
+                      null :
+                      onPlayPressed,
+                    child: Text("Jouer"),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)
                     ),

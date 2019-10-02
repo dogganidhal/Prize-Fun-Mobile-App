@@ -23,7 +23,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/medal-of-valour.png
     - assets/logo.png
   fonts:
     - family: GoogleSans

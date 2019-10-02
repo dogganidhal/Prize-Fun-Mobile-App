@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   SizedBox(
-                    height: 64,
+                    height: 192,
                     child: Image.asset(Constants.logoAsset),
                   ),
                   Padding(
@@ -80,15 +80,16 @@ class _SignUpState extends State<SignUp> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4)
                           ),
-                          textColor: Colors.amber,
+                          textColor: Constants.primaryColor,
                           onPressed: this.widget.onLoginButtonTapped,
                           child: Text("Se connecter"),
                         ),
                         FlatButton(
+                          colorBrightness: Brightness.dark,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4)
                           ),
-                          color: Colors.amber,
+                          color: Constants.primaryColor,
                           onPressed: _signUp,
                           child: Text("S'inscrire"),
                         )

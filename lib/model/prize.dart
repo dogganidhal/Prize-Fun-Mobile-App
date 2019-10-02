@@ -13,6 +13,11 @@ class Prize {
   final int minWinnerPoints;
   final Rankings rankings;
 
+  bool get closed => this.dueDate.compareTo(DateTime.now()) <= 0;
+
+  bool isLastWinner(int index) => (index == this.rankings.length - 1 && this.winnerCount > this.rankings.length) ||
+    index == this.winnerCount - 1;
+
   Prize({
     this.winnerCount, this.dueDate, this.imageUrl,
     this.title, this.subTitle, this.description,

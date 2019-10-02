@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-mixin LoaderMixin<T extends StatefulWidget> on State<T> {
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fun_prize/utils/contants.dart';
+
+mixin ModalLoaderMixin<T extends StatefulWidget> on State<T> {
 
   bool _isLoaderVisible = false;
 
@@ -15,7 +19,11 @@ mixin LoaderMixin<T extends StatefulWidget> on State<T> {
         ),
         content: Row(
           children: <Widget>[
-            CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.amber)),
+            Platform.isIOS ?
+              CupertinoActivityIndicator() :
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(Constants.primaryColor)
+              ),
             Padding(
               padding: EdgeInsets.all(16),
               child: Text("Chargement ..."),

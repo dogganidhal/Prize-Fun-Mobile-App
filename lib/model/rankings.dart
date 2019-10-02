@@ -18,6 +18,7 @@ class Rankings extends ListBase<PrizeParticipation> {
       documents
         .map((document) => PrizeParticipation.fromDocument(document))
         .toList()
+        ..sort((lhs, rhs) => rhs.score - lhs.score)
     );
 
   PrizeParticipation operator [](int index) => _winners[index];

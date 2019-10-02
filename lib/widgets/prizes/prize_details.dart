@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_prize/model/prize.dart';
+import 'package:fun_prize/utils/contants.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 
 
@@ -30,7 +31,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                   pinned: true,
                   brightness: Brightness.light,
                   iconTheme: IconThemeData(
-                    color: Colors.amber
+                    color: Constants.primaryColor
                   ),
                   flexibleSpace: LayoutBuilder(
                     builder: (context, constraints) => FlexibleSpaceBar(
@@ -77,7 +78,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                             style: Theme.of(context).textTheme.title,
                           ),
                         ),
-                        RankingsCard(rankings: widget.prize.rankings),
+                        RankingsCard(prize: widget.prize),
                       ],
                     ),
                   ),
@@ -93,9 +94,10 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                 minWidth: double.infinity,
                 height: 48,
                 child: MaterialButton(
-                  color: Colors.amber,
+                  color: Constants.primaryColor,
+                  colorBrightness: Brightness.dark,
                   onPressed: () {},
-                  child: Text("Jouer".toUpperCase()),
+                  child: Text("Jouer"),
                 ),
               ),
             ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/model/rankings.dart';
 
 
 class RankingsCard extends StatelessWidget {
-  final Rankings rankings;
+  final Prize prize;
+  Rankings get rankings => this.prize.rankings;
 
-  const RankingsCard({Key key, this.rankings}) : super(key: key);
+  const RankingsCard({Key key, this.prize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Table(
@@ -21,16 +23,48 @@ class RankingsCard extends StatelessWidget {
       yield TableRow(
         children: <Widget>[
           TableCell(
-            child: Text(index.toString()),
+            child: Text(
+              (index + 1).toString(),
+              textAlign: TextAlign.center,
+            ),
           ),
           TableCell(
-            child: Text(participation.username),
+            child: Text(
+              participation.username,
+              textAlign: TextAlign.center,
+            ),
           ),
           TableCell(
-            child: Text(participation.score.toString()),
-          )
-        ]
+            child: Text(
+              participation.score.toString(),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       );
+      if (prize.isLastWinner(index))
+        yield TableRow(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                "Dernier gagnant",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: Divider(color: Colors.grey,),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: Divider(color: Colors.grey),
+            )
+          ],
+        );
       index++;
     }
   }
@@ -42,7 +76,8 @@ class RankingsCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Text(
             "Nº",
-            style: Theme.of(context).textTheme.subhead
+            style: Theme.of(context).textTheme.subhead,
+            textAlign: TextAlign.center,
           ),
         ),
       ),
@@ -51,7 +86,8 @@ class RankingsCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Text(
             "Pseudo",
-            style: Theme.of(context).textTheme.subhead
+            style: Theme.of(context).textTheme.subhead,
+            textAlign: TextAlign.center,
           ),
         ),
       ),
@@ -60,7 +96,8 @@ class RankingsCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Text(
             "Score",
-            style: Theme.of(context).textTheme.subhead
+            style: Theme.of(context).textTheme.subhead,
+            textAlign: TextAlign.center,
           ),
         ),
       )
