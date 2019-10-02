@@ -21,6 +21,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "GoogleSans",
           primaryColor: Constants.primaryColor,
+          accentColor: Constants.primaryColor,
           colorScheme: ColorScheme.light(
             primary: Constants.primaryColor
           ),

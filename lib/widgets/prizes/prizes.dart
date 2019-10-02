@@ -75,7 +75,9 @@ class Prizes extends StatelessWidget {
                     child: Center(
                       child: Platform.isIOS ?
                         CupertinoActivityIndicator() :
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Constants.primaryColor)
+                        )
                     ),
                   )
                 ),

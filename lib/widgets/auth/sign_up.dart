@@ -21,82 +21,84 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Center(
-          child: FormBuilder(
-            key: _formKey,
-            autovalidate: false,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  SizedBox(
-                    height: 192,
-                    child: Image.asset(Constants.logoAsset),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      "Inscription",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87
-                      ),
-                      textAlign: TextAlign.start,
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+//          height: MediaQuery.of(context).size.height,
+          child: Center(
+            child: FormBuilder(
+              key: _formKey,
+              autovalidate: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 192,
+                      child: Image.asset(Constants.logoAsset),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 32),
-                    child: Text(
-                      "Créer votre compte Fun & Prize",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black45
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  this._fullNameFields,
-                  SizedBox(height: 16),
-                  this._emailField,
-                  SizedBox(height: 16),
-                  this._usernameField,
-                  SizedBox(height: 16),
-                  this._yearField,
-                  SizedBox(height: 16),
-                  this._passwordAndConfirmationFields,
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4)
-                          ),
-                          textColor: Constants.primaryColor,
-                          onPressed: this.widget.onLoginButtonTapped,
-                          child: Text("Se connecter"),
+                    Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        "Inscription",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87
                         ),
-                        FlatButton(
-                          colorBrightness: Brightness.dark,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4)
-                          ),
-                          color: Constants.primaryColor,
-                          onPressed: _signUp,
-                          child: Text("S'inscrire"),
-                        )
-                      ],
+                        textAlign: TextAlign.start,
+                      ),
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 32),
+                      child: Text(
+                        "Créer votre compte Fun & Prize",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black45
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
+                    this._fullNameFields,
+                    SizedBox(height: 16),
+                    this._emailField,
+                    SizedBox(height: 16),
+                    this._usernameField,
+                    SizedBox(height: 16),
+                    this._yearField,
+                    SizedBox(height: 16),
+                    this._passwordAndConfirmationFields,
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4)
+                            ),
+                            textColor: Constants.primaryColor,
+                            onPressed: this.widget.onLoginButtonTapped,
+                            child: Text("Se connecter"),
+                          ),
+                          FlatButton(
+                            colorBrightness: Brightness.dark,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4)
+                            ),
+                            color: Constants.primaryColor,
+                            onPressed: _signUp,
+                            child: Text("S'inscrire"),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

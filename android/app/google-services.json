@@ -30,6 +30,13 @@
             {
               "client_id": "500053096187-5n7cprkhffvd1thpkj9k5f1vmbm817sc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "500053096187-cpss4fpbkeg9imf36fo0lbuu35ksel81.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.github.dogganidhal.funprize"
+              }
             }
           ]
         }
