@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_prize/utils/contants.dart';
 
 
 mixin ErrorModalMixin<T extends StatefulWidget> on State<T> {
@@ -19,6 +20,7 @@ mixin ErrorModalMixin<T extends StatefulWidget> on State<T> {
           ),
           actions: <Widget>[
             FlatButton(
+              textColor: Constants.primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4)
               ),

@@ -16,15 +16,21 @@ class AuthService {
       AuthResult authResult = await delayed(_firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password
       ));
+      if (!authResult.user.isEmailVerified) {
+        throw new AuthException(
+          "Vous n'avez pas confirmé votre adresse email, "
+          "veuillez consulter votre boite pour retrouver le lien d'activation"
+        );
+      }
       return authResult.user;
     } on PlatformException catch (exception) {
       throw AuthException.fromPlatformException(exception);
     }
   }
 
-  Future<FirebaseUser> signUp({
+  Future<void> signUp({
     String firstName, String lastName, String email,
-    String username, String password, String year
+    String username, String password, String graduationYear, String program
   }) async {
     final authResult = await delayed(_firebaseAuth.createUserWithEmailAndPassword(
       email: email,
@@ -37,9 +43,10 @@ class AuthService {
         "lastName": lastName,
         "username": username,
         "email": email,
-        "year": year
+        "graduationYear": graduationYear,
+        "program": program
       });
-    return authResult.user;
+    authResult.user.sendEmailVerification();
   }
 
   Future<FirebaseUser> currentUser() => this._firebaseAuth.currentUser();

@@ -17,12 +17,13 @@ class SignUpEvent extends AuthEvent {
   final String username;
   final String email;
   final String password;
-  final String year;
+  final String graduationYear;
+  final String program;
 
   SignUpEvent({
     this.email, this.password, this.lastName, this.firstName, this.username,
-    this.year
-  }) : super([email, password, firstName, lastName, username, year]);
+    this.graduationYear, this.program
+  }) : super([email, password, firstName, lastName, username, graduationYear, program]);
 }
 
 class LoginEvent extends AuthEvent {

@@ -3,7 +3,8 @@ import 'package:fun_prize/exceptions/auth.dart' show AuthException;
 
 
 class AuthState {
-  bool finished;
+  bool loginFinished;
+  bool signUpFinished;
   bool isInitialized;
   bool isLoading;
   bool isFormValid;
@@ -14,7 +15,8 @@ class AuthState {
 
   AuthState({
     this.isInitialized = false, this.isLoading = false, this.isFormValid = false,
-    this.user, this.exception, this.finished = false
+    this.user, this.exception, this.loginFinished = false,
+    this.signUpFinished = false
   });
 
   AuthState get copy => AuthState(
@@ -23,7 +25,8 @@ class AuthState {
     isInitialized: this.isInitialized,
     user: this.user,
     exception: this.exception,
-    finished: this.finished
+    loginFinished: this.loginFinished,
+    signUpFinished: this.signUpFinished
   );
 
   @override
@@ -34,7 +37,8 @@ class AuthState {
         other.isLoading == this.isLoading &&
         other.isFormValid == this.isFormValid &&
         other.user == this.user &&
-        other.finished == this.finished;
+        other.loginFinished == this.loginFinished &&
+        other.signUpFinished == this.signUpFinished;
     }
     return super == other;
   }

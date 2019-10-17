@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_event.dart';
+import 'package:fun_prize/blocs/auth/auth_state.dart';
 import 'package:fun_prize/utils/contants.dart';
 
 
@@ -21,83 +22,92 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-//          height: MediaQuery.of(context).size.height,
-          child: Center(
-            child: FormBuilder(
-              key: _formKey,
-              autovalidate: false,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 192,
-                      child: Image.asset(Constants.logoAsset),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        "Inscription",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black87
-                        ),
-                        textAlign: TextAlign.start,
+    return BlocListener<AuthBloc, AuthState>(
+      bloc: BlocProvider.of<AuthBloc>(context),
+      listener: (context, state) {
+        if (state.signUpFinished) {
+          this._showSignUpFinishedModal();
+        }
+      },
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Center(
+              child: FormBuilder(
+                key: _formKey,
+                autovalidate: false,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 192,
+                        child: Image.asset(Constants.logoAsset),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 32),
-                      child: Text(
-                        "Créer votre compte Fun & Prize",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black45
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                    this._fullNameFields,
-                    SizedBox(height: 16),
-                    this._emailField,
-                    SizedBox(height: 16),
-                    this._usernameField,
-                    SizedBox(height: 16),
-                    this._yearField,
-                    SizedBox(height: 16),
-                    this._passwordAndConfirmationFields,
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4)
-                            ),
-                            textColor: Constants.primaryColor,
-                            onPressed: this.widget.onLoginButtonTapped,
-                            child: Text("Se connecter"),
+                      Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text(
+                          "Inscription",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87
                           ),
-                          FlatButton(
-                            colorBrightness: Brightness.dark,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4)
-                            ),
-                            color: Constants.primaryColor,
-                            onPressed: _signUp,
-                            child: Text("S'inscrire"),
-                          )
-                        ],
+                          textAlign: TextAlign.start,
+                        ),
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 32),
+                        child: Text(
+                          "Créer votre compte Fun & Prize",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      _fullNameFields,
+                      SizedBox(height: 16),
+                      _emailField,
+                      SizedBox(height: 16),
+                      _usernameField,
+                      SizedBox(height: 16),
+                      _yearField,
+                      SizedBox(height: 16),
+                      _programField,
+                      SizedBox(height: 16),
+                      _passwordAndConfirmationFields,
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4)
+                              ),
+                              textColor: Constants.primaryColor,
+                              onPressed: this.widget.onLoginButtonTapped,
+                              child: Text("Se connecter"),
+                            ),
+                            FlatButton(
+                              colorBrightness: Brightness.dark,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4)
+                              ),
+                              color: Constants.primaryColor,
+                              onPressed: _signUp,
+                              child: Text("S'inscrire"),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -171,34 +181,40 @@ class _SignUpState extends State<SignUp> {
   );
 
   Widget get _yearField => FormBuilderDropdown(
-    attribute: "year",
-    items: [
-      DropdownMenuItem<String>(
-        value: "2015",
-        child: Text("2015"),
-      ),
-      DropdownMenuItem<String>(
-        value: "2016",
-        child: Text("2016"),
-      ),
-      DropdownMenuItem<String>(
-        value: "2017",
-        child: Text("2017"),
-      ),
-      DropdownMenuItem<String>(
-        value: "2018",
-        child: Text("2018"),
-      ),
-      DropdownMenuItem<String>(
-        value: "2019",
-        child: Text("2019"),
-      )
-    ],
+    attribute: "graduationYear",
+    items: [2019, 2020, 2021, 2022, 2023, 2024]
+      .map((year) => DropdownMenuItem<String>(
+        value: "$year",
+        child: Text("$year"),
+      ))
+      .toList(),
     decoration: InputDecoration(
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black45, width: 0.5)
       ),
-      labelText: "Promo"
+      labelText: "Année d'obtention de diplôme"
+    ),
+    validators: [
+      FormBuilderValidators.required(errorText: "Ce champ est requis")
+    ],
+  );
+  
+  Widget get _programField => FormBuilderDropdown(
+    attribute: "program",
+    items: [
+      "Grande école", "Bachelors", "SciencesCom", "Mastère spécialisé",
+      "MBA", "DBA", "International Masters", "Executive éducation"
+    ]
+      .map((program) => DropdownMenuItem<String>(
+        value: "$program",
+        child: Text("$program"),
+      ))
+      .toList(),
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black45, width: 0.5)
+      ),
+      labelText: "Programme"
     ),
     validators: [
       FormBuilderValidators.required(errorText: "Ce champ est requis")
@@ -240,14 +256,39 @@ class _SignUpState extends State<SignUp> {
     final String email = values["email"];
     final String username = values["username"];
     final String password = values["password"];
-    final String year = values["year"];
+    final String graduationYear = values["graduationYear"];
+    final String program = values["program"];
     BlocProvider.of<AuthBloc>(context).dispatch(SignUpEvent(
       firstName: firstName,
       lastName: lastName,
       username: username,
       email: email,
       password: password,
-      year: year
+      graduationYear: graduationYear,
+      program: program
     ));
+  }
+
+  void _showSignUpFinishedModal() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4)
+        ),
+        title: Text("Inscription réussie!"),
+        content: Text(
+          "Votre inscription a bien été prise en compte!\n"
+          "Veuillez confirmer votre adresse email pour pouvoir vous connecter"
+        ),
+        actions: <Widget>[
+          FlatButton(
+            textColor: Constants.primaryColor,
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text("OK"),
+          )
+        ],
+      )
+    );
   }
 }

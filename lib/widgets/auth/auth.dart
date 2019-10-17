@@ -58,7 +58,7 @@ class _AuthState extends State<Auth> with ModalLoaderMixin, ErrorModalMixin {
         if (state.exception != null) {
           showErrorModal(message: state.exception.message);
         }
-        if (state.finished) {
+        if (state.loginFinished) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: widget.postAuthWidgetBuilder

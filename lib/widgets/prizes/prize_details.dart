@@ -96,8 +96,15 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                 child: MaterialButton(
                   color: Constants.primaryColor,
                   colorBrightness: Brightness.dark,
-                  onPressed: () {},
+                  onPressed: () {
+//                    Navigator.of(context).push(MaterialPageRoute(
+//                      builder: (context) => Game()
+//                    ));
+                  },
                   child: Text("Jouer"),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4)
+                  ),
                 ),
               ),
             ),

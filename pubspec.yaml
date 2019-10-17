@@ -15,6 +15,7 @@ dependencies:
   flutter_form_builder: ^3.5.4
   cloud_firestore: ^0.12.9+4
   duration: ^2.0.8
+  flame: ^0.16.0
 
 dev_dependencies:
   flutter_test:

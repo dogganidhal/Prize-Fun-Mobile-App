@@ -20,18 +20,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield state.copy
         ..isLoading = true;
       try {
-        final user = await authService.signUp(
+        await authService.signUp(
           firstName: event.firstName,
           lastName: event.lastName,
           email: "${event.email}${Constants.audenciaEmailSuffix}",
+//          email: "${event.email}@gmail.com",
           username: event.username,
           password: event.password,
-          year: event.year
+          graduationYear: event.graduationYear,
+          program: event.program
         );
         yield state.copy
           ..isLoading = false
-          ..user = user
-          ..finished = true;
+          ..signUpFinished = true;
+        yield state.copy
+          ..signUpFinished = false;
       } on AuthException catch (exception) {
         yield state.copy
           ..isLoading = false
@@ -54,12 +57,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final user = await this.authService.login(
           email: "${event.email}${Constants.audenciaEmailSuffix}",
+//          email: "${event.email}@gmail.com",
           password: event.password
         );
         yield state.copy
           ..isLoading = false
           ..user = user
-          ..finished = true;
+          ..loginFinished = true;
       } on AuthException catch (exception) {
         yield state.copy
           ..isLoading = false
