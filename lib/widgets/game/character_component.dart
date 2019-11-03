@@ -11,12 +11,14 @@ enum CharacterMode {
 }
 
 class CharacterComponent extends PositionComponent {
-  static final int _kRunningSpriteFrames = 5;
-  static final int _kJumpingSpriteFrames = 7;
+  static final double _kTimePerFrame = 1 / 30;
+  static final int _kRunningSpriteFrames = 17;
+  static final int _kJumpingSpriteFrames = 26;
   static final int _kIdleSpriteFrames = 21;
 
   final GameEngine engine;
-  CharacterMode mode = CharacterMode.IDLE;
+
+  CharacterMode mode = CharacterMode.RUNNING;
   Anchor anchor = Anchor.bottomLeft;
 
   final List<Sprite> _runningSprite = List.generate(_kRunningSpriteFrames, (i) => i)
@@ -31,15 +33,23 @@ class CharacterComponent extends PositionComponent {
     .map((index) => "character/idle/$index.png")
     .map((png) => Sprite(png))
     .toList();
-  int _frame = 0;
+  double _time = 0;
 
-  CharacterComponent({this.engine});
-  
+  CharacterComponent({this.engine}) {
+    engine.jumping.listen((jumping) {
+      if (jumping) {
+        mode = CharacterMode.JUMPING;
+      } else {
+        mode = CharacterMode.RUNNING;
+      }
+    });
+  }
+
+  int get _frame => (_time / _kTimePerFrame).floor();
+
   void resize(Size size) {
-    width = size.width / 10;
-    height = size.height / 10;
-    x = 0;
-    y = height;
+    width = size.width / 6;
+    height = width * 0.83;
   }
 
   void render(Canvas canvas) {
@@ -57,7 +67,7 @@ class CharacterComponent extends PositionComponent {
   }
 
   void update(double time) {
-    _frame += 1;
+    _time += time;
   }
 
   void _renderIdle(Canvas canvas) {

@@ -25,7 +25,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
-    - assets/images/running-character.png
     - assets/images/backgrounds/city01.png
 
     - assets/images/character/running/0.png
@@ -34,6 +33,18 @@ flutter:
     - assets/images/character/running/3.png
     - assets/images/character/running/4.png
     - assets/images/character/running/5.png
+    - assets/images/character/running/6.png
+    - assets/images/character/running/7.png
+    - assets/images/character/running/8.png
+    - assets/images/character/running/9.png
+    - assets/images/character/running/10.png
+    - assets/images/character/running/11.png
+    - assets/images/character/running/12.png
+    - assets/images/character/running/13.png
+    - assets/images/character/running/14.png
+    - assets/images/character/running/15.png
+    - assets/images/character/running/16.png
+    - assets/images/character/running/17.png
 
     - assets/images/character/jumping/0.png
     - assets/images/character/jumping/1.png
@@ -43,6 +54,25 @@ flutter:
     - assets/images/character/jumping/5.png
     - assets/images/character/jumping/6.png
     - assets/images/character/jumping/7.png
+    - assets/images/character/jumping/8.png
+    - assets/images/character/jumping/9.png
+    - assets/images/character/jumping/10.png
+    - assets/images/character/jumping/11.png
+    - assets/images/character/jumping/12.png
+    - assets/images/character/jumping/13.png
+    - assets/images/character/jumping/14.png
+    - assets/images/character/jumping/15.png
+    - assets/images/character/jumping/16.png
+    - assets/images/character/jumping/17.png
+    - assets/images/character/jumping/18.png
+    - assets/images/character/jumping/19.png
+    - assets/images/character/jumping/20.png
+    - assets/images/character/jumping/21.png
+    - assets/images/character/jumping/22.png
+    - assets/images/character/jumping/23.png
+    - assets/images/character/jumping/24.png
+    - assets/images/character/jumping/25.png
+    - assets/images/character/jumping/26.png
 
     - assets/images/character/idle/0.png
     - assets/images/character/idle/1.png
