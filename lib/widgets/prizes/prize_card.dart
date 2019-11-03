@@ -70,7 +70,7 @@ class PrizeCard extends StatelessWidget {
   Widget get _winnerCount => Row(
     children: <Widget>[
       Icon(
-        Icons.group,
+        Icons.card_giftcard,
         color: Colors.black38,
       ),
       SizedBox(width: 4),

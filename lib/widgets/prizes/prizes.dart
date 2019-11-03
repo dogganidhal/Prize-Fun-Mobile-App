@@ -38,6 +38,7 @@ class Prizes extends StatelessWidget {
             child: PopupMenuButton(
               onSelected: (index) => _onPopupItemPressed(context, index),
               icon: Icon(Icons.more_vert, color: Colors.black87),
+              tooltip: "Afficher le menu",
               itemBuilder: (context) => [
                 PopupMenuItem<int>(
                   value: 0,

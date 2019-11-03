@@ -31,7 +31,7 @@ class Prize {
     title: document.data["title"],
     subTitle: document.data["subTitle"],
     description: document.data["description"],
-    minWinnerPoints: document.data["minWinnerPoints"],
+    minWinnerPoints: document.data["minWinnerPoints"] ?? 0,
     rankings: Rankings.fromDocumentList(rankings)
   );
 

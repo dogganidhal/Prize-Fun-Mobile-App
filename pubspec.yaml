@@ -25,6 +25,49 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
+    - assets/images/running-character.png
+    - assets/images/backgrounds/city01.png
+
+    - assets/images/character/running/0.png
+    - assets/images/character/running/1.png
+    - assets/images/character/running/2.png
+    - assets/images/character/running/3.png
+    - assets/images/character/running/4.png
+    - assets/images/character/running/5.png
+
+    - assets/images/character/jumping/0.png
+    - assets/images/character/jumping/1.png
+    - assets/images/character/jumping/2.png
+    - assets/images/character/jumping/3.png
+    - assets/images/character/jumping/4.png
+    - assets/images/character/jumping/5.png
+    - assets/images/character/jumping/6.png
+    - assets/images/character/jumping/7.png
+
+    - assets/images/character/idle/0.png
+    - assets/images/character/idle/1.png
+    - assets/images/character/idle/2.png
+    - assets/images/character/idle/3.png
+    - assets/images/character/idle/4.png
+    - assets/images/character/idle/5.png
+    - assets/images/character/idle/6.png
+    - assets/images/character/idle/7.png
+    - assets/images/character/idle/8.png
+    - assets/images/character/idle/9.png
+    - assets/images/character/idle/10.png
+    - assets/images/character/idle/11.png
+    - assets/images/character/idle/12.png
+    - assets/images/character/idle/13.png
+    - assets/images/character/idle/14.png
+    - assets/images/character/idle/15.png
+    - assets/images/character/idle/16.png
+    - assets/images/character/idle/17.png
+    - assets/images/character/idle/18.png
+    - assets/images/character/idle/19.png
+    - assets/images/character/idle/20.png
+    - assets/images/character/idle/21.png
+    - assets/images/character/idle/22.png
+    - assets/images/character/idle/23.png
   fonts:
     - family: GoogleSans
       fonts:
