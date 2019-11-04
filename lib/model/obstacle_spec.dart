@@ -1,29 +1,21 @@
 
 enum ObstacleType {
-  TABLE,
-  GUARD
+  BOX
 }
-
 
 class ObstacleSpec {
   final double width;
   final double height;
+  final double distance;
   final ObstacleType type;
 
-  ObstacleSpec({this.height, this.width, this.type});
+  ObstacleSpec({
+    this.distance, this.height, this.width,
+    this.type = ObstacleType.BOX
+  });
 
-  factory ObstacleSpec.fromJson(Map<String, dynamic> json) => ObstacleSpec(
-    width: json["column"],
-    height: json["height"],
-    type: _type(json["type"])
+  factory ObstacleSpec.standardBox({double distance}) => ObstacleSpec(
+    width: 48, height: 48,
+    distance: distance, type: ObstacleType.BOX
   );
-
-  static ObstacleType _type(String rawType) {
-    for (final type in ObstacleType.values) {
-      if (type.toString() == "ObstacleType.${rawType.toUpperCase()}}") {
-        return type;
-      }
-    }
-    return null;
-  }
 }

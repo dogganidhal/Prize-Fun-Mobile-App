@@ -25,7 +25,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
-    - assets/images/backgrounds/city01.png
+    - assets/images/obstacles/box.png
 
     - assets/images/character/running/0.png
     - assets/images/character/running/1.png
@@ -98,6 +98,16 @@ flutter:
     - assets/images/character/idle/21.png
     - assets/images/character/idle/22.png
     - assets/images/character/idle/23.png
+
+    - assets/images/backgrounds/background-buildings.png
+    - assets/images/backgrounds/background.png
+    - assets/images/backgrounds/background-buildings2.png
+    - assets/images/backgrounds/foreground-buildings.png
+    - assets/images/backgrounds/clouds.png
+    - assets/images/backgrounds/clouds2.png
+    - assets/images/backgrounds/ground.png
+    - assets/images/backgrounds/lamps.png
+
   fonts:
     - family: GoogleSans
       fonts:
