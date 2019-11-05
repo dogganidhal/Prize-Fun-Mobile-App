@@ -1,32 +1,37 @@
 import 'dart:ui';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/components/component.dart';
+import 'package:flame/components/parallax_component.dart';
 import 'package:flame/sprite.dart';
+import 'package:fun_prize/model/game_engine.dart';
 
-class BackgroundComponent extends PositionComponent {
-  Rect bgRect;
-  List<Sprite> _staticSprites = List<Sprite>()
-    ..add(Sprite("backgrounds/background.png"))
-    ..add(Sprite("backgrounds/background-buildings.png"))
-    ..add(Sprite("backgrounds/background-buildings2.png"))
-    ..add(Sprite("backgrounds/clouds.png"))
-    ..add(Sprite("backgrounds/clouds2.png"));
-  List<Sprite> _dynamicSprites = List<Sprite>()
-    ..add(Sprite("backgrounds/foreground-buildings.png"))
-    ..add(Sprite("backgrounds/ground.png"))
-    ..add(Sprite("backgrounds/lamps.png"));
+class BackgroundComponent extends ParallaxComponent {
+  static final List<ParallaxImage> _kBackgroundParallaxImages = [
+    ParallaxImage("backgrounds/background.png"),
+    ParallaxImage("backgrounds/background-buildings.png"),
+    ParallaxImage("backgrounds/background-buildings2.png"),
+    ParallaxImage("backgrounds/clouds.png"),
+    ParallaxImage("backgrounds/clouds2.png"),
+    ParallaxImage("backgrounds/foreground-buildings.png"),
+    ParallaxImage("backgrounds/lamps.png"),
+    ParallaxImage("backgrounds/ground.png")
+  ];
 
-  void render(Canvas c) {
-    _staticSprites.forEach((sprite) => sprite.renderRect(c, bgRect));
-    _dynamicSprites.forEach((sprite) => sprite.renderRect(c, bgRect));
-  }
+  final GameEngine engine;
 
-  void resize(Size size) {
-    bgRect = Rect.fromLTWH(0, 0, size.width, size.height);
-  }
+  double _distance = 0.0;
 
-  @override
-  void update(double time) {
-
+  BackgroundComponent(this.engine) : super(
+    _kBackgroundParallaxImages,
+    baseSpeed: Offset(0, 0),
+    layerDelta: Offset(20, 0)
+  ) {
+    engine.position
+      .map((position) => position.distance)
+      .listen((distance) {
+        final dx = distance - _distance;
+        _distance = distance;
+        baseSpeed = Offset(dx, baseSpeed.dy);
+      });
   }
 }

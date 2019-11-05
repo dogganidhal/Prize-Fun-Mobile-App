@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:fun_prize/model/bonus_spec.dart';
+import 'package:fun_prize/model/obstacle_generator.dart';
 import 'package:fun_prize/model/obstacle_spec.dart';
 
 class Position {
@@ -13,14 +14,14 @@ class Position {
 }
 
 class GameEngine {
-  static final double _kInitialSpeed = 100; // pixels per second
+  static final double _kInitialSpeed = 400; // pixels per second
   static final double _kSecondsPerFrame = 1 / 30;
   static final double _kMaxJumpHeight = 133;
   static final double _kScorePerSecond = 1;
-  static final double _kAcceleration = 2; // Pixel / Seconds ^ 2
-  static final double _kMinOffsetForObstacleRespawn = 800; // Pixels
-  static final double _kMaxOffsetForObstacleRespawn = 1600; // Pixels
-  static final double _kOffsetDeltaForObstacleRespawn = _kMaxOffsetForObstacleRespawn - _kMinOffsetForObstacleRespawn; // Pixels
+  static final double _kAcceleration = 1; // Pixel / Seconds ^ 2
+  static final double _kMinTimeWithoutRespawn = 1;
+
+  ObstacleGenerator _obstacleGenerator;
 
   final StreamController<Position> _positionController = StreamController.broadcast();
   final StreamController<ObstacleSpec> _obstaclesController = StreamController.broadcast();
@@ -29,6 +30,7 @@ class GameEngine {
   final StreamController<double> _scoreController = StreamController.broadcast();
 
   Stream<ObstacleSpec> _obstacles;
+
   Stream<ObstacleSpec> get obstacles => _obstacles;
 
   Stream<BonusSpec> _bonus;
@@ -64,8 +66,7 @@ class GameEngine {
 
   double _distance = 0;
   double _y = 0;
-  double _distanceSinceLastObstacleSpawned = 0;
-  double _nextObstacleRespawnAt = 0;
+  double _timeSinceRespawn = 0;
 
   GameEngine() {
     _position = _positionController.stream.asBroadcastStream();
@@ -73,6 +74,7 @@ class GameEngine {
     _bonus = _bonusController.stream.asBroadcastStream();
     _jumping = _jumpingController.stream.asBroadcastStream();
     _score = _scoreController.stream.asBroadcastStream();
+    _obstacleGenerator = ObstacleGenerator(engine: this);
   }
 
   void start() {
@@ -84,14 +86,15 @@ class GameEngine {
 
   void update(double time) async {
     if (_isStarted) { // Update score and speed, generate obstacles and bonus
-      _updateValues(time);
+      _updateScoreAndSpeed(time);
+      _respawnIfNeeded(time);
     }
     if (_isJumping) {
       _timeSinceJumpBegin += time;
       final jumpFrame = (_timeSinceJumpBegin / _kSecondsPerFrame).floor();
       _y = _getJumpY(jumpFrame);
       _positionController.add(Position(y: _y, distance: _distance));
-      if (jumpFrame == 26) {
+      if (jumpFrame >= 26) {
         _isJumping = false;
       }
     } else {
@@ -115,34 +118,28 @@ class GameEngine {
   double _getJumpY(int frame) => _kMaxJumpHeight * (cos((-pi / 13) * frame - pi) + 1) / 2;
 
   double _computeSpeed(double currentSpeed, double timeDelta) {
-    return currentSpeed + timeDelta * _kAcceleration;
-  }
-
-  void _updateValues(double time) async {
-    _updateScoreAndSpeed(time);
-    _spawnObstaclesIfNeeded(time);
-    _spawnBonusIfNeeded(time);
+    return currentSpeed;
+//    return currentSpeed + timeDelta * _kAcceleration;
   }
 
   void _updateScoreAndSpeed(double time) {
     final score = _lastScore + time * _kScorePerSecond;
     final speed = _computeSpeed(_lastSpeed, time);
+    final dx = speed * time;
     _lastScore = score;
     _lastSpeed = speed;
-    _distance += speed * time;
-    _distanceSinceLastObstacleSpawned += speed * time;
+    _distance += dx;
+    _timeSinceRespawn += time;
     _positionController.add(Position(y: _y, distance: _distance));
   }
 
-  void _spawnObstaclesIfNeeded(double time) {
-    if (_distanceSinceLastObstacleSpawned < _nextObstacleRespawnAt) return;
-    double offsetForRespawn = (Random.secure().nextDouble() * _kOffsetDeltaForObstacleRespawn) + _kMinOffsetForObstacleRespawn;
-    double obstacleDistance = _distance + offsetForRespawn;
-    ObstacleSpec nextObstacle = ObstacleSpec.standardBox(distance: obstacleDistance);
-    _obstaclesController.add(nextObstacle);
-  }
-
-  void _spawnBonusIfNeeded(double time) {
-
+  void _respawnIfNeeded(double time) {
+    if (_timeSinceRespawn >= _kMinTimeWithoutRespawn) {
+      _obstacleGenerator.generate(_distance)
+        .forEach((obstacle) {
+          _obstaclesController.add(obstacle);
+        });
+      _timeSinceRespawn = 0;
+    }
   }
 }

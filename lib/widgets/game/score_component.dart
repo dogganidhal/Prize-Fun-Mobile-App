@@ -8,31 +8,29 @@ class ScoreComponent extends PositionComponent {
   final GameEngine engine;
   final TextComponent _scoreTextComponent = TextComponent("");
   final TextComponent _minWinnerTextComponent = TextComponent("");
-  int _score = 0;
-  String get _scoreText => "Ton score : $_score";
 
   ScoreComponent(this.engine, {double minWinnerScore}) {
-    engine.score.listen((score) => _score = score.toInt());
-    _minWinnerTextComponent.text = "À battre : ${minWinnerScore.toInt()}";
+    engine.score.listen((score) {
+      _scoreTextComponent.text = "Ton score : ${score.toInt()}";
+    });
+    _minWinnerTextComponent.text = "Score à battre : ${minWinnerScore.toInt()}";
   }
 
   @override
-  void render(Canvas c) {
-    _minWinnerTextComponent.render(c);
-    _scoreTextComponent.render(c);
+  void render(Canvas canvas) {
+    _minWinnerTextComponent.render(canvas);
+    _scoreTextComponent.render(canvas);
   }
 
   @override
-  void update(double t) {
-    _scoreTextComponent.text = _scoreText;
-  }
+  void update(double t) { }
 
   @override
   void resize(Size size) {
     super.resize(size);
-    _minWinnerTextComponent.x = 16; _minWinnerTextComponent.y = 16;
+    _minWinnerTextComponent.x = size.width - _minWinnerTextComponent.width - 16;
+    _minWinnerTextComponent.y = 16;
     _scoreTextComponent.x = 0;
     _scoreTextComponent.y = _minWinnerTextComponent.height + 8;
-
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:ui';
-import 'package:flame/anchor.dart';
-import 'package:flame/components/component.dart';
+import 'package:flame/animation.dart';
+import 'package:flame/components/animation_component.dart';
 import 'package:flame/sprite.dart';
 import 'package:fun_prize/model/game_engine.dart';
 
@@ -10,32 +10,40 @@ enum CharacterMode {
   JUMPING
 }
 
-class CharacterComponent extends PositionComponent {
+class CharacterComponent extends AnimationComponent {
   static final double _kTimePerFrame = 1 / 30;
-  static final int _kRunningSpriteFrames = 17;
-  static final int _kJumpingSpriteFrames = 26;
-  static final int _kIdleSpriteFrames = 21;
+  static final int _kRunningSpriteFrames = 18;
+  static final int _kJumpingSpriteFrames = 27;
+  static final int _kIdleSpriteFrames = 22;
 
   final GameEngine engine;
 
-  CharacterMode mode = CharacterMode.RUNNING;
-  Anchor anchor = Anchor.bottomLeft;
+  bool _didChangeMode = true;
+  CharacterMode _mode = CharacterMode.RUNNING;
 
-  final List<Sprite> _runningSprite = List.generate(_kRunningSpriteFrames, (i) => i)
+  CharacterMode get mode => _mode;
+  set mode(CharacterMode value) {
+    _didChangeMode = true;
+    _mode = value;
+  }
+
+  static final List<Frame> _runningFrames = List.generate(_kRunningSpriteFrames, (i) => i)
     .map((index) => "character/running/$index.png")
     .map((png) => Sprite(png))
+    .map((sprite) => Frame(sprite, _kTimePerFrame))
     .toList();
-  final List<Sprite> _jumpingSprite = List.generate(_kJumpingSpriteFrames, (i) => i)
+  static final List<Frame> _jumpingFrames = List.generate(_kJumpingSpriteFrames, (i) => i)
     .map((index) => "character/jumping/$index.png")
     .map((png) => Sprite(png))
+    .map((sprite) => Frame(sprite, _kTimePerFrame))
     .toList();
-  final List<Sprite> _idleSprite = List.generate(_kIdleSpriteFrames, (i) => i)
+  static final List<Frame> _idleFrames = List.generate(_kIdleSpriteFrames, (i) => i)
     .map((index) => "character/idle/$index.png")
     .map((png) => Sprite(png))
+    .map((sprite) => Frame(sprite, _kTimePerFrame))
     .toList();
-  double _time = 0;
 
-  CharacterComponent({this.engine}) {
+  CharacterComponent(this.engine) : super(0, 0, Animation(_runningFrames)) {
     engine.jumping.listen((jumping) {
       if (jumping) {
         mode = CharacterMode.JUMPING;
@@ -45,40 +53,30 @@ class CharacterComponent extends PositionComponent {
     });
   }
 
-  int get _frame => (_time / _kTimePerFrame).floor();
-
-  void resize(Size size) {
-    width = size.width / 6;
-    height = width * 0.83;
-  }
-
-  void render(Canvas canvas) {
-    switch (mode) {
-      case CharacterMode.IDLE:
-        _renderIdle(canvas);
-        break;
-      case CharacterMode.RUNNING:
-        _renderRunning(canvas);
-        break;
-      case CharacterMode.JUMPING:
-        _renderJumping(canvas);
-        break;
-    }
-  }
-
+  @override
   void update(double time) {
-    _time += time;
+    if (_didChangeMode) {
+      switch(mode) {
+        case CharacterMode.IDLE:
+        animation = Animation(_idleFrames);
+          break;
+        case CharacterMode.RUNNING:
+          animation = Animation(_runningFrames);
+          break;
+        case CharacterMode.JUMPING:
+          animation = Animation(_jumpingFrames);
+          break;
+      }
+      _didChangeMode = false;
+    }
+    super.update(time);
   }
 
-  void _renderIdle(Canvas canvas) {
-    _idleSprite[_frame % _kIdleSpriteFrames].renderRect(canvas, Rect.fromLTWH(x, y, width, height));
-  }
-
-  void _renderRunning(Canvas canvas) {
-    _runningSprite[_frame % _kRunningSpriteFrames].renderRect(canvas, Rect.fromLTWH(x, y, width, height));
-  }
-
-  void _renderJumping(Canvas canvas) {
-    _jumpingSprite[_frame % _kJumpingSpriteFrames].renderRect(canvas, Rect.fromLTWH(x, y, width, height));
+  @override
+  void resize(Size size) {
+    super.resize(size);
+    width = size.height / 3;
+    height = width * 0.83;
+    x = width;
   }
 }
