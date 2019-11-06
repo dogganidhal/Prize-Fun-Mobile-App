@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:fun_prize/model/game_engine.dart';
 import 'package:fun_prize/widgets/game/background_component.dart';
+import 'package:fun_prize/widgets/game/bonus_component.dart';
 import 'package:fun_prize/widgets/game/character_component.dart';
 import 'package:fun_prize/widgets/game/cop_component.dart';
 import 'package:fun_prize/widgets/game/obstacle_component.dart';
@@ -20,7 +21,8 @@ class PrizeFunGame extends BaseGame {
 
   final Util _util = Util();
 
-  List<ObstacleComponent> _obstacleComponents = List();
+  List<ObstacleComponent> _obstacleComponents = [];
+  List<BonusComponent> _bonusComponents = [];
 
   BackgroundComponent _backgroundComponent;
   CharacterComponent _characterComponent;
@@ -36,7 +38,7 @@ class PrizeFunGame extends BaseGame {
     _characterComponent = CharacterComponent(engine);
     _scoreComponent = ScoreComponent(engine, minWinnerScore: minWinnerScore);
     _backgroundComponent = BackgroundComponent(engine);
-    _copComponent = CopComponent();
+    _copComponent = CopComponent(engine);
     [_backgroundComponent, _characterComponent, _copComponent, _scoreComponent]
       .forEach((component) => add(component));
     engine.start();
@@ -48,6 +50,12 @@ class PrizeFunGame extends BaseGame {
       .listen((obstacle) {
         _obstacleComponents.add(obstacle);
         add(obstacle);
+      });
+    engine.bonus
+      .map((bonus) => BonusComponent(bonus, engine: engine))
+      .listen((bonus) {
+        _bonusComponents.add(bonus);
+        add(bonus);
       });
   }
 

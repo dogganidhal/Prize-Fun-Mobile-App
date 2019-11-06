@@ -1,33 +1,23 @@
 
-
 enum BonusType {
-  BEER,
+  STAR,
   COIN
 }
 
 class BonusSpec {
-  final double x;
+  final double distance;
   final double y;
   final double width;
   final double height;
+  final int value;
   final BonusType type;
+  bool visible = true;
 
-  BonusSpec({this.x, this.y, this.width, this.height, this.type});
+  BonusSpec({this.distance, this.y, this.width, this.height, this.type, this.value});
 
-  factory BonusSpec.fromJson(Map<String, dynamic> json) => BonusSpec(
-    x: json["x"],
-    y: json["y"],
-    width: json["width"],
-    height: json["height"],
-    type: _type(json["type"])
+  factory BonusSpec.star({double distance, double y, int bonus}) => BonusSpec(
+    distance: distance, y: y,
+    width: 48, height: 48,
+    value: bonus, type: BonusType.STAR
   );
-
-  static BonusType _type(String rawType) {
-    for (final type in BonusType.values) {
-      if (type.toString() == "BonusType.${rawType.toUpperCase()}}") {
-        return type;
-      }
-    }
-    return null;
-  }
 }

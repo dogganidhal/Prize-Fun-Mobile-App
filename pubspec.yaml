@@ -99,6 +99,22 @@ flutter:
     - assets/images/character/idle/22.png
     - assets/images/character/idle/23.png
 
+    - assets/images/character/dying/0.png
+    - assets/images/character/dying/1.png
+    - assets/images/character/dying/2.png
+    - assets/images/character/dying/3.png
+    - assets/images/character/dying/4.png
+    - assets/images/character/dying/5.png
+    - assets/images/character/dying/6.png
+    - assets/images/character/dying/7.png
+    - assets/images/character/dying/8.png
+    - assets/images/character/dying/9.png
+    - assets/images/character/dying/10.png
+    - assets/images/character/dying/11.png
+    - assets/images/character/dying/12.png
+    - assets/images/character/dying/13.png
+    - assets/images/character/dying/14.png
+
     - assets/images/backgrounds/background-buildings.png
     - assets/images/backgrounds/background.png
     - assets/images/backgrounds/background-buildings2.png
@@ -114,6 +130,8 @@ flutter:
     - assets/images/cop/3.png
     - assets/images/cop/4.png
     - assets/images/cop/5.png
+    - assets/images/bonus/coin.png
+    - assets/images/bonus/star.png
 
   fonts:
     - family: GoogleSans

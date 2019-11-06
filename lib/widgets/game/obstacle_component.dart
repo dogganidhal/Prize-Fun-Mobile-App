@@ -9,6 +9,7 @@ class ObstacleComponent extends PositionComponent {
   final GameEngine engine;
 
   Sprite _sprite;
+  Size _screenSize = Size.zero;
 
   ObstacleComponent(this.spec, {this.engine}) {
     x = spec.distance;
@@ -25,13 +26,15 @@ class ObstacleComponent extends PositionComponent {
   }
 
   void resize(Size size) {
+    _screenSize = size;
     y = size.height - 48 - 16;
   }
 
   void render(Canvas canvas) {
-    _sprite.renderRect(canvas, Rect.fromLTWH(x, y, spec.width, spec.height));
+    if (x > 0 && x < _screenSize.width) {
+      _sprite.renderRect(canvas, Rect.fromLTWH(x, y, spec.width, spec.height));
+    }
   }
 
   void update(double time) { }
-
 }

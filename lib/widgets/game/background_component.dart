@@ -21,17 +21,21 @@ class BackgroundComponent extends ParallaxComponent {
 
   double _distance = 0.0;
 
-  BackgroundComponent(this.engine) : super(
-    _kBackgroundParallaxImages,
-    baseSpeed: Offset(0, 0),
-    layerDelta: Offset(20, 0)
-  ) {
+  BackgroundComponent(this.engine)
+    : super(_kBackgroundParallaxImages, baseSpeed: Offset(0, 0), layerDelta: Offset(20, 0)) {
     engine.position
       .map((position) => position.distance)
       .listen((distance) {
         final dx = distance - _distance;
         _distance = distance;
         baseSpeed = Offset(dx, baseSpeed.dy);
+      });
+    engine.status
+      .listen((status) {
+        if (status == GameStatus.LOST) {
+          layerDelta = Offset.zero;
+          baseSpeed = Offset.zero;
+        }
       });
   }
 }

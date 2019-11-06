@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:math';
-import 'package:fun_prize/model/game_engine.dart';
 import 'package:fun_prize/model/obstacle_spec.dart';
 
 enum ObstacleGeneratorDifficulty {
@@ -10,20 +8,9 @@ enum ObstacleGeneratorDifficulty {
 }
 
 class ObstacleGenerator {
-  static final double _kStartPoint = 450;
-  static final double _kSafeDistance = 250;
+  static final double _kSafeDistance = 400;
   static final double _kMaxDistanceWithoutObstacle = 600;
   static final int _kMaxGluedObstacles = 3;
-
-  final GameEngine engine;
-
-  double _distance = 0;
-
-  ObstacleGenerator({this.engine}) {
-    engine.position
-      .map((position) => position.distance)
-      .listen((distance) => _distance = distance);
-  }
 
   Iterable<ObstacleSpec> generate(double distance, [ObstacleGeneratorDifficulty difficulty]) sync* {
     Iterable<ObstacleSpec> _generateMultiple(double lastGeneratedAt) sync* {

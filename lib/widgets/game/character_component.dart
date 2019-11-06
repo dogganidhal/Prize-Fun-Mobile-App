@@ -15,6 +15,7 @@ class CharacterComponent extends AnimationComponent {
   static final int _kRunningSpriteFrames = 18;
   static final int _kJumpingSpriteFrames = 27;
   static final int _kIdleSpriteFrames = 22;
+  static final int _kDeadSpriteFrames = 15;
 
   final GameEngine engine;
 
@@ -42,13 +43,31 @@ class CharacterComponent extends AnimationComponent {
     .map((png) => Sprite(png))
     .map((sprite) => Frame(sprite, _kTimePerFrame))
     .toList();
+  static final List<Frame> _deadFrames = List.generate(_kDeadSpriteFrames, (i) => i)
+    .map((index) => "character/dying/$index.png")
+    .map((png) => Sprite(png))
+    .map((sprite) => Frame(sprite, _kTimePerFrame))
+    .toList();
+
+  bool _isDead = false;
 
   CharacterComponent(this.engine) : super(0, 0, Animation(_runningFrames)) {
+    width = GameEngine.kCharacterWidth;
+    height = GameEngine.kCharacterHeight;
+    x = width;
     engine.jumping.listen((jumping) {
-      if (jumping) {
-        mode = CharacterMode.JUMPING;
-      } else {
-        mode = CharacterMode.RUNNING;
+      if (!_isDead) {
+        if (jumping) {
+          mode = CharacterMode.JUMPING;
+        } else {
+          mode = CharacterMode.RUNNING;
+        }
+      }
+    });
+    engine.status.listen((status) {
+      if (status == GameStatus.LOST) {
+        _isDead = true;
+        animation = Animation(_deadFrames, loop: false);
       }
     });
   }
@@ -70,13 +89,5 @@ class CharacterComponent extends AnimationComponent {
       _didChangeMode = false;
     }
     super.update(time);
-  }
-
-  @override
-  void resize(Size size) {
-    super.resize(size);
-    width = size.height / 3;
-    height = width * 0.83;
-    x = width;
   }
 }
