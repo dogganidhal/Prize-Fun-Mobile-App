@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Prize {
+  final String id;
   final int winnerCount;
   final DateTime dueDate;
   final String imageUrl;
@@ -21,10 +22,11 @@ class Prize {
   Prize({
     this.winnerCount, this.dueDate, this.imageUrl,
     this.title, this.subTitle, this.description,
-    this.minWinnerPoints, this.rankings
+    this.minWinnerPoints, this.rankings, this.id
   });
 
   factory Prize.fromDocument(DocumentSnapshot document, List<DocumentSnapshot> rankings) => Prize(
+    id: document.documentID,
     winnerCount: document.data["winnerCount"],
     dueDate: _formatTimestamp(document.data["dueDate"] as Timestamp),
     imageUrl: document.data["imageUrl"],

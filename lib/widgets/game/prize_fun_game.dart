@@ -1,24 +1,19 @@
-import 'dart:ui';
-import 'package:flame/anchor.dart';
-import 'package:flame/components/parallax_component.dart';
-import 'package:flame/components/text_component.dart';
 import 'package:flame/game.dart';
 import 'package:flame/util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:fun_prize/model/game_engine.dart';
-import 'package:fun_prize/widgets/game/background_component.dart';
-import 'package:fun_prize/widgets/game/bonus_component.dart';
-import 'package:fun_prize/widgets/game/character_component.dart';
-import 'package:fun_prize/widgets/game/cop_component.dart';
-import 'package:fun_prize/widgets/game/obstacle_component.dart';
-import 'package:fun_prize/widgets/game/score_component.dart';
+import 'package:fun_prize/widgets/game/components/background_component.dart';
+import 'package:fun_prize/widgets/game/components/bonus_component.dart';
+import 'package:fun_prize/widgets/game/components/character_component.dart';
+import 'package:fun_prize/widgets/game/components/cop_component.dart';
+import 'package:fun_prize/widgets/game/components/obstacle_component.dart';
+import 'package:fun_prize/widgets/game/components/recap_component.dart';
+import 'package:fun_prize/widgets/game/components/score_component.dart';
 
 
 class PrizeFunGame extends BaseGame {
   final GameEngine engine;
   final double minWinnerScore;
-
   final Util _util = Util();
 
   List<ObstacleComponent> _obstacleComponents = [];
@@ -28,6 +23,7 @@ class PrizeFunGame extends BaseGame {
   CharacterComponent _characterComponent;
   ScoreComponent _scoreComponent;
   CopComponent _copComponent;
+  RecapComponent _recapComponent;
 
   GestureRecognizer get _jumpGestureRecognizer => VerticalDragGestureRecognizer()
     ..onStart = (_) => engine.jump();
@@ -39,6 +35,7 @@ class PrizeFunGame extends BaseGame {
     _scoreComponent = ScoreComponent(engine, minWinnerScore: minWinnerScore);
     _backgroundComponent = BackgroundComponent(engine);
     _copComponent = CopComponent(engine);
+    _recapComponent = RecapComponent(engine: engine);
     [_backgroundComponent, _characterComponent, _copComponent, _scoreComponent]
       .forEach((component) => add(component));
     engine.start();
@@ -56,6 +53,12 @@ class PrizeFunGame extends BaseGame {
       .listen((bonus) {
         _bonusComponents.add(bonus);
         add(bonus);
+      });
+    engine.status
+      .listen((status) {
+        if (status == GameStatus.LOST) {
+          add(_recapComponent);
+        }
       });
   }
 

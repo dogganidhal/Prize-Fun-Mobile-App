@@ -16,6 +16,7 @@ dependencies:
   cloud_firestore: ^0.12.9+4
   duration: ^2.0.8
   flame: ^0.16.0
+  flutter_unity_widget: ^0.1.6
 
 dev_dependencies:
   flutter_test:
@@ -132,6 +133,10 @@ flutter:
     - assets/images/cop/5.png
     - assets/images/bonus/coin.png
     - assets/images/bonus/star.png
+
+    - assets/images/typography/lost.png
+    - assets/images/typography/restart.png
+    - assets/images/typography/return.png
 
   fonts:
     - family: GoogleSans

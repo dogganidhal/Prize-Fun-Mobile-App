@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fun_prize/blocs/prize_details/prize_details_bloc.dart';
+import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/model/prize.dart';
+import 'package:fun_prize/service/auth_service.dart';
+import 'package:fun_prize/service/prizes_service.dart';
 import 'package:fun_prize/utils/contants.dart';
+import 'package:fun_prize/widgets/game/prize_fun_game.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 
 
@@ -14,6 +19,18 @@ class PrizeDetails extends StatefulWidget {
 }
 
 class _PrizeDetailsState extends State<PrizeDetails> {
+  PrizeDetailsBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = PrizeDetailsBloc(
+      prize: widget.prize,
+      authService: AuthService(),
+      prizesService: PrizesService()
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,10 +113,13 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                 child: MaterialButton(
                   color: Constants.primaryColor,
                   colorBrightness: Brightness.dark,
-                  onPressed: () {
-//                    Navigator.of(context).push(MaterialPageRoute(
-//                      builder: (context) => Game()
-//                    ));
+                  onPressed: () async {
+                    final score = await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => PrizeFunGame().widget
+                    ));
+                    if (score != null) {
+                      _bloc.dispatch(PostScoreEvent(score));
+                    }
                   },
                   child: Text("Jouer"),
                   shape: RoundedRectangleBorder(

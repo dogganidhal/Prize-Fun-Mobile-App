@@ -17,4 +17,11 @@ class PrizeParticipation {
     uid: document.data["uid"],
     username: document.data["username"]
   );
+
+  Map<String, dynamic> get map => {
+    "prizeId": prizeId,
+    "score": score,
+    "uid": uid,
+    "username": username
+  };
 }
