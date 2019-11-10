@@ -71,3 +71,12 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+/unity/FunDemo/.vs/*
+/unity/FunDemo/Builds/
+/unity/FunDemo/Logs/
+/unity/FunDemo/Library/
+/unity/FunDemo/obj/
+/unity/FunDemo/Packages/
+/unity/FunDemo/Temp/
+/unity/FunDemo/ProjectSettings/
