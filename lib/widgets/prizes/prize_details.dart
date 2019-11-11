@@ -4,6 +4,7 @@ import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/unity/demo.dart';
 import 'package:fun_prize/utils/contants.dart';
 import 'package:fun_prize/widgets/game/prize_fun_game.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
@@ -12,7 +13,7 @@ import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 class PrizeDetails extends StatefulWidget {
   final Prize prize;
 
-  const PrizeDetails({Key key, @required this.prize}) : super(key: key);
+  PrizeDetails({Key key, @required this.prize}) : super(key: key);
 
   @override
   _PrizeDetailsState createState() => _PrizeDetailsState();
@@ -115,7 +116,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                   colorBrightness: Brightness.dark,
                   onPressed: () async {
                     final score = await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PrizeFunGame().widget
+                      builder: (context) => UnityDemo()
                     ));
                     if (score != null) {
                       _bloc.dispatch(PostScoreEvent(score));
