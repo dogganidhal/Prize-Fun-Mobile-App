@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_bloc.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/service/prizes_service.dart';
-import 'package:fun_prize/unity/demo.dart';
 import 'package:fun_prize/utils/contants.dart';
-import 'package:fun_prize/widgets/game/prize_fun_game.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 
 
@@ -21,6 +20,7 @@ class PrizeDetails extends StatefulWidget {
 
 class _PrizeDetailsState extends State<PrizeDetails> {
   PrizeDetailsBloc _bloc;
+  final _platform = MethodChannel("io.github.dogganidhal.fun_prize/channel");
 
   @override
   void initState() {
@@ -115,12 +115,13 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                   color: Constants.primaryColor,
                   colorBrightness: Brightness.dark,
                   onPressed: () async {
-                    final score = await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => UnityDemo()
-                    ));
-                    if (score != null) {
-                      _bloc.dispatch(PostScoreEvent(score));
-                    }
+                    _platform.invokeMethod("io.github.dogganidhal.fun_prize/channel.start_game");
+//                    final score = await Navigator.of(context).push(MaterialPageRoute(
+//                      builder: (context) => Scaffold()
+//                    ));
+//                    if (score != null) {
+//                      _bloc.dispatch(PostScoreEvent(score));
+//                    }
                   },
                   child: Text("Jouer"),
                   shape: RoundedRectangleBorder(

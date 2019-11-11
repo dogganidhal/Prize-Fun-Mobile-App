@@ -10,6 +10,7 @@ import Firebase
   ) -> Bool {
     FirebaseApp.configure()
     GeneratedPluginRegistrant.register(with: self)
+    InitArgs(CommandLine.argc, CommandLine.unsafeArgv)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

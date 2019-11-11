@@ -1,5 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.dogganidhal.fun_prize">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.dogganidhal.fun_prize"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -9,7 +11,8 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Prize &amp; Fun"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        tools:replace="android:icon,android:label">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

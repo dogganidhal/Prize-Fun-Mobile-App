@@ -16,7 +16,6 @@ dependencies:
   cloud_firestore: ^0.12.9+4
   duration: ^2.0.8
   flame: ^0.16.0
-  flutter_unity_widget: ^0.1.6
 
 dev_dependencies:
   flutter_test:
