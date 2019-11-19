@@ -19,13 +19,12 @@ class PrizeDetailsBloc extends Bloc<PrizeDetailsEvent, PrizeDetailsState> {
   @override
   Stream<PrizeDetailsState> mapEventToState(PrizeDetailsEvent event) async* {
     if (event is PostScoreEvent) {
-      yield currentState.copy
-        ..isPostingScore = true;
       final user = await this.authService.currentUser();
-      assert(user != null);
       await prizesService.postScore(event.score, prize, user);
       yield currentState.copy
-        ..isPostingScore = false;
+        ..didPostScore = true;
+      yield currentState.copy
+        ..didPostScore = false;
     }
   }
 

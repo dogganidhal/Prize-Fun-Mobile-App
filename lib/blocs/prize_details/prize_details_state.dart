@@ -1,8 +1,8 @@
 
 
 class PrizeDetailsState {
-  bool isPostingScore = false;
+  bool didPostScore = false;
 
   PrizeDetailsState get copy => PrizeDetailsState()
-    ..isPostingScore = isPostingScore;
+    ..didPostScore = didPostScore;
 }

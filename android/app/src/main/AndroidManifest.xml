@@ -8,7 +8,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Prize &amp; Fun"
         tools:replace="android:icon,android:label">
-        <activity android:name=".UnityGameActivity"></activity>
+        <activity
+            android:name=".UnityGameActivity"
+            android:process=":unity" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -36,7 +38,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.unity3d.player.UnityPlayerActivity" />
+        <receiver
+            android:name=".GameScoreReceiver"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

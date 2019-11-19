@@ -15,7 +15,7 @@ dependencies:
   flutter_form_builder: ^3.5.4
   cloud_firestore: ^0.12.9+4
   duration: ^2.0.8
-  flame: ^0.16.0
+  fluttertoast: ^3.1.3
 
 dev_dependencies:
   flutter_test:
@@ -25,117 +25,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
-    - assets/images/obstacles/box.png
-
-    - assets/images/character/running/0.png
-    - assets/images/character/running/1.png
-    - assets/images/character/running/2.png
-    - assets/images/character/running/3.png
-    - assets/images/character/running/4.png
-    - assets/images/character/running/5.png
-    - assets/images/character/running/6.png
-    - assets/images/character/running/7.png
-    - assets/images/character/running/8.png
-    - assets/images/character/running/9.png
-    - assets/images/character/running/10.png
-    - assets/images/character/running/11.png
-    - assets/images/character/running/12.png
-    - assets/images/character/running/13.png
-    - assets/images/character/running/14.png
-    - assets/images/character/running/15.png
-    - assets/images/character/running/16.png
-    - assets/images/character/running/17.png
-
-    - assets/images/character/jumping/0.png
-    - assets/images/character/jumping/1.png
-    - assets/images/character/jumping/2.png
-    - assets/images/character/jumping/3.png
-    - assets/images/character/jumping/4.png
-    - assets/images/character/jumping/5.png
-    - assets/images/character/jumping/6.png
-    - assets/images/character/jumping/7.png
-    - assets/images/character/jumping/8.png
-    - assets/images/character/jumping/9.png
-    - assets/images/character/jumping/10.png
-    - assets/images/character/jumping/11.png
-    - assets/images/character/jumping/12.png
-    - assets/images/character/jumping/13.png
-    - assets/images/character/jumping/14.png
-    - assets/images/character/jumping/15.png
-    - assets/images/character/jumping/16.png
-    - assets/images/character/jumping/17.png
-    - assets/images/character/jumping/18.png
-    - assets/images/character/jumping/19.png
-    - assets/images/character/jumping/20.png
-    - assets/images/character/jumping/21.png
-    - assets/images/character/jumping/22.png
-    - assets/images/character/jumping/23.png
-    - assets/images/character/jumping/24.png
-    - assets/images/character/jumping/25.png
-    - assets/images/character/jumping/26.png
-
-    - assets/images/character/idle/0.png
-    - assets/images/character/idle/1.png
-    - assets/images/character/idle/2.png
-    - assets/images/character/idle/3.png
-    - assets/images/character/idle/4.png
-    - assets/images/character/idle/5.png
-    - assets/images/character/idle/6.png
-    - assets/images/character/idle/7.png
-    - assets/images/character/idle/8.png
-    - assets/images/character/idle/9.png
-    - assets/images/character/idle/10.png
-    - assets/images/character/idle/11.png
-    - assets/images/character/idle/12.png
-    - assets/images/character/idle/13.png
-    - assets/images/character/idle/14.png
-    - assets/images/character/idle/15.png
-    - assets/images/character/idle/16.png
-    - assets/images/character/idle/17.png
-    - assets/images/character/idle/18.png
-    - assets/images/character/idle/19.png
-    - assets/images/character/idle/20.png
-    - assets/images/character/idle/21.png
-    - assets/images/character/idle/22.png
-    - assets/images/character/idle/23.png
-
-    - assets/images/character/dying/0.png
-    - assets/images/character/dying/1.png
-    - assets/images/character/dying/2.png
-    - assets/images/character/dying/3.png
-    - assets/images/character/dying/4.png
-    - assets/images/character/dying/5.png
-    - assets/images/character/dying/6.png
-    - assets/images/character/dying/7.png
-    - assets/images/character/dying/8.png
-    - assets/images/character/dying/9.png
-    - assets/images/character/dying/10.png
-    - assets/images/character/dying/11.png
-    - assets/images/character/dying/12.png
-    - assets/images/character/dying/13.png
-    - assets/images/character/dying/14.png
-
-    - assets/images/backgrounds/background-buildings.png
-    - assets/images/backgrounds/background.png
-    - assets/images/backgrounds/background-buildings2.png
-    - assets/images/backgrounds/foreground-buildings.png
-    - assets/images/backgrounds/clouds.png
-    - assets/images/backgrounds/clouds2.png
-    - assets/images/backgrounds/ground.png
-    - assets/images/backgrounds/lamps.png
-
-    - assets/images/cop/0.png
-    - assets/images/cop/1.png
-    - assets/images/cop/2.png
-    - assets/images/cop/3.png
-    - assets/images/cop/4.png
-    - assets/images/cop/5.png
-    - assets/images/bonus/coin.png
-    - assets/images/bonus/star.png
-
-    - assets/images/typography/lost.png
-    - assets/images/typography/restart.png
-    - assets/images/typography/return.png
 
   fonts:
     - family: GoogleSans

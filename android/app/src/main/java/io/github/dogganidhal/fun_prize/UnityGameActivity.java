@@ -1,20 +1,21 @@
 package io.github.dogganidhal.fun_prize;
 
+import android.content.Intent;
 import android.os.Bundle;
-
 import com.unity3d.player.UnityPlayerActivity;
 
 public class UnityGameActivity extends UnityPlayerActivity {
 
-  private static final String POST_SCORE_METHOD = "io.github.dogganidhal.fun_prize/channel.post_score";
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    UnityGameScoreStaticNotifier.setListener((score) -> runOnUiThread(() -> {
-      MainActivity.methodChannel.invokeMethod(POST_SCORE_METHOD, score);
+    UnityGameScoreStaticNotifier.setListener((score) -> {
+      Intent broadcastIntent = new Intent();
+      broadcastIntent.setAction(GameScoreReceiver.POST_GAME_SCORE_ACTION);
+      broadcastIntent.putExtra(GameScoreReceiver.GAME_SCORE_EXTRA_KEY, score);
+      sendBroadcast(broadcastIntent);
       finish();
-    }));
+    });
   }
 
 }
