@@ -11,7 +11,7 @@ class Prize {
   final String title;
   final String subTitle;
   final String description;
-  final int minWinnerPoints;
+  final int minWinnerScore;
   final Rankings rankings;
 
   bool get closed => this.dueDate.compareTo(DateTime.now()) <= 0;
@@ -22,7 +22,7 @@ class Prize {
   Prize({
     this.winnerCount, this.dueDate, this.imageUrl,
     this.title, this.subTitle, this.description,
-    this.minWinnerPoints, this.rankings, this.id
+    this.minWinnerScore, this.rankings, this.id
   });
 
   factory Prize.fromDocument(DocumentSnapshot document, List<DocumentSnapshot> rankings) => Prize(
@@ -33,7 +33,7 @@ class Prize {
     title: document.data["title"],
     subTitle: document.data["subTitle"],
     description: document.data["description"],
-    minWinnerPoints: document.data["minWinnerPoints"] ?? 0,
+    minWinnerScore: document.data["minWinnerScore"] ?? 0,
     rankings: Rankings.fromDocumentList(rankings)
   );
 

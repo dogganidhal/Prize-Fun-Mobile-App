@@ -117,7 +117,7 @@ class PrizeCard extends StatelessWidget {
       ),
       SizedBox(width: 4),
       Text(
-        "${prize.minWinnerPoints} pts",
+        "${prize.minWinnerScore} pts",
         style: TextStyle(
           fontSize: 16,
           color: Colors.black38
