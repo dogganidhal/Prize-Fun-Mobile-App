@@ -19,8 +19,11 @@ class PrizeDetails extends StatefulWidget {
 }
 
 class _PrizeDetailsState extends State<PrizeDetails> {
+  static const String _kPostScoreMethod = "io.github.dogganidhal.fun_prize/channel.post_score";
+  static const String _kStartGameMethod = "io.github.dogganidhal.fun_prize/channel.start_game";
+
   PrizeDetailsBloc _bloc;
-  final _platform = MethodChannel("io.github.dogganidhal.fun_prize/channel");
+  final _methodChannel = MethodChannel("io.github.dogganidhal.fun_prize/channel");
 
   @override
   void initState() {
@@ -30,6 +33,16 @@ class _PrizeDetailsState extends State<PrizeDetails> {
       authService: AuthService(),
       prizesService: PrizesService()
     );
+    _methodChannel.setMethodCallHandler((methodCall) async {
+      switch(methodCall.method) {
+        case _kPostScoreMethod:
+          final score = methodCall.arguments as int;
+          if (score != null) {
+            _bloc.dispatch(PostScoreEvent(score));
+          }
+          break;
+      }
+    });
   }
 
   @override
@@ -115,13 +128,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                   color: Constants.primaryColor,
                   colorBrightness: Brightness.dark,
                   onPressed: () async {
-                    _platform.invokeMethod("io.github.dogganidhal.fun_prize/channel.start_game");
-//                    final score = await Navigator.of(context).push(MaterialPageRoute(
-//                      builder: (context) => Scaffold()
-//                    ));
-//                    if (score != null) {
-//                      _bloc.dispatch(PostScoreEvent(score));
-//                    }
+                    _methodChannel.invokeMethod(_kStartGameMethod);
                   },
                   child: Text("Jouer"),
                   shape: RoundedRectangleBorder(

@@ -7,7 +7,7 @@ class PrizeDetailsEvent with EquatableMixin {
 }
 
 class PostScoreEvent extends PrizeDetailsEvent {
-  final double score;
+  final int score;
 
   PostScoreEvent(this.score) : super([score]);
 }

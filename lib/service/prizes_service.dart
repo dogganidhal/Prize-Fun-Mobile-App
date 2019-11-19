@@ -28,7 +28,7 @@ class PrizesService {
     return await Future.wait(futures);
   }
 
-  Future<Null> postScore(double score, Prize prize, FirebaseUser user) async {
+  Future<Null> postScore(int score, Prize prize, FirebaseUser user) async {
     final userDocument = await _firestore
       .collection(_kUsersCollection)
       .document(user.uid)
