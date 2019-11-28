@@ -14,7 +14,8 @@ class PrizeDetailsBloc extends Bloc<PrizeDetailsEvent, PrizeDetailsState> {
   PrizeDetailsBloc({@required this.prize, @required this.authService, @required this.prizesService});
 
   @override
-  PrizeDetailsState get initialState => PrizeDetailsState();
+  PrizeDetailsState get initialState => PrizeDetailsState()
+    ..rankings = prizesService.rankings(prize);
 
   @override
   Stream<PrizeDetailsState> mapEventToState(PrizeDetailsEvent event) async* {
@@ -27,5 +28,4 @@ class PrizeDetailsBloc extends Bloc<PrizeDetailsEvent, PrizeDetailsState> {
         ..didPostScore = false;
     }
   }
-
 }

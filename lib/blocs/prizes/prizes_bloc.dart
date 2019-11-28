@@ -8,20 +8,11 @@ class PrizesBloc extends Bloc<PrizesEvent, PrizesState> {
   PrizesService _prizesService = PrizesService();
 
   @override
-  PrizesState get initialState => PrizesState();
+  PrizesState get initialState => PrizesState()
+    ..prizes =_prizesService.prizes;
 
   @override
   Stream<PrizesState> mapEventToState(PrizesEvent event) async* {
-    final state = this.currentState;
-
-    if (event is LoadPrizesEvent) {
-      yield state.copy
-        ..isLoading = true;
-      final prizes = await _prizesService.getPrizes();
-      yield state.copy
-        ..isLoading = false
-        ..prizes = prizes;
-    }
 
   }
 

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/model/prize_participation.dart';
+import 'package:fun_prize/model/rankings.dart';
 import 'package:fun_prize/utils/concurrent.dart';
 
 class PrizesService {
@@ -15,18 +16,24 @@ class PrizesService {
 
   final Firestore _firestore = Firestore.instance;
 
-  Future<List<Prize>> getPrizes() async {
-    final snapshot = await _firestore.collection(_kPrizesCollection)
-      .getDocuments();
-    final futures = snapshot.documents
-      .map((prizeDoc) async {
-        final rankingsSnapshot = await delayed(_firestore.collection(_kRankingsCollection)
-          .where(_kRankingsCollection_PrizeIdField, isEqualTo: prizeDoc.documentID)
-          .getDocuments());
-        return Prize.fromDocument(prizeDoc, rankingsSnapshot.documents);
-      });
-    return await Future.wait(futures);
-  }
+  Stream<List<Prize>> get prizes => _firestore.collection(_kPrizesCollection)
+    .snapshots()
+    .map((snapshot) {
+      return snapshot.documents
+        .map((prizeDoc) async {
+          final rankingsSnapshot = await _firestore.collection(_kRankingsCollection)
+            .where(_kRankingsCollection_PrizeIdField, isEqualTo: prizeDoc.documentID)
+            .getDocuments();
+          return Prize.fromDocument(prizeDoc, rankingsSnapshot.documents);
+      })
+      .toList();
+    })
+    .asyncMap((futures) => Future.wait(futures));
+
+  Stream<Rankings> rankings(Prize prize) => _firestore.collection(_kRankingsCollection)
+    .where(_kRankingsCollection_PrizeIdField, isEqualTo: prize.id)
+    .snapshots()
+    .map((snapshot) => Rankings.fromDocumentList(snapshot.documents));
 
   Future<Null> postScore(int score, Prize prize, FirebaseUser user) async {
     final userDocument = await _firestore

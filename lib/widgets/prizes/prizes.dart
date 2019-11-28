@@ -42,10 +42,6 @@ class Prizes extends StatelessWidget {
               itemBuilder: (context) => [
                 PopupMenuItem<int>(
                   value: 0,
-                  child: Text("Rafraîchir"),
-                ),
-                PopupMenuItem<int>(
-                  value: 1,
                   child: Text("Se déconnecter"),
                 )
               ],
@@ -56,33 +52,37 @@ class Prizes extends StatelessWidget {
       body: BlocBuilder<PrizesBloc, PrizesState>(
         bloc: _bloc,
         builder: (context, state) {
-          return Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: ListView.separated(
-                  padding: EdgeInsets.all(8),
-                  itemBuilder: (context, index) => PrizeCard(
-                    prize: state.prizes[index],
-                    onPlayPressed: () => _launchPrizeDetails(context, state.prizes[index]),
+          return StreamBuilder<List<Prize>>(
+            stream: state.prizes,
+            builder: (context, snapshot) {
+              return Stack(
+                children: <Widget>[
+                if (snapshot.hasData)
+                  ListView.separated(
+                    padding: EdgeInsets.all(8),
+                    itemBuilder: (context, index) => PrizeCard(
+                      prize: snapshot.data[index],
+                      onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index]),
+                    ),
+                    separatorBuilder: (context, index) => SizedBox(height: 8),
+                    itemCount: snapshot.data.length
                   ),
-                  separatorBuilder: (context, index) => SizedBox(height: 8),
-                  itemCount: state.prizes.length
-                )
-              ),
-              if (state.isLoading)
-                Positioned.fill(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Center(
-                      child: Platform.isIOS ?
+                if (snapshot.connectionState == ConnectionState.waiting)
+                  Positioned.fill(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                      child: Center(
+                        child: Platform.isIOS ?
                         CupertinoActivityIndicator() :
                         CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(Constants.primaryColor)
                         )
-                    ),
+                      ),
+                    )
                   )
-                ),
-            ],
+                ],
+              );
+            }
           );
         },
       )
@@ -103,9 +103,6 @@ class Prizes extends StatelessWidget {
   void _onPopupItemPressed(BuildContext context, int index) {
     switch(index) {
       case 0:
-        _bloc.dispatch(LoadPrizesEvent());
-        break;
-      case 1:
         BlocProvider.of<AuthBloc>(context).dispatch(LogoutEvent());
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => Auth(

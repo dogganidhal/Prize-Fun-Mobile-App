@@ -125,7 +125,10 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                                 style: Theme.of(context).textTheme.title,
                               ),
                             ),
-                            RankingsCard(prize: widget.prize),
+                            RankingsCard(
+                              prize: widget.prize,
+                              rankings: state.rankings
+                            ),
                           ],
                         ),
                       ),

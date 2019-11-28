@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:duration/duration.dart';
 import 'package:duration/locale.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,8 @@ class PrizeCard extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
-                  child: Image.network(
-                    prize.imageUrl,
+                  child: CachedNetworkImage(
+                    imageUrl: prize.imageUrl,
                     fit: BoxFit.cover,
                   )
                 ),

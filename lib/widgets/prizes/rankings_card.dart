@@ -5,19 +5,31 @@ import 'package:fun_prize/model/rankings.dart';
 
 class RankingsCard extends StatelessWidget {
   final Prize prize;
-  Rankings get rankings => this.prize.rankings;
+  final Stream<Rankings> rankings;
 
-  const RankingsCard({Key key, this.prize}) : super(key: key);
+  const RankingsCard({Key key, this.prize, this.rankings}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Table(
-    children: <TableRow>[
-      _header(context),
-      ..._rankingRows.toList()
-    ],
+  Widget build(BuildContext context) => StreamBuilder<Rankings>(
+    stream: rankings,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting)
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      if (snapshot.hasData)
+        return Table(
+          children: <TableRow>[
+            _header(context),
+            ..._rankingRows(snapshot.data)
+              .toList()
+          ],
+        );
+      return Container();
+    }
   );
 
-  Iterable<TableRow> get _rankingRows sync* {
+  Iterable<TableRow> _rankingRows(Rankings rankings) sync* {
     var index = 0;
     for (final participation in rankings) {
       yield TableRow(
