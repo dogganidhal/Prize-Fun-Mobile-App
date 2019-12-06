@@ -82,6 +82,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                       ),
                       flexibleSpace: LayoutBuilder(
                         builder: (context, constraints) => FlexibleSpaceBar(
+                          centerTitle: true,
                           title: AnimatedOpacity(
                             opacity: constraints.biggest.height > (80 + MediaQuery.of(context).padding.top) ? 0 : 1,
                             duration: Duration(milliseconds: 200),
@@ -101,36 +102,41 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                     ),
                     SliverFillRemaining(
                       hasScrollBody: false,
-                      child: Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Text(
-                                widget.prize.subTitle,
-                                style: Theme.of(context).textTheme.title,
-                              ),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Text(
+                                    widget.prize.subTitle,
+                                    style: Theme.of(context).textTheme.title,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: Text(widget.prize.description),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Text(
+                                    "Classement actuel",
+                                    style: Theme.of(context).textTheme.title,
+                                  ),
+                                ),
+                                RankingsCard(
+                                  prize: widget.prize,
+                                  rankings: state.rankings
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(widget.prize.description),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Text(
-                                "Classement actuel",
-                                style: Theme.of(context).textTheme.title,
-                              ),
-                            ),
-                            RankingsCard(
-                              prize: widget.prize,
-                              rankings: state.rankings
-                            ),
-                          ],
-                        ),
+                          ),
+                          Container(height: 360)
+                        ],
                       ),
                     ),
                   ],
