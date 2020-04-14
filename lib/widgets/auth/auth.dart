@@ -67,7 +67,7 @@ class _AuthState extends State<Auth> with ModalLoaderMixin, ErrorModalMixin {
         }
       },
       child: BlocProvider<AuthBloc>(
-        builder: (context) => this._authBloc,
+        create: (context) => this._authBloc,
         child: AnimatedSwitcher(
           key: _scaffoldBodyKey,
           duration: Duration(milliseconds: 200),

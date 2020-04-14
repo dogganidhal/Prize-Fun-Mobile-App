@@ -41,7 +41,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
         case _kPostScoreMethod:
           final score = methodCall.arguments as int;
           if (score != null) {
-            _bloc.dispatch(PostScoreEvent(score));
+            _bloc.add(PostScoreEvent(score));
           }
           break;
       }
@@ -60,7 +60,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
               msg: "Score soumis avec succès",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
-              timeInSecForIos: 1,
+              timeInSecForIosWeb: 1,
               textColor: Colors.white,
               fontSize: 16.0,
             );

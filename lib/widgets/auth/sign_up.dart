@@ -22,6 +22,8 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    EdgeInsets safeAreaPadding = MediaQuery.of(context).padding;
+    Size screenSize = MediaQuery.of(context).size;
     return BlocListener<AuthBloc, AuthState>(
       bloc: BlocProvider.of<AuthBloc>(context),
       listener: (context, state) {
@@ -32,6 +34,7 @@ class _SignUpState extends State<SignUp> {
       child: SafeArea(
         child: SingleChildScrollView(
           child: Container(
+            height: screenSize.height - safeAreaPadding.top - safeAreaPadding.bottom + (4/3),
             child: Center(
               child: FormBuilder(
                 key: _formKey,
@@ -75,10 +78,6 @@ class _SignUpState extends State<SignUp> {
                       _emailField,
                       SizedBox(height: 16),
                       _usernameField,
-                      SizedBox(height: 16),
-                      _yearField,
-                      SizedBox(height: 16),
-                      _programField,
                       SizedBox(height: 16),
                       _passwordAndConfirmationFields,
                       Padding(
@@ -158,12 +157,11 @@ class _SignUpState extends State<SignUp> {
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black45, width: 0.5)
       ),
-      labelText: "Adresse Email",
-      suffixText: Constants.audenciaEmailSuffix
+      labelText: "Adresse Email"
     ),
     validators: [
       FormBuilderValidators.required(errorText: "Ce champ est requis"),
-      FormBuilderValidators.pattern(r'^[a-zA-Z0-9\-_\.]+$', errorText: "Adresse mail non valide")
+      FormBuilderValidators.email(errorText: "Adresse mail non valide")
     ],
   );
 
@@ -180,49 +178,9 @@ class _SignUpState extends State<SignUp> {
     ],
   );
 
-  Widget get _yearField => FormBuilderDropdown(
-    attribute: "graduationYear",
-    items: [2019, 2020, 2021, 2022, 2023, 2024]
-      .map((year) => DropdownMenuItem<String>(
-        value: "$year",
-        child: Text("$year"),
-      ))
-      .toList(),
-    decoration: InputDecoration(
-      border: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black45, width: 0.5)
-      ),
-      labelText: "Année d'obtention de diplôme"
-    ),
-    validators: [
-      FormBuilderValidators.required(errorText: "Ce champ est requis")
-    ],
-  );
-  
-  Widget get _programField => FormBuilderDropdown(
-    attribute: "program",
-    items: [
-      "Grande école", "Bachelors", "SciencesCom", "Mastère spécialisé",
-      "MBA", "DBA", "International Masters", "Executive éducation"
-    ]
-      .map((program) => DropdownMenuItem<String>(
-        value: "$program",
-        child: Text("$program"),
-      ))
-      .toList(),
-    decoration: InputDecoration(
-      border: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black45, width: 0.5)
-      ),
-      labelText: "Programme"
-    ),
-    validators: [
-      FormBuilderValidators.required(errorText: "Ce champ est requis")
-    ],
-  );
-
   Widget get _passwordAndConfirmationFields => FormBuilderTextField(
     attribute: "password",
+    maxLines: 1,
     decoration: InputDecoration(
       border: OutlineInputBorder(),
       labelText: "Mot de passe",
@@ -258,7 +216,7 @@ class _SignUpState extends State<SignUp> {
     final String password = values["password"];
     final String graduationYear = values["graduationYear"];
     final String program = values["program"];
-    BlocProvider.of<AuthBloc>(context).dispatch(SignUpEvent(
+    BlocProvider.of<AuthBloc>(context).add(SignUpEvent(
       firstName: firstName,
       lastName: lastName,
       username: username,

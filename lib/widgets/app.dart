@@ -15,7 +15,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthBloc>(
-      builder: (context) => AuthBloc(),
+      create: (context) => AuthBloc(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

@@ -22,9 +22,9 @@ class PrizeDetailsBloc extends Bloc<PrizeDetailsEvent, PrizeDetailsState> {
     if (event is PostScoreEvent) {
       final user = await this.authService.currentUser();
       await prizesService.postScore(event.score, prize, user);
-      yield currentState.copy
+      yield state.copy
         ..didPostScore = true;
-      yield currentState.copy
+      yield state.copy
         ..didPostScore = false;
     }
   }

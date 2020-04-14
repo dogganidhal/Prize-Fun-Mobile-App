@@ -76,16 +76,16 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         labelText: "Adresse Email",
-                        suffixText: Constants.audenciaEmailSuffix
                       ),
                       validators: [
                         FormBuilderValidators.required(errorText: "Ce champ est requis"),
-                        FormBuilderValidators.pattern(r'^[a-zA-Z0-9\-_\.]+$', errorText: "Adresse email non valide")
+                        FormBuilderValidators.email(errorText: "Adresse mail non valide")
                       ],
                     ),
                     SizedBox(height: 16),
                     FormBuilderTextField(
                       attribute: "password",
+                      maxLines: 1,
                       decoration: InputDecoration(
                         focusColor: Constants.primaryColor,
                         border: OutlineInputBorder(),
@@ -147,7 +147,7 @@ class _LoginState extends State<Login> {
     final values = _formKey.currentState.value;
     final String email = values["email"];
     final String password = values["password"];
-    BlocProvider.of<AuthBloc>(context).dispatch(LoginEvent(
+    BlocProvider.of<AuthBloc>(context).add(LoginEvent(
       email: email,
       password: password
     ));

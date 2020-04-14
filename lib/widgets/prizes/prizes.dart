@@ -19,7 +19,7 @@ class Prizes extends StatelessWidget {
   final PrizesBloc _bloc = PrizesBloc();
 
   Prizes({Key key}) : super(key: key) {
-    _bloc.dispatch(LoadPrizesEvent());
+    _bloc.add(LoadPrizesEvent());
   }
 
   @override
@@ -103,7 +103,7 @@ class Prizes extends StatelessWidget {
   void _onPopupItemPressed(BuildContext context, int index) {
     switch(index) {
       case 0:
-        BlocProvider.of<AuthBloc>(context).dispatch(LogoutEvent());
+        BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => Auth(
             postAuthWidgetBuilder: (context) => Prizes(),

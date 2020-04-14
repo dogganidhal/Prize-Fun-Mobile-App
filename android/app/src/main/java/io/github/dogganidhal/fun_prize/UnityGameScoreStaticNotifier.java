@@ -1,6 +1,6 @@
 package io.github.dogganidhal.fun_prize;
 
-import android.support.annotation.UiThread;
+import androidx.annotation.UiThread;
 
 final public class UnityGameScoreStaticNotifier {
 
