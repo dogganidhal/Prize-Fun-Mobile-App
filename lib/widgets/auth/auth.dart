@@ -32,17 +32,19 @@ class _AuthState extends State<Auth> with ModalLoaderMixin, ErrorModalMixin {
   @override
   void initState() {
     super.initState();
+    _authBloc = BlocProvider.of<AuthBloc>(context);
     _login = Login(
+      authBloc: _authBloc,
       onSignUpButtonTapped: () {
         setState(() => _authType = _AuthType.SIGN_UP);
       },
     );
     _signUp = SignUp(
+      authBloc: _authBloc,
       onLoginButtonTapped: () {
         setState(() => _authType = _AuthType.LOGIN);
       },
     );
-    _authBloc = BlocProvider.of<AuthBloc>(context);
   }
 
   @override

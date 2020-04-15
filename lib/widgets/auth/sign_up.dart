@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
-import 'package:fun_prize/blocs/auth/auth_event.dart';
 import 'package:fun_prize/blocs/auth/auth_state.dart';
 import 'package:fun_prize/utils/contants.dart';
 
 
 class SignUp extends StatefulWidget {
+  final AuthBloc authBloc;
   final VoidCallback onLoginButtonTapped;
 
-  const SignUp({Key key, this.onLoginButtonTapped}) : super(key: key);
+  const SignUp({Key key, this.onLoginButtonTapped, this.authBloc}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -25,7 +25,7 @@ class _SignUpState extends State<SignUp> {
     EdgeInsets safeAreaPadding = MediaQuery.of(context).padding;
     Size screenSize = MediaQuery.of(context).size;
     return BlocListener<AuthBloc, AuthState>(
-      bloc: BlocProvider.of<AuthBloc>(context),
+      bloc: widget.authBloc,
       listener: (context, state) {
         if (state.signUpFinished) {
           this._showSignUpFinishedModal();
@@ -214,17 +214,14 @@ class _SignUpState extends State<SignUp> {
     final String email = values["email"];
     final String username = values["username"];
     final String password = values["password"];
-    final String graduationYear = values["graduationYear"];
-    final String program = values["program"];
-    BlocProvider.of<AuthBloc>(context).add(SignUpEvent(
+
+    widget.authBloc.signUp(
       firstName: firstName,
       lastName: lastName,
       username: username,
       email: email,
-      password: password,
-      graduationYear: graduationYear,
-      program: program
-    ));
+      password: password
+    );
   }
 
   void _showSignUpFinishedModal() {

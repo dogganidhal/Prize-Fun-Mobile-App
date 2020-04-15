@@ -30,7 +30,7 @@ class AuthService {
 
   Future<void> signUp({
     String firstName, String lastName, String email,
-    String username, String password, String graduationYear, String program
+    String username, String password
   }) async {
     final authResult = await delayed(_firebaseAuth.createUserWithEmailAndPassword(
       email: email,
@@ -42,9 +42,7 @@ class AuthService {
         "firstName": firstName,
         "lastName": lastName,
         "username": username,
-        "email": email,
-        "graduationYear": graduationYear,
-        "program": program
+        "email": email
       });
     authResult.user.sendEmailVerification();
   }

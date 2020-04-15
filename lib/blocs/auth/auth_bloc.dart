@@ -1,19 +1,52 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show FacebookAuthCredential;
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:fun_prize/blocs/auth/auth_event.dart';
 import 'package:fun_prize/blocs/auth/auth_state.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/exceptions/auth.dart';
-import 'package:fun_prize/utils/contants.dart';
 
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthService authService = AuthService();
+  final FacebookLogin facebookLogin = FacebookLogin();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
   AuthState get initialState => AuthState();
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
+
+    debugPrint(event.toString());
+
+    if (event is LoginWithFacebookEvent) {
+      yield state.copy
+        ..isLoading = true;
+      final credentials = await facebookLogin.logIn([
+        "email"
+      ]);
+      if (credentials.status == FacebookLoginStatus.loggedIn) {
+        try {
+          final facebookCredential = FacebookAuthCredential(
+            accessToken: credentials.accessToken.token);
+          final firebaseCredential = await firebaseAuth.signInWithCredential(
+            facebookCredential);
+          yield state.copy
+            ..isLoading = false
+            ..user = firebaseCredential.user
+            ..loginFinished = true;
+        } catch (exception) {
+          yield state.copy
+            ..isLoading = false
+            ..exception = exception;
+        }
+      } else {
+        debugPrint(credentials.status.toString());
+      }
+    }
 
     if (event is SignUpEvent) {
       yield state.copy
@@ -22,12 +55,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await authService.signUp(
           firstName: event.firstName,
           lastName: event.lastName,
-          email: "${event.email}${Constants.audenciaEmailSuffix}",
-//          email: "${event.email}@gmail.com",
+          email: event.email,
           username: event.username,
           password: event.password,
-          graduationYear: event.graduationYear,
-          program: event.program
         );
         yield state.copy
           ..isLoading = false
@@ -55,8 +85,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..isLoading = true;
       try {
         final user = await this.authService.login(
-          email: "${event.email}${Constants.audenciaEmailSuffix}",
-//          email: "${event.email}@gmail.com",
+          email: event.email,
           password: event.password
         );
         yield state.copy
@@ -77,5 +106,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield state.copy
         ..user = null;
     }
+  }
+
+  signUp({
+    String firstName, String lastName, String email,
+    String username, String password
+  }) {
+    add(SignUpEvent(
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      email: email,
+      password: password
+    ));
   }
 }

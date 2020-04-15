@@ -29,7 +29,7 @@ class Prizes extends StatelessWidget {
         brightness: Brightness.light,
         title: Padding(
           padding: EdgeInsets.symmetric(vertical: 8),
-          child: Image.asset(Constants.logoAsset),
+          child: Image.asset(Constants.logoAsset, height: 48,),
         ),
         centerTitle: true,
         actions: <Widget>[

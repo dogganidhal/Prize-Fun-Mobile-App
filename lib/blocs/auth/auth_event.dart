@@ -18,16 +18,13 @@ class SignUpEvent extends AuthEvent {
   final String username;
   final String email;
   final String password;
-  final String graduationYear;
-  final String program;
 
   SignUpEvent({
-    this.email, this.password, this.lastName, this.firstName, this.username,
-    this.graduationYear, this.program
+    this.email, this.password, this.lastName, this.firstName, this.username
   });
 
   @override
-  List<Object> get props => [email, password, firstName, lastName, username, graduationYear, program];
+  List<Object> get props => [email, password, firstName, lastName, username];
 }
 
 class LoginEvent extends AuthEvent {
@@ -41,6 +38,11 @@ class LoginEvent extends AuthEvent {
 }
 
 class LogoutEvent extends AuthEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class LoginWithFacebookEvent extends AuthEvent {
   @override
   List<Object> get props => [];
 }

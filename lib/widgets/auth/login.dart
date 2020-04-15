@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_event.dart';
@@ -7,9 +6,10 @@ import 'package:fun_prize/utils/contants.dart';
 
 
 class Login extends StatefulWidget {
+  final AuthBloc authBloc;
   final VoidCallback onSignUpButtonTapped;
 
-  const Login({Key key, this.onSignUpButtonTapped}) : super(key: key);
+  const Login({Key key, this.onSignUpButtonTapped, this.authBloc}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
               key: _formKey,
               autovalidate: false,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
@@ -129,7 +129,18 @@ class _LoginState extends State<Login> {
                           )
                         ],
                       ),
-                    )
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        textColor: Constants.primaryColor,
+                        onPressed: this._loginWithFacebook,
+                        child: Text("Se connecter avec Facebook"),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -140,6 +151,10 @@ class _LoginState extends State<Login> {
     );
   }
 
+  void _loginWithFacebook() {
+    widget.authBloc.add(LoginWithFacebookEvent());
+  }
+
   void _login() {
     if (!_formKey.currentState.saveAndValidate()) {
       return;
@@ -147,7 +162,8 @@ class _LoginState extends State<Login> {
     final values = _formKey.currentState.value;
     final String email = values["email"];
     final String password = values["password"];
-    BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+
+    widget.authBloc.add(LoginEvent(
       email: email,
       password: password
     ));
