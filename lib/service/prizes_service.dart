@@ -52,10 +52,10 @@ class PrizesService {
   }
 
   Future<Null> _postRankingSubmit(Prize prize, FirebaseUser user) async {
-    final rankingSnapshots = await _firestore
-      .collection(_kRankingsCollection)
-      .where(_kRankingsCollection_PrizeIdField, isEqualTo: prize.id)
-      .getDocuments();
+    var rankingSnapshots = await _rankingsForPrize(prize);
+    await _removeRedundantRankingsIfNeeded(rankingSnapshots, user.uid);
+    rankingSnapshots = await _rankingsForPrize(prize);
+
     final rankings = Rankings.fromDocumentList(rankingSnapshots.documents);
     final minWinnerScore = rankings[min(rankings.length, prize.winnerCount) - 1].score;
     _firestore
@@ -64,8 +64,6 @@ class PrizesService {
       .setData({
         "minWinnerScore": minWinnerScore
       }, merge: true);
-
-    await _removeRedundantRankingsIfNeeded(rankingSnapshots, user.uid);
   }
 
   Future<Null> _removeRedundantRankingsIfNeeded(QuerySnapshot rankingSnapshot, String uid) async {
@@ -75,4 +73,9 @@ class PrizesService {
       .where((document) => document.documentID != rankingWithMaxScore.documentID)
       .forEach((document) => document.reference.delete());
   }
+
+  Future<QuerySnapshot> _rankingsForPrize(Prize prize) => _firestore
+    .collection(_kRankingsCollection)
+    .where(_kRankingsCollection_PrizeIdField, isEqualTo: prize.id)
+    .getDocuments();
 }
