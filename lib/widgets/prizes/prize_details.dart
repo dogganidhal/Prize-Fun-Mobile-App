@@ -61,7 +61,6 @@ class _PrizeDetailsState extends State<PrizeDetails> {
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
-              textColor: Colors.white,
               fontSize: 16.0,
             );
           }
@@ -71,14 +70,16 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                 child: CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
-                      backgroundColor: Colors.white,
-                      elevation: 1,
+                      elevation: 0,
                       expandedHeight: 192,
-                      floating: false,
                       pinned: true,
-                      brightness: Brightness.light,
+                      backgroundColor: Theme.of(context).backgroundColor,
                       iconTheme: IconThemeData(
-                        color: Constants.primaryColor
+                        color: Theme.of(context).primaryColor
+                      ),
+                      bottom: PreferredSize(
+                        child: Divider(height: 1),
+                        preferredSize: Size.fromHeight(1)
                       ),
                       flexibleSpace: LayoutBuilder(
                         builder: (context, constraints) => FlexibleSpaceBar(
@@ -88,9 +89,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                             duration: Duration(milliseconds: 200),
                             child: Text(
                               widget.prize.title,
-                              style: TextStyle(
-                                color: Colors.black
-                              ),
+                              style: TextStyle(color: Theme.of(context).textTheme.body1.color)
                             ),
                           ),
                           background: Image.network(
@@ -105,7 +104,6 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            color: Colors.white,
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -150,8 +148,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                     minWidth: double.infinity,
                     height: 48,
                     child: MaterialButton(
-                      color: Constants.primaryColor,
-                      colorBrightness: Brightness.dark,
+                      color: Theme.of(context).primaryColor,
                       onPressed: () async {
                         _methodChannel.invokeMethod(_kStartGameMethod);
                       },

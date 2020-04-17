@@ -20,7 +20,7 @@ mixin ErrorModalMixin<T extends StatefulWidget> on State<T> {
           ),
           actions: <Widget>[
             FlatButton(
-              textColor: Constants.primaryColor,
+              textColor: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4)
               ),

@@ -13,10 +13,6 @@ enum _AuthType {
 }
 
 class Auth extends StatefulWidget {
-  final WidgetBuilder postAuthWidgetBuilder;
-
-  const Auth({Key key, this.postAuthWidgetBuilder}) : super(key: key);
-
   @override
   _AuthState createState() => _AuthState();
 }
@@ -50,30 +46,30 @@ class _AuthState extends State<Auth> with ModalLoaderMixin, ErrorModalMixin {
   @override
   Widget build(BuildContext context) => Scaffold(
     body: BlocListener<AuthBloc, AuthState>(
-      bloc: this._authBloc,
+      bloc: _authBloc,
       listener: (context, state) {
-        if (state.isLoading) {
-          showLoader();
-        } else {
-          hideLoader();
-        }
         if (state.exception != null) {
           showErrorModal(message: state.exception.message);
         }
-        if (state.loginFinished) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: widget.postAuthWidgetBuilder
-            ),
-          );
-        }
       },
       child: BlocProvider<AuthBloc>(
-        create: (context) => this._authBloc,
-        child: AnimatedSwitcher(
-          key: _scaffoldBodyKey,
-          duration: Duration(milliseconds: 200),
-          child: _authType == _AuthType.LOGIN ? _login : _signUp
+        create: (context) => _authBloc,
+        child: BlocBuilder<AuthBloc, AuthState>(
+          bloc: _authBloc,
+          builder: (context, state) => Stack(
+            children: <Widget>[
+              if (state.isLoading)
+                Positioned(
+                  bottom: 0, left: 0, right: 0,
+                  child: LinearProgressIndicator()
+                ),
+              AnimatedSwitcher(
+                key: _scaffoldBodyKey,
+                duration: Duration(milliseconds: 200),
+                child: _authType == _AuthType.LOGIN ? _login : _signUp
+              )
+            ],
+          ),
         ),
       ),
     ),

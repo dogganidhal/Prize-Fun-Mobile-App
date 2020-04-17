@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_prize/utils/contants.dart';
 
 mixin ModalLoaderMixin<T extends StatefulWidget> on State<T> {
 
@@ -22,7 +21,7 @@ mixin ModalLoaderMixin<T extends StatefulWidget> on State<T> {
             Platform.isIOS ?
               CupertinoActivityIndicator() :
               CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Constants.primaryColor)
+                valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor)
               ),
             Padding(
               padding: EdgeInsets.all(16),

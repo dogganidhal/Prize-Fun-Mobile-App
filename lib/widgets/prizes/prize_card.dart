@@ -3,7 +3,6 @@ import 'package:duration/duration.dart';
 import 'package:duration/locale.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_prize/model/prize.dart';
-import 'package:fun_prize/utils/contants.dart';
 
 
 class PrizeCard extends StatelessWidget {
@@ -15,11 +14,11 @@ class PrizeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      clipBehavior: Clip.antiAlias,
-      elevation: 1,
-      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4)
+        side: BorderSide(color: Theme.of(context).dividerColor, width: 0.4),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
         children: <Widget>[
@@ -37,9 +36,8 @@ class PrizeCard extends StatelessWidget {
                   right: 8,
                   bottom: 8,
                   child: MaterialButton(
-                    color: Constants.primaryColor,
+                    color: Theme.of(context).primaryColor,
                     disabledColor: Colors.grey,
-                    colorBrightness: Brightness.dark,
                     onPressed: prize.closed ?
                       null :
                       onPlayPressed,
@@ -57,9 +55,9 @@ class PrizeCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                _winnerCount,
-                _countdown,
-                _minWinnerPoints
+                _winnerCount(context),
+                _countdown(context),
+                _minWinnerPoints(context)
               ],
             ),
           ),
@@ -68,28 +66,28 @@ class PrizeCard extends StatelessWidget {
     );
   }
 
-  Widget get _winnerCount => Row(
+  Widget _winnerCount(BuildContext context) => Row(
     children: <Widget>[
       Icon(
         Icons.card_giftcard,
-        color: Colors.black38,
+        color: Theme.of(context).textTheme.display3.color
       ),
       SizedBox(width: 4),
       Text(
         prize.winnerCount.toString(),
         style: TextStyle(
           fontSize: 16,
-          color: Colors.black38
+          color: Theme.of(context).textTheme.display3.color
         ),
       )
     ],
   );
 
-  Widget get _countdown => Row(
+  Widget _countdown(BuildContext context) => Row(
     children: <Widget>[
       Icon(
         Icons.access_time,
-        color: Colors.black38,
+        color: Theme.of(context).textTheme.display3.color
       ),
       SizedBox(width: 4),
       StreamBuilder<String>(
@@ -100,7 +98,7 @@ class PrizeCard extends StatelessWidget {
               snapshot.data,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black38
+                color: Theme.of(context).textTheme.display3.color
               ),
             );
           }
@@ -110,18 +108,18 @@ class PrizeCard extends StatelessWidget {
     ],
   );
 
-  Widget get _minWinnerPoints => Row(
+  Widget _minWinnerPoints(BuildContext context) => Row(
     children: <Widget>[
       Icon(
         Icons.fiber_smart_record,
-        color: Colors.black38,
+        color: Theme.of(context).textTheme.display3.color
       ),
       SizedBox(width: 4),
       Text(
         "${prize.minWinnerScore} pts",
         style: TextStyle(
           fontSize: 16,
-          color: Colors.black38
+          color: Theme.of(context).textTheme.display3.color
         ),
       )
     ],

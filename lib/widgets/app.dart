@@ -2,66 +2,41 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
+import 'package:fun_prize/blocs/auth/auth_event.dart';
+import 'package:fun_prize/blocs/auth/auth_state.dart';
 import 'package:fun_prize/utils/contants.dart';
 import 'package:fun_prize/widgets/auth/auth.dart';
-import 'package:fun_prize/widgets/prizes/prizes.dart';
+import 'package:fun_prize/widgets/main.dart';
 
 
 class App extends StatelessWidget {
-  final bool isAuthenticated;
+  final AuthBloc _authBloc = AuthBloc();
 
-  App({Key key, this.isAuthenticated});
+  App({Key key}) {
+    _authBloc.add(LoadAuthEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(),
+      create: (context) => _authBloc,
       child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          fontFamily: "GoogleSans",
-          primaryColor: Constants.primaryColor,
-          accentColor: Constants.primaryColor,
-          colorScheme: ColorScheme.light(
-            primary: Constants.primaryColor
-          ),
-          inputDecorationTheme: InputDecorationTheme(
-            fillColor: Constants.primaryColor,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Constants.primaryColor,
-              ),
-              borderRadius: BorderRadius.circular(4)
-            ),
-            focusColor: Constants.primaryColor,
-          ),
-          appBarTheme: AppBarTheme(
-            color: Colors.white,
-            elevation: 1,
-            iconTheme: IconThemeData(
-              color: Constants.primaryColor
-            ),
-            actionsIconTheme: IconThemeData(
-              color: Constants.primaryColor
-            ),
-            textTheme: Theme.of(context)
-              .textTheme
-              .copyWith(
-                title: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20
-                )
-              )
-          ),
-          backgroundColor: Colors.white,
-          scaffoldBackgroundColor: Colors.white,
-          cursorColor: Constants.primaryColor,
+        theme: PFTheme.kLightTheme,
+        darkTheme: PFTheme.kDarkTheme,
+        home: BlocBuilder<AuthBloc, AuthState>(
+          bloc: _authBloc,
+          builder: (context, state) {
+            if (state.isAuthenticated) {
+              return Main();
+            }
+//            if (state.isLoading) {
+//              return Center(
+//                child: CircularProgressIndicator(),
+//              );
+//            }
+            return Auth();
+          }
         ),
-        home: this.isAuthenticated ?
-          Prizes() :
-          Auth(
-            postAuthWidgetBuilder: (context) => Prizes(),
-          )
       ),
     );
   }

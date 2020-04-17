@@ -11,6 +11,7 @@ import 'package:fun_prize/blocs/prizes/prizes_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/utils/contants.dart';
 import 'package:fun_prize/widgets/auth/auth.dart';
+import 'package:fun_prize/widgets/prizes/category_select.dart';
 import 'package:fun_prize/widgets/prizes/prize_card.dart';
 import 'package:fun_prize/widgets/prizes/prize_details.dart';
 
@@ -26,7 +27,7 @@ class Prizes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.light,
+        elevation: 0,
         title: Padding(
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Image.asset(Constants.logoAsset, height: 48,),
@@ -35,19 +36,18 @@ class Prizes extends StatelessWidget {
         actions: <Widget>[
           ButtonTheme(
             focusColor: Colors.black54,
-            child: PopupMenuButton(
-              onSelected: (index) => _onPopupItemPressed(context, index),
-              icon: Icon(Icons.more_vert, color: Colors.black87),
-              tooltip: "Afficher le menu",
-              itemBuilder: (context) => [
-                PopupMenuItem<int>(
-                  value: 0,
-                  child: Text("Se déconnecter"),
-                )
-              ],
+            child: IconButton(
+              icon: Icon(Icons.category),
+              onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => CategorySelect()
+              ))
             ),
           )
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Divider(height: 1)
+        ),
       ),
       body: BlocBuilder<PrizesBloc, PrizesState>(
         bloc: _bloc,
@@ -75,7 +75,7 @@ class Prizes extends StatelessWidget {
                         child: Platform.isIOS ?
                         CupertinoActivityIndicator() :
                         CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Constants.primaryColor)
+                          valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor)
                         )
                       ),
                     )
@@ -98,18 +98,5 @@ class Prizes extends StatelessWidget {
           ),
         )
       ));
-  }
-
-  void _onPopupItemPressed(BuildContext context, int index) {
-    switch(index) {
-      case 0:
-        BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => Auth(
-            postAuthWidgetBuilder: (context) => Prizes(),
-          )
-        ));
-        break;
-    }
   }
 }

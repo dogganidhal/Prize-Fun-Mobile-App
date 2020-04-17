@@ -56,7 +56,6 @@ class _SignUpState extends State<SignUp> {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black87
                           ),
                           textAlign: TextAlign.start,
                         ),
@@ -68,7 +67,7 @@ class _SignUpState extends State<SignUp> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black45
+                            color: Theme.of(context).textTheme.display2.color
                           ),
                           textAlign: TextAlign.start,
                         ),
@@ -89,16 +88,15 @@ class _SignUpState extends State<SignUp> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4)
                               ),
-                              textColor: Constants.primaryColor,
+                              textColor: Theme.of(context).primaryColor,
                               onPressed: this.widget.onLoginButtonTapped,
                               child: Text("Se connecter"),
                             ),
                             FlatButton(
-                              colorBrightness: Brightness.dark,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4)
                               ),
-                              color: Constants.primaryColor,
+                              color: Theme.of(context).primaryColor,
                               onPressed: _signUp,
                               child: Text("S'inscrire"),
                             )
@@ -155,7 +153,7 @@ class _SignUpState extends State<SignUp> {
     attribute: "email",
     decoration: InputDecoration(
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black45, width: 0.5)
+        borderSide: BorderSide(width: 0.5)
       ),
       labelText: "Adresse Email"
     ),
@@ -169,7 +167,7 @@ class _SignUpState extends State<SignUp> {
     attribute: "username",
     decoration: InputDecoration(
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black45, width: 0.5)
+        borderSide: BorderSide(width: 0.5)
       ),
       labelText: "Pseudo"
     ),
@@ -238,7 +236,7 @@ class _SignUpState extends State<SignUp> {
         ),
         actions: <Widget>[
           FlatButton(
-            textColor: Constants.primaryColor,
+            textColor: Theme.of(context).primaryColor,
             onPressed: () => Navigator.of(context).pop(),
             child: Text("OK"),
           )

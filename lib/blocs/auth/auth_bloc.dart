@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show FacebookAuthCredential;
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:fun_prize/blocs/auth/auth_event.dart';
 import 'package:fun_prize/blocs/auth/auth_state.dart';
@@ -20,31 +20,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
 
-    debugPrint(event.toString());
-
     if (event is LoginWithFacebookEvent) {
       yield state.copy
         ..isLoading = true;
-      final credentials = await facebookLogin.logIn([
-        "email"
-      ]);
-      if (credentials.status == FacebookLoginStatus.loggedIn) {
-        try {
-          final facebookCredential = FacebookAuthCredential(
-            accessToken: credentials.accessToken.token);
-          final firebaseCredential = await firebaseAuth.signInWithCredential(
-            facebookCredential);
-          yield state.copy
-            ..isLoading = false
-            ..user = firebaseCredential.user
-            ..loginFinished = true;
-        } catch (exception) {
-          yield state.copy
-            ..isLoading = false
-            ..exception = exception;
-        }
-      } else {
-        debugPrint(credentials.status.toString());
+      try {
+        final user = await authService.loginWithFacebook();
+        yield state.copy
+          ..isLoading = false
+          ..user = user
+          ..loginFinished = true;
+      } on AuthException catch (exception) {
+        yield state.copy
+          ..isLoading = false
+          ..exception = exception;
+        yield state.copy
+          ..exception = null;
       }
     }
 

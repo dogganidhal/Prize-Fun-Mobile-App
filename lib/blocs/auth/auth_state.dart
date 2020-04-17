@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseUser;
 import 'package:fun_prize/exceptions/auth.dart' show AuthException;
 
 
-class AuthState {
+class AuthState extends Equatable {
   bool loginFinished;
   bool signUpFinished;
   bool isInitialized;
@@ -30,19 +31,7 @@ class AuthState {
   );
 
   @override
-  bool operator ==(other) {
-    if (other is AuthState) {
-      return other.exception == this.exception &&
-        other.isInitialized == this.isInitialized &&
-        other.isLoading == this.isLoading &&
-        other.isFormValid == this.isFormValid &&
-        other.user == this.user &&
-        other.loginFinished == this.loginFinished &&
-        other.signUpFinished == this.signUpFinished;
-    }
-    return super == other;
-  }
-
-  @override
-  int get hashCode => this.hashCode;
+  List<Object> get props => [
+    loginFinished, signUpFinished, isInitialized, isLoading, isFormValid, user, exception
+  ];
 }

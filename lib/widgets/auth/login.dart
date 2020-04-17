@@ -49,7 +49,6 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black87
                         ),
                         textAlign: TextAlign.start,
                       ),
@@ -61,7 +60,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black45
+                          color: Theme.of(context).textTheme.display2.color
                         ),
                         textAlign: TextAlign.start,
                       ),
@@ -71,7 +70,7 @@ class _LoginState extends State<Login> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Constants.primaryColor,
+                            color: Theme.of(context).primaryColor,
                             width: 0.5,
                           ),
                         ),
@@ -87,7 +86,7 @@ class _LoginState extends State<Login> {
                       attribute: "password",
                       maxLines: 1,
                       decoration: InputDecoration(
-                        focusColor: Constants.primaryColor,
+                        focusColor: Theme.of(context).primaryColor,
                         border: OutlineInputBorder(),
                         labelText: "Mot de passe",
                         suffixIcon: IconButton(
@@ -114,16 +113,15 @@ class _LoginState extends State<Login> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4)
                             ),
-                            textColor: Constants.primaryColor,
+                            textColor: Theme.of(context).primaryColor,
                             onPressed: this.widget.onSignUpButtonTapped,
                             child: Text("S'inscrire"),
                           ),
                           FlatButton(
-                            colorBrightness: Brightness.dark,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4)
                             ),
-                            color: Constants.primaryColor,
+                            color: Theme.of(context).primaryColor,
                             onPressed: _login,
                             child: Text("Se connecter"),
                           )
@@ -136,7 +134,7 @@ class _LoginState extends State<Login> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)
                         ),
-                        textColor: Constants.primaryColor,
+                        textColor: Theme.of(context).primaryColor,
                         onPressed: this._loginWithFacebook,
                         child: Text("Se connecter avec Facebook"),
                       ),

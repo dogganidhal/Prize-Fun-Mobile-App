@@ -23,6 +23,8 @@ class AuthException implements Exception {
         return "Erreur, trop de requêtes";
       case 'ERROR_OPERATION_NOT_ALLOWED':
         return "Connexion non autorisée";
+      case 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL':
+        return "Compte existe avec une autre méthode de connexion";
       default:
         return null;
     }
