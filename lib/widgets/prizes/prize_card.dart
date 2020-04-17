@@ -20,48 +20,53 @@ class PrizeCard extends StatelessWidget {
         side: BorderSide(color: Theme.of(context).dividerColor, width: 0.4),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 192,
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: CachedNetworkImage(
-                    imageUrl: prize.imageUrl,
-                    fit: BoxFit.cover,
-                  )
-                ),
-                Positioned(
-                  right: 8,
-                  bottom: 8,
-                  child: MaterialButton(
-                    color: Theme.of(context).primaryColor,
-                    disabledColor: Colors.grey,
-                    onPressed: prize.closed ?
-                      null :
-                      onPlayPressed,
-                    child: Text("Jouer"),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)
-                    ),
+      child: InkWell(
+        onTap: prize.closed ?
+          null :
+          onPlayPressed,
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 192,
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: CachedNetworkImage(
+                      imageUrl: prize.imageUrl,
+                      fit: BoxFit.cover,
+                    )
                   ),
-                )
-              ],
+                  Positioned(
+                    right: 8,
+                    bottom: 8,
+                    child: MaterialButton(
+                      color: Theme.of(context).primaryColor,
+                      disabledColor: Colors.grey,
+                      onPressed: prize.closed ?
+                        null :
+                        onPlayPressed,
+                      child: Text("Jouer"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                _winnerCount(context),
-                _countdown(context),
-                _minWinnerPoints(context)
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  _winnerCount(context),
+                  _countdown(context),
+                  _minWinnerPoints(context)
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
