@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fun_prize/utils/contants.dart';
+import 'package:fun_prize/utils/constants.dart';
 
 
 mixin ErrorModalMixin<T extends StatefulWidget> on State<T> {

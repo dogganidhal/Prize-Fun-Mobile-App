@@ -7,7 +7,7 @@ import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/service/prizes_service.dart';
-import 'package:fun_prize/utils/contants.dart';
+import 'package:fun_prize/utils/constants.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

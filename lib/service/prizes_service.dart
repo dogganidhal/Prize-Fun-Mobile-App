@@ -68,6 +68,7 @@ class PrizesService {
 
   Future<Null> _removeRedundantRankingsIfNeeded(QuerySnapshot rankingSnapshot, String uid) async {
     final rankingWithMaxScore = rankingSnapshot.documents
+      .where((document) => document['uid'] == uid)
       .reduce((max, rankingDoc) => max.data["score"] < rankingDoc.data["score"] ? rankingDoc : max);
     rankingSnapshot.documents
       .where((document) => document.documentID != rankingWithMaxScore.documentID)

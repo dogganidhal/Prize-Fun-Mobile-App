@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_event.dart';
-import 'package:fun_prize/utils/contants.dart';
+import 'package:fun_prize/utils/constants.dart';
+import 'package:fun_prize/widgets/auth/reset_password.dart';
 
 
 class Login extends StatefulWidget {
@@ -92,14 +93,14 @@ class _LoginState extends State<Login> {
                         suffixIcon: IconButton(
                           padding: EdgeInsets.zero,
                           icon: Icon(
-                            this._isPasswordTextObscure ?
+                            _isPasswordTextObscure ?
                             Icons.visibility :
                             Icons.visibility_off
                           ),
-                          onPressed: this._togglePasswordObscureText,
+                          onPressed: _togglePasswordObscureText,
                         )
                       ),
-                      obscureText: this._isPasswordTextObscure,
+                      obscureText: _isPasswordTextObscure,
                       validators: [
                         FormBuilderValidators.required(errorText: "Ce champ est requis")
                       ],
@@ -114,7 +115,7 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(4)
                             ),
                             textColor: Theme.of(context).primaryColor,
-                            onPressed: this.widget.onSignUpButtonTapped,
+                            onPressed: widget.onSignUpButtonTapped,
                             child: Text("S'inscrire"),
                           ),
                           FlatButton(
@@ -129,14 +130,25 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.symmetric(vertical: 4),
                       child: FlatButton(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)
                         ),
                         textColor: Theme.of(context).primaryColor,
-                        onPressed: this._loginWithFacebook,
+                        onPressed: _loginWithFacebook,
                         child: Text("Se connecter avec Facebook"),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4),
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        textColor: Theme.of(context).primaryColor,
+                        onPressed: _resetPassword,
+                        child: Text("Mot de passe oublié ?"),
                       ),
                     ),
                   ],
@@ -147,6 +159,15 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void _resetPassword() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => Theme(
+        data: Theme.of(context),
+        child: ResetPassword()
+      )
+    ));
   }
 
   void _loginWithFacebook() {
@@ -168,6 +189,6 @@ class _LoginState extends State<Login> {
   }
 
   void _togglePasswordObscureText() {
-    this.setState(() => this._isPasswordTextObscure = !this._isPasswordTextObscure);
+    setState(() => _isPasswordTextObscure = !_isPasswordTextObscure);
   }
 }

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' show AdditionalUserInfo, AuthResult, FirebaseAuth, FirebaseUser;
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show FacebookAuthCredential;
+import 'package:firebase_auth/firebase_auth.dart' show AdditionalUserInfo,
+  AuthResult, FirebaseAuth, FirebaseUser;
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show
+  FacebookAuthCredential;
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:fun_prize/exceptions/auth.dart';
@@ -78,6 +80,14 @@ class AuthService {
       }
     }
     return null;
+  }
+
+  Future<Null> requestPasswordReset(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  Future<Null> confirmPasswordReset(String code, String newPassword) async {
+    await _firebaseAuth.confirmPasswordReset(code, newPassword);
   }
 
   Future<FirebaseUser> currentUser() => this._firebaseAuth.currentUser();

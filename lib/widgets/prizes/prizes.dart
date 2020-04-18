@@ -9,7 +9,7 @@ import 'package:fun_prize/blocs/prizes/prizes_bloc.dart';
 import 'package:fun_prize/blocs/prizes/prizes_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_state.dart';
 import 'package:fun_prize/model/prize.dart';
-import 'package:fun_prize/utils/contants.dart';
+import 'package:fun_prize/utils/constants.dart';
 import 'package:fun_prize/widgets/auth/auth.dart';
 import 'package:fun_prize/widgets/prizes/category_select.dart';
 import 'package:fun_prize/widgets/prizes/prize_card.dart';
