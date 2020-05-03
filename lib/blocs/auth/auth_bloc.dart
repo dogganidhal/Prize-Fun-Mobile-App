@@ -58,7 +58,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
 
     if (event is LoadAuthEvent) {
-      final user = await this._authService.currentUser();
+      final user = await _authService.currentUser();
       yield state.copy
         ..isInitialized = true
         ..user = user;
@@ -68,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield state.copy
         ..isLoading = true;
       try {
-        final user = await this._authService.login(
+        final user = await _authService.login(
           email: event.email,
           password: event.password
         );

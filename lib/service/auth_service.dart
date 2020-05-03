@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show AdditionalUserInfo,
   AuthResult, FirebaseAuth, FirebaseUser;
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show
-  FacebookAuthCredential;
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show EmailAuthCredential, FacebookAuthCredential;
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:fun_prize/exceptions/auth.dart';
-import 'package:fun_prize/utils/concurrent.dart';
+import 'package:fun_prize/model/user.dart';
 
 
 class AuthService {
@@ -18,9 +17,9 @@ class AuthService {
 
   Future<FirebaseUser> login({String email, String password}) async {
     try {
-      AuthResult authResult = await delayed(_firebaseAuth.signInWithEmailAndPassword(
+      AuthResult authResult = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password
-      ));
+      );
       if (!authResult.user.isEmailVerified) {
         throw new AuthException(
           "Vous n'avez pas confirmé votre adresse email, "
@@ -37,19 +36,23 @@ class AuthService {
     String firstName, String lastName, String email,
     String username, String password
   }) async {
-    final authResult = await delayed(_firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password
-    ));
-    await _firestore.collection(_kUsersCollection)
-      .document(authResult.user.uid)
-      .setData({
-        "firstName": firstName,
-        "lastName": lastName,
-        "username": username,
-        "email": email
-      });
-    authResult.user.sendEmailVerification();
+    try {
+      final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password
+      );
+      await _firestore.collection(_kUsersCollection)
+        .document(authResult.user.uid)
+        .setData({
+          "firstName": firstName,
+          "lastName": lastName,
+          "username": username,
+          "email": email
+        });
+      authResult.user.sendEmailVerification();
+    } on PlatformException catch (exception) {
+      throw AuthException.fromPlatformException(exception);
+    }
   }
 
   Future<FirebaseUser> loginWithFacebook() async {
@@ -90,7 +93,44 @@ class AuthService {
     await _firebaseAuth.confirmPasswordReset(code, newPassword);
   }
 
-  Future<FirebaseUser> currentUser() => this._firebaseAuth.currentUser();
+  Future<Null> updateUser({
+    String email,
+    String username,
+    String firstName,
+    String lastName,
+    String address,
+    int age
+  }) async {
+    final firebaseUser = await _firebaseAuth.currentUser();
+    final userDocument = await _firestore
+      .collection(_kUsersCollection)
+      .document(firebaseUser.uid)
+      .get();
+    try {
+      await firebaseUser.updateEmail(email);
+      await userDocument.reference.setData({
+        "email": email,
+        "username": username,
+        "firstName": firstName,
+        "lastName": lastName,
+        "address": address,
+        "age": age
+      });
+    } on PlatformException catch (exception) {
+      throw AuthException.fromPlatformException(exception);
+    }
+  }
+
+  Future<User> loadCurrentUser() async {
+    final firebaseUser = await _firebaseAuth.currentUser();
+    final userDocument = await _firestore
+      .collection(_kUsersCollection)
+      .document(firebaseUser.uid)
+      .get();
+    return User.fromDocument(userDocument);
+  }
+
+  Future<FirebaseUser> currentUser() => _firebaseAuth.currentUser();
 
   Future<Null> logout() async {
     await _firebaseAuth.signOut();

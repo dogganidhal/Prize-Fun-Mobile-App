@@ -22,6 +22,7 @@ abstract class PFTheme {
     accentColor: kLightAccentColor,
     errorColor: kErrorColor,
     cursorColor: kLightPrimaryColor,
+    textSelectionHandleColor: kLightPrimaryColor,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: kLightAccentColor,
       elevation: 1
@@ -65,6 +66,7 @@ abstract class PFTheme {
     backgroundColor: kDarkColor,
     scaffoldBackgroundColor: kDarkColor,
     cursorColor: kDarkPrimaryColor,
+    textSelectionHandleColor: kDarkPrimaryColor,
     textTheme: TextTheme(
       body1: TextStyle(
         color: kLightColor,
