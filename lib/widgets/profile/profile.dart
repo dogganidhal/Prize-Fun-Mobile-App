@@ -23,7 +23,7 @@ class Profile extends StatelessWidget {
         elevation: 0,
         title: Padding(
           padding: EdgeInsets.symmetric(vertical: 8),
-          child: Text("Profile"),
+          child: Text("Profil"),
         ),
         centerTitle: true,
         bottom: PreferredSize(

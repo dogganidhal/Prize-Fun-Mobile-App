@@ -123,7 +123,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               ),
               textColor: Theme.of(context).primaryColor,
               onPressed: _submitResetRequest,
-              child: Text("Demander un code de réinitialization"),
+              child: Text("Demander un code de réinitialisation"),
             ),
           ),
         ],
@@ -147,9 +147,9 @@ class _ResetPasswordState extends State<ResetPassword> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4)
         ),
-        title: Text("Demande de réinitialization"),
+        title: Text("Demande de réinitialisation"),
         content: Text(
-          "Votre demande de réinitialization a bien été prise en compte!\n"
+          "Votre demande de réinitialisation a bien été prise en compte!\n"
           "Veuillez consulter votre boite email pour les instructions de création d'un nouveau mot de passe"
         ),
         actions: <Widget>[
