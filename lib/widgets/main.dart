@@ -36,7 +36,7 @@ class _MainState extends State<Main> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Text('Profile')
+            title: Text('Profil')
           )
         ],
       ),

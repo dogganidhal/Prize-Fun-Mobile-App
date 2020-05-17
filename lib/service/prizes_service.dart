@@ -57,7 +57,9 @@ class PrizesService {
     rankingSnapshots = await _rankingsForPrize(prize);
 
     final rankings = Rankings.fromDocumentList(rankingSnapshots.documents);
-    final minWinnerScore = rankings[min(rankings.length, prize.winnerCount) - 1].score;
+    final minWinnerScore = rankings.length > prize.winnerCount ?
+      rankings[min(rankings.length, prize.winnerCount) - 1].score :
+      0;
     _firestore
       .collection(_kPrizesCollection)
       .document(prize.id)
@@ -71,6 +73,7 @@ class PrizesService {
       .where((document) => document['uid'] == uid)
       .reduce((max, rankingDoc) => max.data["score"] < rankingDoc.data["score"] ? rankingDoc : max);
     rankingSnapshot.documents
+      .where((document) => document.data['uid'] == uid)
       .where((document) => document.documentID != rankingWithMaxScore.documentID)
       .forEach((document) => document.reference.delete());
   }
