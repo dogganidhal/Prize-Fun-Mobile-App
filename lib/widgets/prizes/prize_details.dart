@@ -7,7 +7,6 @@ import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/service/prizes_service.dart';
-import 'package:fun_prize/utils/constants.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -119,16 +118,10 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                                   padding: EdgeInsets.all(8),
                                   child: Text(widget.prize.description),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Text(
-                                    "Classement actuel",
-                                    style: Theme.of(context).textTheme.title,
-                                  ),
-                                ),
                                 RankingsCard(
                                   prize: widget.prize,
-                                  rankings: state.rankings
+                                  rankings: state.rankings,
+                                  userFuture: state.userFuture,
                                 ),
                               ],
                             ),
