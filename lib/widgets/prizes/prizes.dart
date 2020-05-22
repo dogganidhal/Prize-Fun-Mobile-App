@@ -3,14 +3,10 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fun_prize/blocs/auth/auth_bloc.dart';
-import 'package:fun_prize/blocs/auth/auth_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_bloc.dart';
-import 'package:fun_prize/blocs/prizes/prizes_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/utils/constants.dart';
-import 'package:fun_prize/widgets/auth/auth.dart';
 import 'package:fun_prize/widgets/prizes/category_select.dart';
 import 'package:fun_prize/widgets/prizes/prize_card.dart';
 import 'package:fun_prize/widgets/prizes/prize_details.dart';
@@ -18,10 +14,6 @@ import 'package:fun_prize/widgets/prizes/prize_details.dart';
 
 class Prizes extends StatelessWidget {
   final PrizesBloc _bloc = PrizesBloc();
-
-  Prizes({Key key}) : super(key: key) {
-    _bloc.add(LoadPrizesEvent());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +31,7 @@ class Prizes extends StatelessWidget {
             child: IconButton(
               icon: Icon(Icons.category),
               onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CategorySelect()
+                builder: (context) => CategorySelect(prizesBloc: _bloc,)
               ))
             ),
           )

@@ -27,24 +27,21 @@ class RankingsCard extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                if (_haveScoreToBeat(snapshot.data))
-                  ...[
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        "Score à battre",
-                        style: Theme.of(context)
-                          .textTheme
-                          .headline6,
-                      ),
-                    ),
-                    Table(
-                      children: <TableRow>[
-                        _header(context),
-                        _scoreToBeatRow(snapshot.data)
-                      ],
-                    ),
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    "Score à battre",
+                    style: Theme.of(context)
+                      .textTheme
+                      .headline6,
+                  ),
+                ),
+                Table(
+                  children: <TableRow>[
+                    _header(context),
+                    _scoreToBeatRow(snapshot.data)
                   ],
+                ),
                 if (userSnapshot.hasData && _userDidParticipate(snapshot.data, userSnapshot.data))
                   ...[
                     Padding(
@@ -109,10 +106,14 @@ class RankingsCard extends StatelessWidget {
   }
 
   TableRow _scoreToBeatRow(Rankings rankings) {
-    assert(_haveScoreToBeat(rankings));
     final sortedRankings = List<PrizeParticipation>.from(rankings)
       ..sort((lhs, rhs) => rhs.score - lhs.score);
-    final participationToBeat = sortedRankings[prize.winnerCount - 1];
+    final participationToBeat = _haveScoreToBeat(rankings) ?
+      sortedRankings[prize.winnerCount - 1] :
+      PrizeParticipation(
+        username: '-',
+        score: 0
+      );
     return TableRow(
       children: <Widget>[
         TableCell(

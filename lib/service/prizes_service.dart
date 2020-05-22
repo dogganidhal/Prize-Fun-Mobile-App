@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fun_prize/model/prize.dart';
+import 'package:fun_prize/model/prize_category.dart';
 import 'package:fun_prize/model/prize_participation.dart';
 import 'package:fun_prize/model/rankings.dart';
 
@@ -10,6 +11,7 @@ class PrizesService {
   static String _kUsersCollection = "users";
   static String _kPrizesCollection = "prizes";
   static String _kRankingsCollection = "rankings";
+  static String _kCategoriesCollection = "categories";
   // ignore: non_constant_identifier_names
   static String _kRankingsCollection_PrizeIdField = "prizeId";
   // ignore: non_constant_identifier_names
@@ -49,6 +51,14 @@ class PrizesService {
     await _firestore.collection(_kRankingsCollection)
       .add(participation.map);
     await _postRankingSubmit(prize, user);
+  }
+
+  Future<List<PrizeCategory>> get categories async {
+    final snapshot = await _firestore.collection(_kCategoriesCollection)
+      .getDocuments();
+    return snapshot.documents
+      .map((document) => PrizeCategory.fromDocument(document))
+      .toList();
   }
 
   Future<Null> _postRankingSubmit(Prize prize, FirebaseUser user) async {
