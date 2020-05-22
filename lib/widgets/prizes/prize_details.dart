@@ -101,32 +101,82 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                     SliverFillRemaining(
                       hasScrollBody: false,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Text(
-                                    widget.prize.subTitle,
-                                    style: Theme.of(context).textTheme.title,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(8),
-                                  child: Text(widget.prize.description),
-                                ),
-                                RankingsCard(
-                                  prize: widget.prize,
-                                  rankings: state.rankings,
-                                  userFuture: state.userFuture,
-                                ),
-                              ],
+                          Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text(
+                              widget.prize.subTitle,
+                              style: Theme.of(context).textTheme.title,
                             ),
                           ),
-                          Container(height: 360)
+                          Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(widget.prize.description),
+                          ),
+                          RankingsCard(
+                            prize: widget.prize,
+                            rankings: state.rankings,
+                            userFuture: state.userFuture,
+                          ),
+                          SizedBox(height: 48),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Divider(height: 1),
+                              InkWell(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text("Classement général"),
+                                      Expanded(child: Container()),
+                                      Icon(
+                                        Icons.chevron_right,
+                                        color: Theme.of(context).primaryColor,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Divider(height: 1),
+                              InkWell(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text("Site merchant"),
+                                      Expanded(child: Container()),
+                                      Icon(
+                                        Icons.chevron_right,
+                                        color: Theme.of(context).primaryColor,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Divider(height: 1),
+                              InkWell(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text("Règlement du concours"),
+                                      Expanded(child: Container()),
+                                      Icon(
+                                        Icons.chevron_right,
+                                        color: Theme.of(context).primaryColor,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Divider(height: 1),
+                            ]
+                          )
                         ],
                       ),
                     ),
