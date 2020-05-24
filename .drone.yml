@@ -3,9 +3,9 @@ name: default
 
 steps:
 - name: test
-    image: node
-    commands:
-    - npm install
-    - npm test
-    when:
-      event: [push, pull_request, tag]
+  image: node
+  commands:
+  - npm install
+  - npm test
+  when:
+    event: [push, pull_request, tag]
