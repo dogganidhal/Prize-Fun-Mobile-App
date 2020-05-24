@@ -1,0 +1,8 @@
+pipeline:
+
+  test:
+    image: node:10
+    commands:
+      - npm test
+    when:
+      event: [push, pull_request, tag]
