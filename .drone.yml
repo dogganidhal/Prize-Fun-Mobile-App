@@ -3,9 +3,8 @@ name: default
 
 steps:
 - name: test
-  image: node
+  image: cirrusci/flutter:stable
   commands:
-  - npm install
-  - npm test
+  - flutter doctor
   when:
     event: [push, pull_request, tag]
