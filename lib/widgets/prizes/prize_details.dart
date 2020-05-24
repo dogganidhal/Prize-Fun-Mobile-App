@@ -7,8 +7,10 @@ import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/widgets/prizes/prize_rules.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fun_prize/widgets/prizes/webview_scaffold.dart';
 
 
 class PrizeDetails extends StatefulWidget {
@@ -140,41 +142,55 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                                   ),
                                 ),
                               ),
-                              Divider(height: 1),
-                              InkWell(
-                                onTap: () {},
-                                child: Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text("Site merchant"),
-                                      Expanded(child: Container()),
-                                      Icon(
-                                        Icons.chevron_right,
-                                        color: Theme.of(context).primaryColor,
+                              if (widget.prize.merchantWebsite != null)
+                                ...[
+                                  Divider(height: 1),
+                                  InkWell(
+                                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => WebviewScaffold(
+                                        url: widget.prize.merchantWebsite,
                                       )
-                                    ],
+                                    )),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text("Site merchant"),
+                                          Expanded(child: Container()),
+                                          Icon(
+                                            Icons.chevron_right,
+                                            color: Theme.of(context).primaryColor,
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Divider(height: 1),
-                              InkWell(
-                                onTap: () {},
-                                child: Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text("Règlement du concours"),
-                                      Expanded(child: Container()),
-                                      Icon(
-                                        Icons.chevron_right,
-                                        color: Theme.of(context).primaryColor,
+                                ],
+                              if (widget.prize.prizeRules != null)
+                                ...[
+                                  Divider(height: 1),
+                                  InkWell(
+                                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => PrizeRules(
+                                        rules: widget.prize.prizeRules,
                                       )
-                                    ],
+                                    )),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text("Règlement du concours"),
+                                          Expanded(child: Container()),
+                                          Icon(
+                                            Icons.chevron_right,
+                                            color: Theme.of(context).primaryColor,
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Divider(height: 1),
+                                  Divider(height: 1),
+                                ]
                             ]
                           )
                         ],
