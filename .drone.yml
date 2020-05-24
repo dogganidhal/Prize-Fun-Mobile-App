@@ -1,9 +1,11 @@
-pipeline:
+kind: pipeline
+name: default
 
-  test:
-    image: node:10
+steps:
+- name: test
+    image: node
     commands:
-      - npm ci
-      - npm test
+    - npm install
+    - npm test
     when:
       event: [push, pull_request, tag]
