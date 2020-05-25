@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fun_prize/blocs/prizes/prizes_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_state.dart';
+import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/prizes_service.dart';
 
 

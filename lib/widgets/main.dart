@@ -31,11 +31,18 @@ class _MainState extends State<Main> {
         selectedItemColor: Theme.of(context).primaryColor,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_giftcard),
+            icon: Image.asset(
+              "assets/gift.png",
+              height: 24,
+              colorBlendMode: BlendMode.srcIn,
+              color: _index == 0 ?
+                Theme.of(context).primaryColor :
+                Theme.of(context).unselectedWidgetColor,
+            ),
             title: Text('Concours')
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
             title: Text('Profil')
           )
         ],

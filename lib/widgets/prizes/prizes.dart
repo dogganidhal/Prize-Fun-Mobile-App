@@ -29,7 +29,11 @@ class Prizes extends StatelessWidget {
           ButtonTheme(
             focusColor: Colors.black54,
             child: IconButton(
-              icon: Icon(Icons.category),
+              icon: Image.asset(
+                "assets/category-icon.png",
+                height: 24,
+                color: Theme.of(context).primaryColor,
+              ),
               onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => CategorySelect(prizesBloc: _bloc,)
               ))

@@ -30,7 +30,15 @@ class PrizesService {
       })
       .toList()
     )
-    .asyncMap((futures) => Future.wait(futures));
+    .asyncMap((futures) => Future.wait(futures))
+    .map((prizeList) {
+      final sortedPrizes = List<Prize>.from(prizeList
+        .where((element) => element.dueDate.compareTo(DateTime.now()) > 0)
+      );
+      sortedPrizes.sort((lhs, rhs) => lhs.dueDate.compareTo(rhs.dueDate));
+      sortedPrizes.addAll(prizeList.where((element) => element.dueDate.compareTo(DateTime.now()) <= 0));
+      return sortedPrizes;
+    });
 
   Stream<Rankings> rankings(Prize prize) => _firestore.collection(_kRankingsCollection)
     .where(_kRankingsCollection_PrizeIdField, isEqualTo: prize.id)
