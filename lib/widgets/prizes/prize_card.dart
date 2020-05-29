@@ -28,30 +28,9 @@ class PrizeCard extends StatelessWidget {
           children: <Widget>[
             SizedBox(
               height: 192,
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: CachedNetworkImage(
-                      imageUrl: prize.imageUrl,
-                      fit: BoxFit.cover,
-                    )
-                  ),
-                  Positioned(
-                    right: 8,
-                    bottom: 8,
-                    child: MaterialButton(
-                      color: Theme.of(context).primaryColor,
-                      disabledColor: Colors.grey,
-                      onPressed: prize.closed ?
-                        null :
-                        onPlayPressed,
-                      child: Text("Jouer"),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)
-                      ),
-                    ),
-                  )
-                ],
+              child: CachedNetworkImage(
+                imageUrl: prize.imageUrl,
+                fit: BoxFit.cover,
               ),
             ),
             Padding(
@@ -73,9 +52,10 @@ class PrizeCard extends StatelessWidget {
 
   Widget _winnerCount(BuildContext context) => Row(
     children: <Widget>[
-      Icon(
-        Icons.card_giftcard,
-        color: Theme.of(context).textTheme.display3.color
+      Image.asset(
+        "assets/gift.png",
+        width: 20, height: 20,
+        color: Theme.of(context).unselectedWidgetColor,
       ),
       SizedBox(width: 4),
       Text(

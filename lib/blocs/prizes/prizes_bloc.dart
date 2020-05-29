@@ -28,7 +28,7 @@ class PrizesBloc extends Bloc<PrizesEvent, PrizesState> {
       yield PrizesState(
         prizes: _prizesService.prizes
           .map((prizes) => prizes
-          .where((prize) => newCategoryList.isEmpty || newCategoryList.contains(prize.categoryId))
+          .where((prize) => prize.categoryId == null || newCategoryList.isEmpty || newCategoryList.contains(prize.categoryId))
           .toList()
         ),
         selectedCategoryIds: newCategoryList

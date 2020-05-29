@@ -125,6 +125,30 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
+                              if (widget.prize.merchantWebsite != null)
+                                ...[
+                                  Divider(height: 1),
+                                  InkWell(
+                                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => WebviewScaffold(
+                                        url: widget.prize.merchantWebsite,
+                                      )
+                                    )),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text("En savoir plus"),
+                                          Expanded(child: Container()),
+                                          Icon(
+                                            Icons.chevron_right,
+                                            color: Theme.of(context).primaryColor,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               Divider(height: 1),
                               InkWell(
                                 onTap: () {},
@@ -142,30 +166,6 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                                   ),
                                 ),
                               ),
-                              if (widget.prize.merchantWebsite != null)
-                                ...[
-                                  Divider(height: 1),
-                                  InkWell(
-                                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => WebviewScaffold(
-                                        url: widget.prize.merchantWebsite,
-                                      )
-                                    )),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(16),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Text("Site merchant"),
-                                          Expanded(child: Container()),
-                                          Icon(
-                                            Icons.chevron_right,
-                                            color: Theme.of(context).primaryColor,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
                               if (widget.prize.prizeRules != null)
                                 ...[
                                   Divider(height: 1),

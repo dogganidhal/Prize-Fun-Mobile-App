@@ -9,6 +9,7 @@ import 'package:fun_prize/blocs/prizes/prizes_event.dart';
 import 'package:fun_prize/blocs/prizes/prizes_state.dart';
 import 'package:fun_prize/model/prize_category.dart';
 import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/widgets/prizes/prize_category_card.dart';
 
 
 class CategorySelect extends StatefulWidget {
@@ -78,13 +79,12 @@ class _CategorySelectState extends State<CategorySelect> {
                   padding: EdgeInsets.all(16),
                   color: Theme.of(context).backgroundColor,
                   child: Text(
-                    stringForPrizeCategoryType(type).toUpperCase(),
+                    stringForPrizeCategoryType(type),
                     style: Theme.of(context)
                       .textTheme
                       .headline6
                       .copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold
+                        color: Theme.of(context).primaryColor
                       ),
                   ),
                 ),
@@ -96,7 +96,10 @@ class _CategorySelectState extends State<CategorySelect> {
               itemCount: groupedCategories[type].length,
               itemBuilder: (context, index) => SizedBox(
                 height: 200,
-                child: _categoryCard(groupedCategories[type][index])
+                child: PrizeCategoryCard(
+                  prizesBloc: widget.prizesBloc,
+                  category: groupedCategories[type][index]
+                )
               ),
               staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
               mainAxisSpacing: 4.0,
@@ -107,51 +110,4 @@ class _CategorySelectState extends State<CategorySelect> {
       ],
     );
   }
-
-  Widget _categoryCard(PrizeCategory category) => BlocBuilder<PrizesBloc, PrizesState>(
-    bloc: widget.prizesBloc,
-    builder: (context, state) => Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: state.selectedCategoryIds.contains(category.id) ?
-            Theme.of(context).primaryColor :
-            Theme.of(context).dividerColor,
-          width: 0.4
-        ),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      color: state.selectedCategoryIds.contains(category.id) ?
-        Theme.of(context).primaryColor.withOpacity(0.75) :
-        Theme.of(context).cardColor,
-      child: InkWell(
-        onTap: () {
-          widget.prizesBloc.add(ToggleCategoryFilterEvent(category: category));
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: category.photoUrl != null ?
-                CachedNetworkImage(
-                  imageUrl: category.photoUrl,
-                  fit: BoxFit.cover,
-                ) :
-                Image.asset(
-                  "assets/placeholder.jpeg",
-                  fit: BoxFit.cover,
-                ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Center(
-                child: Text(category.title),
-              ),
-            )
-          ],
-        ),
-      ),
-    ),
-  );
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fun_prize/widgets/dashboard/dashboard.dart';
 import 'package:fun_prize/widgets/prizes/prizes.dart';
 import 'package:fun_prize/widgets/profile/profile.dart';
 
@@ -13,6 +13,7 @@ class _MainState extends State<Main> {
 
   final Widget _prizes = Prizes();
   final Widget _profile = Profile();
+  final Widget _dashboard = Dashboard();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class _MainState extends State<Main> {
         index: _index,
         children: <Widget>[
           _prizes,
+          _dashboard,
           _profile
         ],
       ),
@@ -40,6 +42,10 @@ class _MainState extends State<Main> {
                 Theme.of(context).unselectedWidgetColor,
             ),
             title: Text('Concours')
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            title: Text('Tableau de bord')
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
