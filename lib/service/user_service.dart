@@ -35,30 +35,18 @@ class UserService {
         })
         .toList()
       )
-      .asyncMap((future) => Future.wait(future));
+      .asyncMap((future) => Future.wait(future))
+      .map((List<PrizeParticipation> participationList) {
+        final sortedParticipations = List<PrizeParticipation>.from(participationList
+          .where((participation) => participation.prize.dueDate.compareTo(DateTime.now()) > 0)
+        );
+        sortedParticipations.sort((lhs, rhs) => lhs.prize.dueDate.compareTo(rhs.prize.dueDate));
+        sortedParticipations.addAll(
+          participationList
+            .where((element) => element.prize.dueDate.compareTo(DateTime.now()) <= 0)
+        );
+        return sortedParticipations;
+      });
   }
 
-  Future<List<PrizeParticipation>> loadUserParticipations() async {
-    final user = await _firebaseAuth.currentUser();
-    assert(user != null);
-    final snapshot = await _firestore
-      .collection(_kRankingsCollection)
-      .where("uid", isEqualTo: user.uid)
-      .getDocuments();
-    return Future.wait(
-      snapshot.documents
-        .map((document) async {
-          final prizeDocument = await _firestore
-            .document("$_kPrizesCollection/${document.data['prizeId']}")
-            .get();
-          final rankingDocuments = await _firestore.collection(_kRankingsCollection)
-            .where(_kRankingsCollection_PrizeIdField, isEqualTo: prizeDocument.documentID)
-            .getDocuments();
-          return PrizeParticipation.fromDocument(
-            document,
-            prize: Prize.fromDocument(prizeDocument, rankingDocuments.documents)
-          );
-        })
-    );
-  }
 }

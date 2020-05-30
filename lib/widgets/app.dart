@@ -18,12 +18,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: PFTheme.kLightTheme,
-      darkTheme: PFTheme.kDarkTheme,
-      home: BlocProvider<AuthBloc>(
-        create: (context) => _authBloc,
-        child: BlocBuilder<AuthBloc, AuthState>(
+    return BlocProvider<AuthBloc>(
+      create: (context) => _authBloc,
+      child: MaterialApp(
+        theme: PFTheme.kLightTheme,
+        darkTheme: PFTheme.kDarkTheme,
+        home: BlocBuilder<AuthBloc, AuthState>(
           bloc: _authBloc,
           builder: (context, state) {
             if (state.isAuthenticated) {

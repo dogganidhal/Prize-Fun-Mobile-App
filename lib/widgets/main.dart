@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fun_prize/widgets/dashboard/dashboard.dart';
 import 'package:fun_prize/widgets/fun_points/fun_points.dart';
 import 'package:fun_prize/widgets/prizes/prizes.dart';
-import 'package:fun_prize/widgets/dashboard/profile.dart';
 
 class Main extends StatefulWidget {
   @override

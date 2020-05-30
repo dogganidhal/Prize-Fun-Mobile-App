@@ -10,7 +10,7 @@ class Rankings extends ListBase<PrizeParticipation> {
   List<PrizeParticipation> get sorted {
     if (_sorted == null) {
       _sorted = List.from(_winners);
-      _sorted.sort((lhs, rhs) => lhs.score - rhs.score);
+      _sorted.sort((lhs, rhs) => rhs.score - lhs.score);
     }
     return _sorted;
   }

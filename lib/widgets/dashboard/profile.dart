@@ -33,7 +33,10 @@ class Profile extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.exit_to_app),
-            onPressed: () => BlocProvider.of<AuthBloc>(context).add(LogoutEvent())
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(LogoutEvent());
+              Navigator.of(context).pop();
+            }
           ),
           IconButton(
             icon: Icon(Icons.check),

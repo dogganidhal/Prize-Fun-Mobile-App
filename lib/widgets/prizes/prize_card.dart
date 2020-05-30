@@ -70,9 +70,10 @@ class PrizeCard extends StatelessWidget {
 
   Widget _countdown(BuildContext context) => Row(
     children: <Widget>[
-      Icon(
-        Icons.access_time,
-        color: Theme.of(context).textTheme.display3.color
+      Image.asset(
+        "assets/clock.png",
+        width: 22, height: 22,
+        color: Theme.of(context).unselectedWidgetColor,
       ),
       SizedBox(width: 4),
       StreamBuilder<String>(
@@ -95,8 +96,9 @@ class PrizeCard extends StatelessWidget {
 
   Widget _minWinnerPoints(BuildContext context) => Row(
     children: <Widget>[
-      Icon(
-        Icons.fiber_smart_record,
+      Image.asset(
+        "assets/target.png",
+        height: 24,
         color: Theme.of(context).textTheme.display3.color
       ),
       SizedBox(width: 4),

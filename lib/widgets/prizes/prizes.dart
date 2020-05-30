@@ -33,7 +33,7 @@ class _PrizesState extends State<Prizes> {
         elevation: 0,
         title: Padding(
           padding: EdgeInsets.symmetric(vertical: 8),
-          child: Image.asset(Constants.logoAsset, height: 48,),
+          child: Image.asset(Constants.logoAsset, height: 48),
         ),
         centerTitle: true,
         actions: <Widget>[
@@ -46,7 +46,7 @@ class _PrizesState extends State<Prizes> {
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CategorySelect(prizesBloc: _bloc,)
+                builder: (context) => CategorySelect(prizesBloc: _bloc)
               ))
             ),
           )

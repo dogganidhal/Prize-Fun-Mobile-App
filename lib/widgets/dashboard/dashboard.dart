@@ -147,7 +147,7 @@ class _DashboardState extends State<Dashboard> {
                       color: Theme.of(context).textTheme.display3.color
                     ),
                     Text(
-                      "${participation.prize.targetPosition} pts",
+                      "${participation.score} pts",
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).textTheme.display3.color
