@@ -39,8 +39,8 @@ class _PrizeCategoryCardState extends State<PrizeCategoryCard> with AutomaticKee
           borderRadius: BorderRadius.circular(4),
         ),
         color: state.selectedCategoryIds.contains(widget.category.id) ?
-        Theme.of(context).primaryColor.withOpacity(0.75) :
-        Theme.of(context).cardColor,
+          Theme.of(context).primaryColor.withOpacity(0.75) :
+          Theme.of(context).cardColor,
         child: GestureDetector(
           onTap: () {
             widget.prizesBloc.add(ToggleCategoryFilterEvent(category: widget.category));
@@ -56,10 +56,6 @@ class _PrizeCategoryCardState extends State<PrizeCategoryCard> with AutomaticKee
                         CachedNetworkImage(
                           imageUrl: widget.category.photoUrl,
                           fit: BoxFit.cover,
-                          progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            LinearProgressIndicator(
-                              value: downloadProgress.progress,
-                            ),
                         ) :
                         Image.asset(
                           "assets/placeholder.jpeg",

@@ -22,6 +22,12 @@ class Prize {
   bool isLastWinner(int index) => (index == this.rankings.length - 1 && this.winnerCount > this.rankings.length) ||
     index == this.winnerCount - 1;
 
+  int get targetPosition {
+    if (rankings.length < winnerCount)
+      return 0;
+    return rankings[winnerCount - 1].score;
+  }
+
   Prize({
     this.winnerCount, this.dueDate, this.imageUrl,
     this.title, this.subTitle, this.description,
@@ -29,7 +35,7 @@ class Prize {
     this.categoryId, this.merchantWebsite, this.prizeRules
   });
 
-  factory Prize.fromDocument(DocumentSnapshot document, List<DocumentSnapshot> rankings) => Prize(
+  factory Prize.fromDocument(DocumentSnapshot document, [List<DocumentSnapshot> rankings]) => Prize(
     id: document.documentID,
     winnerCount: document.data["winnerCount"],
     dueDate: _formatTimestamp(document.data["dueDate"] as Timestamp),
@@ -41,7 +47,7 @@ class Prize {
     categoryId: document.data['categoryId'],
     merchantWebsite: document.data['merchantWebsite'],
     prizeRules: document.data['prizeRules'],
-    rankings: Rankings.fromDocumentList(rankings)
+    rankings: rankings != null ? Rankings.fromDocumentList(rankings) : null
   );
 
   static DateTime _formatTimestamp(Timestamp timestamp) => timestamp.toDate();

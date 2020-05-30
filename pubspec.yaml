@@ -36,6 +36,9 @@ flutter:
     - assets/gift.png
     - assets/statistics.png
     - assets/fun-point.png
+    - assets/clock.png
+    - assets/cup.png
+    - assets/target.png
 
   fonts:
     - family: GoogleSans

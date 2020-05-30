@@ -12,19 +12,15 @@ class Main extends StatefulWidget {
 class _MainState extends State<Main> {
   int _index = 0;
 
-  final Widget _prizes = Prizes();
-  final Widget _dashboard = Dashboard();
-  final Widget _funPoints = FunPoints();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: _index,
         children: <Widget>[
-          _prizes,
-          _dashboard,
-          _funPoints
+          Prizes(),
+          Dashboard(),
+          FunPoints()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -12,8 +12,19 @@ import 'package:fun_prize/widgets/prizes/prize_card.dart';
 import 'package:fun_prize/widgets/prizes/prize_details.dart';
 
 
-class Prizes extends StatelessWidget {
+class Prizes extends StatefulWidget {
+  @override
+  _PrizesState createState() => _PrizesState();
+}
+
+class _PrizesState extends State<Prizes> {
   final PrizesBloc _bloc = PrizesBloc();
+
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,29 +64,21 @@ class Prizes extends StatelessWidget {
             builder: (context, snapshot) {
               return Stack(
                 children: <Widget>[
-                if (snapshot.hasData)
-                  ListView.separated(
-                    padding: EdgeInsets.all(8),
-                    itemBuilder: (context, index) => PrizeCard(
-                      prize: snapshot.data[index],
-                      onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index]),
+                  if (snapshot.connectionState == ConnectionState.waiting)
+                    Positioned(
+                      top: 0, left: 0, right: 0, height: 4,
+                      child: LinearProgressIndicator()
                     ),
-                    separatorBuilder: (context, index) => SizedBox(height: 8),
-                    itemCount: snapshot.data.length
-                  ),
-                if (snapshot.connectionState == ConnectionState.waiting)
-                  Positioned.fill(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      child: Center(
-                        child: Platform.isIOS ?
-                        CupertinoActivityIndicator() :
-                        CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor)
-                        )
+                  if (snapshot.hasData)
+                    ListView.separated(
+                      padding: EdgeInsets.all(8),
+                      itemBuilder: (context, index) => PrizeCard(
+                        prize: snapshot.data[index],
+                        onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index]),
                       ),
-                    )
-                  )
+                      separatorBuilder: (context, index) => SizedBox(height: 8),
+                      itemCount: snapshot.data.length
+                    ),
                 ],
               );
             }
