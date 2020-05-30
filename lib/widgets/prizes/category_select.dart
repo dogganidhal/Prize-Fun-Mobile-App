@@ -5,7 +5,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fun_prize/blocs/prize/prize_bloc.dart';
 import 'package:fun_prize/blocs/prize/prize_event.dart';
 import 'package:fun_prize/model/prize_category.dart';
-import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/service/prize_service.dart';
 import 'package:fun_prize/widgets/prizes/prize_category_card.dart';
 
 
@@ -19,7 +19,7 @@ class CategorySelect extends StatefulWidget {
 }
 
 class _CategorySelectState extends State<CategorySelect> {
-  final PrizesService prizesService = PrizesService();
+  final PrizeService prizesService = PrizeService();
 
   @override
   Widget build(BuildContext context) {

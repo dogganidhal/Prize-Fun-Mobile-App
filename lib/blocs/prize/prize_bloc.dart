@@ -1,16 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/service/auth_service.dart';
+import 'package:fun_prize/service/prize_service.dart';
 import 'package:fun_prize/blocs/prize/prize_event.dart';
 import 'package:fun_prize/blocs/prize/prize_state.dart';
 
 
 class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
-  PrizesService _prizesService = PrizesService();
+  PrizeService _prizeService = PrizeService();
+  AuthService _authService = AuthService();
 
   @override
   PrizeState get initialState => PrizeState(
-    prizes: _prizesService.prizes,
-    selectedCategoryIds: []
+    prizes: _prizeService.prizes,
+    selectedCategoryIds: [],
+    userFuture: _authService.loadCurrentUser()
   );
 
   @override
@@ -24,7 +27,7 @@ class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
         newCategoryList.add(event.category.id);
       }
       yield PrizeState(
-        prizes: _prizesService.prizes
+        prizes: _prizeService.prizes
           .map((prizes) => prizes
           .where((prize) => prize.categoryId == null || newCategoryList.isEmpty || newCategoryList.contains(prize.categoryId))
           .toList()
@@ -35,7 +38,7 @@ class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
 
     if (event is ClearCategoriesEvent) {
       yield PrizeState(
-        prizes: _prizesService.prizes,
+        prizes: _prizeService.prizes,
         selectedCategoryIds: []
       );
     }

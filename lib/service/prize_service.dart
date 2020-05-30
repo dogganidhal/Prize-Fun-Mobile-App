@@ -7,7 +7,7 @@ import 'package:fun_prize/model/prize_category.dart';
 import 'package:fun_prize/model/prize_participation.dart';
 import 'package:fun_prize/model/rankings.dart';
 
-class PrizesService {
+class PrizeService {
   static String _kUsersCollection = "users";
   static String _kPrizesCollection = "prizes";
   static String _kRankingsCollection = "rankings";

@@ -6,7 +6,7 @@ import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/auth_service.dart';
-import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/service/prize_service.dart';
 import 'package:fun_prize/widgets/prizes/prize_rules.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -35,7 +35,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
     _bloc = PrizeDetailsBloc(
       prize: widget.prize,
       authService: AuthService(),
-      prizesService: PrizesService()
+      prizesService: PrizeService()
     );
     _methodChannel.setMethodCallHandler((methodCall) async {
       switch(methodCall.method) {

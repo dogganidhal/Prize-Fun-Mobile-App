@@ -75,6 +75,7 @@ class _PrizesState extends State<Prizes> {
                       itemBuilder: (context, index) => PrizeCard(
                         prize: snapshot.data[index],
                         onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index]),
+                        userFuture: state.userFuture,
                       ),
                       separatorBuilder: (context, index) => SizedBox(height: 8),
                       itemCount: snapshot.data.length

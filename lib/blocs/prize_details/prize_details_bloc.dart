@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fun_prize/service/auth_service.dart';
-import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/service/prize_service.dart';
 import 'package:meta/meta.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
@@ -9,7 +9,7 @@ import 'package:fun_prize/model/prize.dart';
 class PrizeDetailsBloc extends Bloc<PrizeDetailsEvent, PrizeDetailsState> {
   final Prize prize;
   final AuthService authService;
-  final PrizesService prizesService;
+  final PrizeService prizesService;
 
   PrizeDetailsBloc({@required this.prize, @required this.authService, @required this.prizesService});
 

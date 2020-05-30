@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fun_prize/model/prize_participation.dart';
+import 'package:fun_prize/model/user.dart';
 
 
 class Rankings extends ListBase<PrizeParticipation> {
@@ -38,5 +39,13 @@ class Rankings extends ListBase<PrizeParticipation> {
   int rankOf(PrizeParticipation participation) {
     assert(_winners.contains(participation));
     return sorted.indexOf(participation) + 1;
+  }
+
+  int rankOfUser(User user) {
+    final participation = _winners
+      .firstWhere((element) => element.uid == user.uid, orElse: () => null);
+    return participation != null ?
+      rankOf(participation) :
+      null;
   }
 }

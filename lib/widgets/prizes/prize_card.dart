@@ -2,14 +2,16 @@ import 'package:duration/duration.dart';
 import 'package:duration/locale.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_prize/model/prize.dart';
+import 'package:fun_prize/model/user.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 
 class PrizeCard extends StatelessWidget {
   final Prize prize;
+  final Future<User> userFuture;
   final VoidCallback onPlayPressed;
 
-  const PrizeCard({Key key, @required this.prize, this.onPlayPressed}) : super(key: key);
+  const PrizeCard({Key key, @required this.prize, this.userFuture, this.onPlayPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +47,45 @@ class PrizeCard extends StatelessWidget {
                 ],
               ),
             ),
+            FutureBuilder<User>(
+              future: userFuture,
+              builder: (context, snapshot) {
+                if (snapshot.hasData && prize.rankings.rankOfUser(snapshot.data) != null)
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 16, left: 8, right: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _userScore(context, snapshot.data),
+                      ],
+                    ),
+                  );
+                return Container();
+              }
+            )
           ],
         ),
       ),
     );
   }
+
+  Widget _userScore(BuildContext context, User user) => Row(
+    children: <Widget>[
+      Image.asset(
+        "assets/cup.png",
+        width: 24, height: 24,
+        color: Theme.of(context).unselectedWidgetColor,
+      ),
+      SizedBox(width: 4),
+      Text(
+        "${prize.rankings.rankOfUser(user)} / ${prize.winnerCount}",
+        style: TextStyle(
+          fontSize: 16,
+          color: Theme.of(context).textTheme.display3.color
+        ),
+      )
+    ],
+  );
 
   Widget _winnerCount(BuildContext context) => Row(
     children: <Widget>[
@@ -73,7 +109,7 @@ class PrizeCard extends StatelessWidget {
     children: <Widget>[
       Image.asset(
         "assets/clock.png",
-        width: 22, height: 22,
+        width: 24, height: 24,
         color: Theme.of(context).unselectedWidgetColor,
       ),
       SizedBox(width: 4),
