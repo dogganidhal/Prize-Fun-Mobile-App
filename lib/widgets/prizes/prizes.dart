@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fun_prize/blocs/prizes/prizes_bloc.dart';
-import 'package:fun_prize/blocs/prizes/prizes_state.dart';
+import 'package:fun_prize/blocs/prize/prize_bloc.dart';
+import 'package:fun_prize/blocs/prize/prize_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/utils/constants.dart';
 import 'package:fun_prize/widgets/prizes/category_select.dart';
@@ -18,7 +18,7 @@ class Prizes extends StatefulWidget {
 }
 
 class _PrizesState extends State<Prizes> {
-  final PrizesBloc _bloc = PrizesBloc();
+  final PrizeBloc _bloc = PrizeBloc();
 
   @override
   void dispose() {
@@ -46,7 +46,7 @@ class _PrizesState extends State<Prizes> {
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: () =>  Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CategorySelect(prizesBloc: _bloc)
+                builder: (context) => CategorySelect(prizeBloc: _bloc)
               ))
             ),
           )
@@ -56,7 +56,7 @@ class _PrizesState extends State<Prizes> {
           child: Divider(height: 1)
         ),
       ),
-      body: BlocBuilder<PrizesBloc, PrizesState>(
+      body: BlocBuilder<PrizeBloc, PrizeState>(
         bloc: _bloc,
         builder: (context, state) {
           return StreamBuilder<List<Prize>>(

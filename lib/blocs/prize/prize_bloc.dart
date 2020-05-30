@@ -1,22 +1,20 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:fun_prize/blocs/prizes/prizes_event.dart';
-import 'package:fun_prize/blocs/prizes/prizes_state.dart';
-import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/service/prizes_service.dart';
+import 'package:fun_prize/blocs/prize/prize_event.dart';
+import 'package:fun_prize/blocs/prize/prize_state.dart';
 
 
-class PrizesBloc extends Bloc<PrizesEvent, PrizesState> {
+class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
   PrizesService _prizesService = PrizesService();
 
   @override
-  PrizesState get initialState => PrizesState(
+  PrizeState get initialState => PrizeState(
     prizes: _prizesService.prizes,
     selectedCategoryIds: []
   );
 
   @override
-  Stream<PrizesState> mapEventToState(PrizesEvent event) async* {
+  Stream<PrizeState> mapEventToState(PrizeEvent event) async* {
 
     if (event is ToggleCategoryFilterEvent) {
       final newCategoryList = List<String>.from(state.selectedCategoryIds);
@@ -25,7 +23,7 @@ class PrizesBloc extends Bloc<PrizesEvent, PrizesState> {
       } else {
         newCategoryList.add(event.category.id);
       }
-      yield PrizesState(
+      yield PrizeState(
         prizes: _prizesService.prizes
           .map((prizes) => prizes
           .where((prize) => prize.categoryId == null || newCategoryList.isEmpty || newCategoryList.contains(prize.categoryId))
@@ -36,7 +34,7 @@ class PrizesBloc extends Bloc<PrizesEvent, PrizesState> {
     }
 
     if (event is ClearCategoriesEvent) {
-      yield PrizesState(
+      yield PrizeState(
         prizes: _prizesService.prizes,
         selectedCategoryIds: []
       );

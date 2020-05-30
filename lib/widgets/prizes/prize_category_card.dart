@@ -1,17 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fun_prize/blocs/prizes/prizes_bloc.dart';
-import 'package:fun_prize/blocs/prizes/prizes_event.dart';
-import 'package:fun_prize/blocs/prizes/prizes_state.dart';
+import 'package:fun_prize/blocs/prize/prize_bloc.dart';
+import 'package:fun_prize/blocs/prize/prize_event.dart';
+import 'package:fun_prize/blocs/prize/prize_state.dart';
 import 'package:fun_prize/model/prize_category.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 
 class PrizeCategoryCard extends StatefulWidget {
-  final PrizesBloc prizesBloc;
+  final PrizeBloc prizeBloc;
   final PrizeCategory category;
 
-  const PrizeCategoryCard({Key key, this.prizesBloc, this.category}) : super(key: key);
+  const PrizeCategoryCard({Key key, this.prizeBloc, this.category}) : super(key: key);
   
   @override
   _PrizeCategoryCardState createState() => _PrizeCategoryCardState();
@@ -24,8 +24,8 @@ class _PrizeCategoryCardState extends State<PrizeCategoryCard> with AutomaticKee
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocBuilder<PrizesBloc, PrizesState>(
-      bloc: widget.prizesBloc,
+    return BlocBuilder<PrizeBloc, PrizeState>(
+      bloc: widget.prizeBloc,
       builder: (context, state) => Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 0,
@@ -43,7 +43,7 @@ class _PrizeCategoryCardState extends State<PrizeCategoryCard> with AutomaticKee
           Theme.of(context).cardColor,
         child: GestureDetector(
           onTap: () {
-            widget.prizesBloc.add(ToggleCategoryFilterEvent(category: widget.category));
+            widget.prizeBloc.add(ToggleCategoryFilterEvent(category: widget.category));
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,8 +53,9 @@ class _PrizeCategoryCardState extends State<PrizeCategoryCard> with AutomaticKee
                   children: <Widget>[
                     Positioned.fill(
                       child: widget.category.photoUrl != null ?
-                        CachedNetworkImage(
-                          imageUrl: widget.category.photoUrl,
+                        FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: widget.category.photoUrl,
                           fit: BoxFit.cover,
                         ) :
                         Image.asset(

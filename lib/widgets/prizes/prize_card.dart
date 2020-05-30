@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:duration/duration.dart';
 import 'package:duration/locale.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_prize/model/prize.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 
 class PrizeCard extends StatelessWidget {
@@ -28,8 +28,9 @@ class PrizeCard extends StatelessWidget {
           children: <Widget>[
             SizedBox(
               height: 192,
-              child: CachedNetworkImage(
-                imageUrl: prize.imageUrl,
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: prize.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),

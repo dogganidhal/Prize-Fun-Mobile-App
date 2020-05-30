@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:duration/duration.dart';
 import 'package:duration/locale.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:fun_prize/blocs/dashboard/dashboard_state.dart';
 import 'package:fun_prize/model/prize_participation.dart';
 import 'package:fun_prize/widgets/dashboard/profile.dart';
 import 'package:fun_prize/widgets/prizes/prize_details.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 
 class Dashboard extends StatefulWidget {
@@ -102,8 +102,9 @@ class _DashboardState extends State<Dashboard> {
         children: <Widget>[
           SizedBox(
             height: 192,
-            child: CachedNetworkImage(
-              imageUrl: participation.prize.imageUrl,
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: participation.prize.imageUrl,
               fit: BoxFit.fill,
             ),
           ),
