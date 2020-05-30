@@ -34,6 +34,8 @@ flutter:
     - assets/placeholder.jpeg
     - assets/category-icon.png
     - assets/gift.png
+    - assets/statistics.png
+    - assets/fun-point.png
 
   fonts:
     - family: GoogleSans

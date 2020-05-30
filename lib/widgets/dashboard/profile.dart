@@ -30,11 +30,11 @@ class Profile extends StatelessWidget {
           preferredSize: Size.fromHeight(1),
           child: Divider(height: 1)
         ),
-        leading: IconButton(
-          icon: Icon(Icons.exit_to_app),
-          onPressed: () => BlocProvider.of<AuthBloc>(context).add(LogoutEvent())
-        ),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => BlocProvider.of<AuthBloc>(context).add(LogoutEvent())
+          ),
           IconButton(
             icon: Icon(Icons.check),
             onPressed: _editProfile,
@@ -148,7 +148,7 @@ class Profile extends StatelessWidget {
 
   Widget _ageField(ProfileState state) => FormBuilderTextField(
     attribute: "age",
-    initialValue: "${state.user.age ?? 0}",
+    initialValue: state.user.age?.toString(),
     keyboardType: TextInputType.number,
     decoration: InputDecoration(
       border: OutlineInputBorder(
