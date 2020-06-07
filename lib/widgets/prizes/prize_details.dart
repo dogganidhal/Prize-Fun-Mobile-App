@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fun_prize/blocs/fun_point/fun_point_bloc.dart';
+import 'package:fun_prize/blocs/fun_point/fun_point_event.dart';
+import 'package:fun_prize/blocs/fun_point/fun_point_state.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_bloc.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
@@ -206,14 +209,21 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                   child: ButtonTheme(
                     minWidth: double.infinity,
                     height: 48,
-                    child: MaterialButton(
-                      color: Theme.of(context).primaryColor,
-                      onPressed: () async {
-                        _methodChannel.invokeMethod(_kStartGameMethod);
-                      },
-                      child: Text("Jouer"),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)
+                    child: BlocBuilder<FunPointBloc, FunPointState>(
+                      builder: (context, state) => MaterialButton(
+                        color: Theme.of(context).primaryColor,
+                        disabledColor: Theme.of(context).dividerColor,
+                        onPressed: _canPlay(state) ?
+                          _play :
+                          null,
+                        child: Text(
+                          _canPlay(state) ?
+                            "Jouer (3 Fun Points)" :
+                            "Pas assez de Fun Points (3 requis)"
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)
+                        ),
                       ),
                     ),
                   ),
@@ -225,4 +235,11 @@ class _PrizeDetailsState extends State<PrizeDetails> {
       ),
     );
   }
+
+  void _play() {
+    BlocProvider.of<FunPointBloc>(context).add(FunPointPlayEvent());
+    _methodChannel.invokeMethod(_kStartGameMethod);
+  }
+
+  bool _canPlay(FunPointState state) => state is FunPointReadyState && state.user.funPoints >= 3;
 }

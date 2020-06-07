@@ -66,27 +66,26 @@ class _DashboardState extends State<Dashboard> {
                   height: 4,
                   child: LinearProgressIndicator(),
                 ),
-              if (snapshot.hasData && snapshot.data.isNotEmpty)
-                Positioned.fill(
-                  child: ListView.separated(
-                    itemBuilder: (context, index) => _participationCard(snapshot.data[index]),
-                    separatorBuilder: (context, _) => SizedBox(height: 8),
-                    itemCount: snapshot.data.length,
-                    padding: EdgeInsets.all(8),
-                  )
-                ),
-              if (snapshot.hasData && snapshot.data.isEmpty)
-                Positioned.fill(
-                  child: Center(
-                    child: Text(
-                      "Vous n'avez participé à aucun concours pour l'instant",
-                      style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        .copyWith(fontSize: 14),
+              if (snapshot.hasData)
+                snapshot.data.isNotEmpty ? Positioned.fill(
+                    child: ListView.separated(
+                      itemBuilder: (context, index) => _participationCard(snapshot.data[index]),
+                      separatorBuilder: (context, _) => SizedBox(height: 8),
+                      itemCount: snapshot.data.length,
+                      padding: EdgeInsets.all(8),
+                    )
+                  ) :
+                  Positioned.fill(
+                    child: Center(
+                      child: Text(
+                        "Vous n'avez participé à aucun concours pour l'instant",
+                        style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          .copyWith(fontSize: 14),
+                      ),
                     ),
                   ),
-                )
             ],
           ),
         ),

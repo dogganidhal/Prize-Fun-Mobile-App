@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/model/prize_participation.dart';
+import 'package:fun_prize/model/user.dart';
 
 
 class UserService {
   static String _kPrizesCollection = "prizes";
+  static String _kUsersCollection = "users";
   static String _kRankingsCollection = "rankings";
   // ignore: non_constant_identifier_names
   static String _kRankingsCollection_PrizeIdField = "prizeId";
@@ -49,4 +51,21 @@ class UserService {
       });
   }
 
+  Future<void> addFunPoints(User user, int points) async {
+    final snapshot = _firestore
+      .collection(_kUsersCollection)
+      .document(user.uid);
+    await snapshot.setData({
+      "funPoints": user.funPoints + points
+    }, merge: true);
+  }
+
+  Future<void> takeoutFunPoints(User user, int points) async {
+    final snapshot = _firestore
+      .collection(_kUsersCollection)
+      .document(user.uid);
+    await snapshot.setData({
+      "funPoints": user.funPoints - points
+    }, merge: true);
+  }
 }

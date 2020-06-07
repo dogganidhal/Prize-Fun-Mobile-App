@@ -11,10 +11,11 @@ class User {
   final String username;
   final String address;
   final int age;
+  final int funPoints;
 
   User({
     this.uid, this.firstName, this.lastName, this.email, this.username,
-    this.age, this.address
+    this.age, this.address, this.funPoints
   });
 
   factory User.fromDocument(DocumentSnapshot document) => User(
@@ -24,6 +25,7 @@ class User {
     email: document.data['email'],
     username: document.data['username'],
     address: document.data['address'],
-    age: document.data['age']
+    age: document.data['age'],
+    funPoints: document.data['funPoints']
   );
 }
