@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fun_prize/blocs/navigation/event/navigation_event.dart';
+import 'package:fun_prize/blocs/navigation/navigation_bloc.dart';
+import 'package:fun_prize/blocs/navigation/state/navigation_state.dart';
 import 'package:fun_prize/widgets/dashboard/dashboard.dart';
 import 'package:fun_prize/widgets/fun_points/daily_fun_point_listener.dart';
 import 'package:fun_prize/widgets/fun_points/fun_points.dart';
@@ -10,60 +14,62 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  int _index = 0;
-
   @override
   Widget build(BuildContext context) {
-    return DailyFunPointListener(
-      child: Scaffold(
-        body: IndexedStack(
-          index: _index,
-          children: <Widget>[
-            Prizes(),
-            Dashboard(),
-            FunPoints()
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 0,
-          currentIndex: _index,
-          onTap: (index) => setState(() => _index = index),
-          selectedItemColor: Theme.of(context).primaryColor,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "assets/gift.png",
-                height: 24,
-                colorBlendMode: BlendMode.srcIn,
-                color: _index == 0 ?
-                  Theme.of(context).primaryColor :
-                  Theme.of(context).unselectedWidgetColor,
+    return BlocBuilder<NavigationBloc, NavigationState>(
+      builder: (context, state) => DailyFunPointListener(
+        child: Scaffold(
+          body: IndexedStack(
+            index: state.homeIndex,
+            children: <Widget>[
+              Prizes(),
+              Dashboard(),
+              FunPoints()
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            elevation: 0,
+            currentIndex: state.homeIndex,
+            onTap: (index) => BlocProvider
+              .of<NavigationBloc>(context)
+              .add(ChangeHomeTabNavigationEvent(homeIndex: index)),
+            selectedItemColor: Theme.of(context).primaryColor,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/gift.png",
+                  height: 24,
+                  colorBlendMode: BlendMode.srcIn,
+                  color: state.homeIndex == 0 ?
+                    Theme.of(context).primaryColor :
+                    Theme.of(context).unselectedWidgetColor,
+                ),
+                title: Text('Concours')
               ),
-              title: Text('Concours')
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "assets/statistics.png",
-                height: 24,
-                colorBlendMode: BlendMode.srcIn,
-                color: _index == 1 ?
-                Theme.of(context).primaryColor :
-                Theme.of(context).unselectedWidgetColor,
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/statistics.png",
+                  height: 24,
+                  colorBlendMode: BlendMode.srcIn,
+                  color: state.homeIndex == 1 ?
+                    Theme.of(context).primaryColor :
+                    Theme.of(context).unselectedWidgetColor,
+                ),
+                title: Text('Tableau de bord')
               ),
-              title: Text('Tableau de bord')
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "assets/fun-point.png",
-                height: 24,
-                colorBlendMode: BlendMode.srcIn,
-                color: _index == 2 ?
-                  Theme.of(context).primaryColor :
-                  Theme.of(context).unselectedWidgetColor,
-              ),
-              title: Text('Fun points')
-            )
-          ],
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  "assets/fun-point.png",
+                  height: 24,
+                  colorBlendMode: BlendMode.srcIn,
+                  color: state.homeIndex == 2 ?
+                    Theme.of(context).primaryColor :
+                    Theme.of(context).unselectedWidgetColor,
+                ),
+                title: Text('Fun points')
+              )
+            ],
+          ),
         ),
       ),
     );

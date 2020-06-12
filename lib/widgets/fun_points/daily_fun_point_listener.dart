@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_bloc.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_event.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_state.dart';
+import 'package:fun_prize/blocs/navigation/event/navigation_event.dart';
+import 'package:fun_prize/blocs/navigation/navigation_bloc.dart';
 
 class DailyFunPointListener extends StatefulWidget {
   final Widget child;
@@ -15,46 +17,37 @@ class DailyFunPointListener extends StatefulWidget {
 }
 
 class _DailyFunPointListenerState extends State<DailyFunPointListener> {
-  FunPointBloc _funPointBloc;
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _funPointBloc = BlocProvider.of<FunPointBloc>(context);
-    _funPointBloc.add(FunPointLoadEvent());
-  }
-
-  @override
-  void dispose() {
-    _funPointBloc.close();
-    super.dispose();
+    BlocProvider.of<FunPointBloc>(context).add(FunPointLoadEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<FunPointBloc, FunPointState>(
-      bloc: _funPointBloc,
       listener: (context, state) {
         if (state is FunPointReadyState && state.canClaimFunPoint) {
           showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) => AlertDialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4)
               ),
               title: Text("Fun point quotidien"),
               content: Text(
-                "Bravo! Tu es éligible pour récupèrer tes 3 Fun Point quotidien\n"
-                  "Appuies sur le bouton ci-dessous pour le récupèrer"
+                  "Bravo!\n"
+                  "Tu es éligible pour récupèrer tes 3 Fun Points quotidiens!"
               ),
               actions: <Widget>[
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
                   onPressed: () {
-                    _funPointBloc.add(FunPointClaimEvent());
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
+                    BlocProvider.of<NavigationBloc>(context).add(ChangeHomeTabNavigationEvent(homeIndex: 2));
                   },
-                  child: Text("Récupèrer mes Fun Point"),
+                  child: Text("Récupèrer mes Fun Points"),
                 )
               ],
             )

@@ -44,6 +44,7 @@ flutter:
     - assets/daily-fun-point.png
     - assets/fun-point-diamond.png
     - assets/refer.png
+    - assets/buy-fun-point.png
 
 
   fonts:
