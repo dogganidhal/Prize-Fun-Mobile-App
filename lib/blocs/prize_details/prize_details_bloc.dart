@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/service/prize_service.dart';
 import 'package:meta/meta.dart';
@@ -8,10 +9,10 @@ import 'package:fun_prize/model/prize.dart';
 
 class PrizeDetailsBloc extends Bloc<PrizeDetailsEvent, PrizeDetailsState> {
   final Prize prize;
-  final AuthService authService;
-  final PrizeService prizesService;
+  final AuthService authService = AuthService();
+  final PrizeService prizesService = PrizeService();
 
-  PrizeDetailsBloc({@required this.prize, @required this.authService, @required this.prizesService});
+  PrizeDetailsBloc({@required this.prize});
 
   @override
   PrizeDetailsState get initialState => PrizeDetailsState()

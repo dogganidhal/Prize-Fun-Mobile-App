@@ -6,6 +6,8 @@ import 'package:fun_prize/model/user.dart';
 
 
 class UserService {
+  static int _kPrizePrice = 3;
+  static int _kDailyFunPointReward = 3;
   static String _kPrizesCollection = "prizes";
   static String _kUsersCollection = "users";
   static String _kRankingsCollection = "rankings";
@@ -51,21 +53,23 @@ class UserService {
       });
   }
 
-  Future<void> addFunPoints(User user, int points) async {
+  Future<void> claimDailyFunPoint(User user) async {
     final snapshot = _firestore
       .collection(_kUsersCollection)
       .document(user.uid);
     await snapshot.setData({
-      "funPoints": user.funPoints + points
+      "funPoints": user.funPoints + _kDailyFunPointReward
     }, merge: true);
   }
 
-  Future<void> takeoutFunPoints(User user, int points) async {
+  Future<void> unlockPrizeAndBillFunPoints(User user, Prize prize) async {
     final snapshot = _firestore
       .collection(_kUsersCollection)
       .document(user.uid);
     await snapshot.setData({
-      "funPoints": user.funPoints - points
+      "funPoints": user.funPoints - _kPrizePrice,
+       "prizeParticipationIds": List.from(user.prizeParticipationIds)
+          ..add(prize.id)
     }, merge: true);
   }
 }

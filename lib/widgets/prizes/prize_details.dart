@@ -8,11 +8,8 @@ import 'package:fun_prize/blocs/prize_details/prize_details_bloc.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
 import 'package:fun_prize/model/prize.dart';
-import 'package:fun_prize/service/auth_service.dart';
-import 'package:fun_prize/service/prize_service.dart';
 import 'package:fun_prize/widgets/prizes/prize_rules.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fun_prize/widgets/prizes/webview_scaffold.dart';
 
 
@@ -27,7 +24,6 @@ class PrizeDetails extends StatefulWidget {
 
 class _PrizeDetailsState extends State<PrizeDetails> {
   static const String _kPostScoreMethod = "io.github.dogganidhal.fun_prize/channel.post_score";
-  static const String _kStartGameMethod = "io.github.dogganidhal.fun_prize/channel.start_game";
 
   PrizeDetailsBloc _bloc;
   final _methodChannel = MethodChannel("io.github.dogganidhal.fun_prize/channel");
@@ -36,9 +32,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
   void initState() {
     super.initState();
     _bloc = PrizeDetailsBloc(
-      prize: widget.prize,
-      authService: AuthService(),
-      prizesService: PrizeService()
+      prize: widget.prize
     );
     _methodChannel.setMethodCallHandler((methodCall) async {
       switch(methodCall.method) {
@@ -58,17 +52,19 @@ class _PrizeDetailsState extends State<PrizeDetails> {
       extendBody: false,
       body: BlocBuilder<PrizeDetailsBloc, PrizeDetailsState>(
         bloc: _bloc,
-        builder: (context, state) {
-          if (state.didPostScore) {
-            Fluttertoast.showToast(
-              msg: "Score soumis avec succès",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              fontSize: 16.0,
-            );
-          }
-          return Column(
+        builder: (context, state) => BlocListener<FunPointBloc, FunPointState>(
+          listener: (context, state) {
+            if (state is FunPointReadyState && state.prizeUnlocked) {
+              Scaffold.of(context)
+                .showSnackBar(SnackBar(
+                  content: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text("Félicitations! Vous avez débloquer l'accès à ce concours, vous pouvez y jouer autant que vous voulez avant sa clôture"),
+                  ),
+                ));
+            }
+          },
+          child: Column(
             children: <Widget>[
               Expanded(
                 child: CustomScrollView(
@@ -217,9 +213,9 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                           _play :
                           null,
                         child: Text(
-                          _canPlay(state) ?
-                            "Jouer (3 Fun Points)" :
-                            "Pas assez de Fun Points (3 requis)"
+                          _prizeUnlocked(state) ?
+                            "🔓 Jouer" :
+                            "🔒 Débloquer 💎x3"
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)
@@ -230,16 +226,22 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                 ),
               )
             ],
-          );
-        }
+          ),
+        )
       ),
     );
   }
 
   void _play() {
-    BlocProvider.of<FunPointBloc>(context).add(FunPointPlayEvent());
-    _methodChannel.invokeMethod(_kStartGameMethod);
+    BlocProvider.of<FunPointBloc>(context).add(FunPointUnlockOrPlayPrizeEvent(
+      prize: widget.prize,
+      methodChannel: _methodChannel
+    ));
   }
 
-  bool _canPlay(FunPointState state) => state is FunPointReadyState && state.user.funPoints >= 3;
+  bool _prizeUnlocked(FunPointState state) => state is FunPointReadyState &&
+    state.user.prizeParticipationIds.contains(widget.prize.id);
+
+  bool _canPlay(FunPointState state) => state is FunPointReadyState &&
+    (state.user.funPoints >= 3 || _prizeUnlocked(state));
 }

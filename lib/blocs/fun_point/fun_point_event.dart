@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
+import 'package:fun_prize/model/prize.dart';
 
 abstract class FunPointEvent extends Equatable {
 
@@ -14,7 +16,12 @@ class FunPointClaimEvent extends FunPointEvent {
   List<Object> get props => [];
 }
 
-class FunPointPlayEvent extends FunPointEvent {
+class FunPointUnlockOrPlayPrizeEvent extends FunPointEvent {
+  final Prize prize;
+  final MethodChannel methodChannel;
+
+  FunPointUnlockOrPlayPrizeEvent({this.prize, this.methodChannel});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [prize, methodChannel];
 }

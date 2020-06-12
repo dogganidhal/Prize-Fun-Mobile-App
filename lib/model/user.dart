@@ -12,10 +12,11 @@ class User {
   final String address;
   final int age;
   final int funPoints;
+  final List<String> prizeParticipationIds;
 
   User({
     this.uid, this.firstName, this.lastName, this.email, this.username,
-    this.age, this.address, this.funPoints
+    this.age, this.address, this.funPoints, this.prizeParticipationIds = const []
   });
 
   factory User.fromDocument(DocumentSnapshot document) => User(
@@ -26,6 +27,8 @@ class User {
     username: document.data['username'],
     address: document.data['address'],
     age: document.data['age'],
-    funPoints: document.data['funPoints']
+    funPoints: document.data['funPoints'],
+    prizeParticipationIds: ((document.data['prizeParticipationIds'] ?? []) as List)
+      .cast<String>()
   );
 }

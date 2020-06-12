@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class FunPointBloc extends Bloc<FunPointEvent, FunPointState> {
   static String _kLastClaimedFunPointDateKey = "io.github.dogganidhal.fun_prize.last_claimed_fun_point_date";
+  static const String _kStartGameMethod = "io.github.dogganidhal.fun_prize/channel.start_game";
 
   final AuthService authService = AuthService();
   final UserService userService = UserService();
@@ -46,14 +47,33 @@ class FunPointBloc extends Bloc<FunPointEvent, FunPointState> {
      }
 
      if (event is FunPointClaimEvent && state is FunPointReadyState) {
-       await userService.addFunPoints((state as FunPointReadyState).user, 3);
+       await userService.claimDailyFunPoint((state as FunPointReadyState).user);
        sharedPreferences.setString(_kLastClaimedFunPointDateKey, DateTime.now().toIso8601String());
        add(FunPointLoadEvent());
      }
 
-     if (event is FunPointPlayEvent) {
-       await userService.takeoutFunPoints((state as FunPointReadyState).user, 3);
-       add(FunPointLoadEvent());
+     if (event is FunPointUnlockOrPlayPrizeEvent) {
+       final currentState = state as FunPointReadyState;
+       if (currentState.user.prizeParticipationIds.contains(event.prize.id)) {
+         event.methodChannel.invokeMethod(_kStartGameMethod);
+       } else {
+         try {
+           await userService.unlockPrizeAndBillFunPoints((state as FunPointReadyState).user, event.prize);
+           yield FunPointReadyState(
+             user: currentState.user,
+             canClaimFunPoint: currentState.canClaimFunPoint,
+             prizeUnlocked: true
+           );
+           yield FunPointReadyState(
+             user: currentState.user,
+             canClaimFunPoint: currentState.canClaimFunPoint,
+             prizeUnlocked: false
+           );
+           add(FunPointLoadEvent());
+         } catch (exception) {
+           print(exception.toString());
+         }
+       }
      }
 
   }
