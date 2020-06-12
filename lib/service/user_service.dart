@@ -20,27 +20,28 @@ class UserService {
   Stream<List<PrizeParticipation>> get userParticipations async* {
     final user = await _firebaseAuth.currentUser();
     assert(user != null);
-    yield* _firestore
-      .collection(_kRankingsCollection)
-      .where("uid", isEqualTo: user.uid)
-      .snapshots()
-      .map((snapshot) => snapshot.documents
+    try {
+      yield* _firestore
+        .collection(_kRankingsCollection)
+        .where("uid", isEqualTo: user.uid)
+        .snapshots()
+        .map((snapshot) => snapshot.documents
         .map((document) async {
-          final prizeDocument = await _firestore
-            .document("$_kPrizesCollection/${document.data['prizeId']}")
-            .get();
-          final rankingDocuments = await _firestore.collection(_kRankingsCollection)
-            .where(_kRankingsCollection_PrizeIdField, isEqualTo: prizeDocument.documentID)
-            .getDocuments();
-          return PrizeParticipation.fromDocument(
-            document,
-            prize: Prize.fromDocument(prizeDocument, rankingDocuments.documents)
-          );
-        })
+        final prizeDocument = await _firestore
+          .document("$_kPrizesCollection/${document.data['prizeId']}")
+          .get();
+        final rankingDocuments = await _firestore.collection(_kRankingsCollection)
+          .where(_kRankingsCollection_PrizeIdField, isEqualTo: prizeDocument.documentID)
+          .getDocuments();
+        return PrizeParticipation.fromDocument(
+          document,
+          prize: Prize.fromDocument(prizeDocument, rankingDocuments.documents)
+        );
+      })
         .toList()
       )
-      .asyncMap((future) => Future.wait(future))
-      .map((List<PrizeParticipation> participationList) {
+        .asyncMap((future) => Future.wait(future))
+        .map((List<PrizeParticipation> participationList) {
         final sortedParticipations = List<PrizeParticipation>.from(participationList
           .where((participation) => participation.prize.dueDate.compareTo(DateTime.now()) > 0)
         );
@@ -51,6 +52,9 @@ class UserService {
         );
         return sortedParticipations;
       });
+    } catch (exception) {
+      print(exception);
+    }
   }
 
   Future<void> claimDailyFunPoint(User user) async {

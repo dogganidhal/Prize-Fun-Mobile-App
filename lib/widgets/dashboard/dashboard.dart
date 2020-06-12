@@ -140,7 +140,7 @@ class _DashboardState extends State<Dashboard> {
                         tersity: DurationTersity.minute,
                         abbreviated: true,
                         locale: FrenchDurationLocale()
-                      ),
+                      ).replaceAll(",", ""),
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).textTheme.display3.color
@@ -154,7 +154,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: <Widget>[
                     Image.asset(
-                      "assets/target.png",
+                      "assets/user-score.png",
                       height: 24,
                       color: Theme.of(context).textTheme.display3.color
                     ),

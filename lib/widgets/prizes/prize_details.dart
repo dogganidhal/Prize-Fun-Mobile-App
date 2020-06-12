@@ -214,7 +214,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                           null,
                         child: Text(
                           _prizeUnlocked(state) ?
-                            "🔓 Jouer" :
+                            "Jouer" :
                             "🔒 Débloquer 💎x3"
                         ),
                         shape: RoundedRectangleBorder(

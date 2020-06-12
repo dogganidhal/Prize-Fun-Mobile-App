@@ -48,4 +48,15 @@ class Rankings extends ListBase<PrizeParticipation> {
       rankOf(participation) :
       null;
   }
+
+  int scoreOfUser(User user) {
+    final sortedRankings = List<PrizeParticipation>.from(_winners)
+      ..sort((lhs, rhs) => rhs.score - lhs.score);
+    final userParticipation = sortedRankings
+      .firstWhere((element) => element.uid == user.uid, orElse: () => null);
+    if (userParticipation == null) {
+      return null;
+    }
+    return userParticipation.score;
+  }
 }

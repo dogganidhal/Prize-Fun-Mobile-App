@@ -27,7 +27,7 @@ class User {
     username: document.data['username'],
     address: document.data['address'],
     age: document.data['age'],
-    funPoints: document.data['funPoints'],
+    funPoints: document.data['funPoints'] ?? 0,
     prizeParticipationIds: ((document.data['prizeParticipationIds'] ?? []) as List)
       .cast<String>()
   );

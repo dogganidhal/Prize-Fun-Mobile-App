@@ -54,9 +54,10 @@ class PrizeCard extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16, left: 8, right: 8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         _userScore(context, snapshot.data),
+                        _userPosition(context, snapshot.data),
                       ],
                     ),
                   );
@@ -70,6 +71,24 @@ class PrizeCard extends StatelessWidget {
   }
 
   Widget _userScore(BuildContext context, User user) => Row(
+    children: <Widget>[
+      Image.asset(
+        "assets/user-score.png",
+        width: 24, height: 24,
+        color: Theme.of(context).unselectedWidgetColor,
+      ),
+      SizedBox(width: 4),
+      Text(
+        "${prize.rankings.scoreOfUser(user)} pts",
+        style: TextStyle(
+          fontSize: 16,
+          color: Theme.of(context).textTheme.display3.color
+        ),
+      )
+    ],
+  );
+
+  Widget _userPosition(BuildContext context, User user) => Row(
     children: <Widget>[
       Image.asset(
         "assets/cup.png",
@@ -158,7 +177,7 @@ class PrizeCard extends StatelessWidget {
         tersity: DurationTersity.second,
         abbreviated: true,
         locale: FrenchDurationLocale()
-      );
+      ).replaceAll(",", "");
       await Future.delayed(Duration(seconds: 1));
       duration -= Duration(seconds: 1);
     }

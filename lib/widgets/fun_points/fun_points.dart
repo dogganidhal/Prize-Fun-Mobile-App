@@ -98,7 +98,7 @@ class _FunPointsState extends State<FunPoints> {
       Padding(
         padding: EdgeInsets.all(8),
         child: Text(
-          'Acquières en marché',
+          'Acquières en au marché',
           style: Theme.of(context)
             .textTheme
             .subtitle1,
