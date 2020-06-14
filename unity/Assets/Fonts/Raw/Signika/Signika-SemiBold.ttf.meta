@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: d790845d2595a4b7d9cffd2d0942c373
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Signika
+  fontNames:
+  - Signika
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 53c8f0b2c2d4645bfafa49c676399fcf, type: 3}
+  - {fileID: 12800000, guid: b184e41aa45d047f4b2d6033491772bd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

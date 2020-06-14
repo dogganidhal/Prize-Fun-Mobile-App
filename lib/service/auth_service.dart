@@ -123,11 +123,14 @@ class AuthService {
 
   Future<User> loadCurrentUser() async {
     final firebaseUser = await _firebaseAuth.currentUser();
-    final userDocument = await _firestore
-      .collection(_kUsersCollection)
-      .document(firebaseUser.uid)
-      .get();
-    return User.fromDocument(userDocument);
+    if (firebaseUser != null) {
+      final userDocument = await _firestore
+        .collection(_kUsersCollection)
+        .document(firebaseUser.uid)
+        .get();
+      return User.fromDocument(userDocument);
+    }
+    return null;
   }
 
   Future<FirebaseUser> currentUser() => _firebaseAuth.currentUser();

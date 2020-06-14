@@ -13,3 +13,8 @@ class ChangeHomeTabNavigationEvent extends NavigationEvent {
   @override
   List<Object> get props => [homeIndex];
 }
+
+class LaunchGameEvent extends NavigationEvent {
+  @override
+  List<Object> get props => [];
+}

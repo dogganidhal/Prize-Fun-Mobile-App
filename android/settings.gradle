@@ -1,4 +1,4 @@
-include ':app', ':unityLibrary'
+include ':app', ':unityExport'
 
 def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 

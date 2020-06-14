@@ -1,0 +1,310 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6874694756718156899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6874694756718156907}
+  - component: {fileID: 6874694756718156906}
+  - component: {fileID: 6874694756718156909}
+  - component: {fileID: 6874694756718156908}
+  - component: {fileID: 6874694756718156911}
+  - component: {fileID: 6874694756718156910}
+  - component: {fileID: 6874694756718156897}
+  - component: {fileID: 1215324505}
+  - component: {fileID: 1129090797}
+  m_Layer: 0
+  m_Name: Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6874694756718156907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6874694756718156906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c4f02d58f277740a4abd0ed45ac1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6874694756718156909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76839c22a1edf12428133f8f1332be08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredScore: 100
+  connectedToInternet: 1
+  data: {fileID: 1215324505}
+  settings: {fileID: 11400000, guid: a89ee1d9b20bc6945bc33560b2f5affd, type: 2}
+  generateChunks: 1
+  stars: {fileID: 0}
+--- !u!114 &6874694756718156908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5c4b6b8a0b6b64792bccf301ad7bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shuttlePrefab: {fileID: 7817219175296145100, guid: 8dcfc13dc21299a4b9bb3ea1f837e190,
+    type: 3}
+  planetPrefab: {fileID: 578133658912810343, guid: 870a6a0026b8e7a498a3834d3e14883a,
+    type: 3}
+  scoreMarkerPrefab: {fileID: 180738379945733452, guid: cfc42dcf1f8b9124bb862f4c60aa8361,
+    type: 3}
+  missilePrefab: {fileID: 3428459497815118030, guid: e1e590c9b1d19404f8c4e033b9a61a48,
+    type: 3}
+  astronautPrefab: {fileID: 1238148153752146496, guid: 3456d513c4e9be442a36eff9fdf07e71,
+    type: 3}
+  boostPrefab: {fileID: 2407289289662589976, guid: 482dd79d46057a84b9f20ea14d3080e1,
+    type: 3}
+  bombPrefab: {fileID: 146824721315130197, guid: 6fddf53f962d2d64c9e1e33626df91a1,
+    type: 3}
+  shieldPrefab: {fileID: 6429422049684283772, guid: de604cf202a01e6439fd7b4a8c5cebbe,
+    type: 3}
+  defaultTrail: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  rainbowTrail: {fileID: 2100000, guid: 69ead408aa6478b4da7946006ae67fd0, type: 2}
+  goldenTrail: {fileID: 2100000, guid: 8802a34e4b9cefb4f9373cdf78527a8a, type: 2}
+  chunks:
+  - {fileID: 5996176539675871880, guid: 0cef2ab24f0f2e74c951740c4edf992f, type: 3}
+  - {fileID: 5996176539675871880, guid: e21232d1ddbc1c3419fd2150b01409b0, type: 3}
+  - {fileID: 5996176539675871880, guid: 8014c11ddf920784f8c2eb91b7c8fdfa, type: 3}
+  - {fileID: 5996176539675871880, guid: 06ca01727c5fc7145b74925bb8a5887c, type: 3}
+  - {fileID: 5996176539675871880, guid: 0abce9b77e8cf1849897882be99785fc, type: 3}
+  - {fileID: 5996176539675871880, guid: 0483821cb76c63440bda65e2b26b6b9a, type: 3}
+  - {fileID: 5996176539675871880, guid: 12eb05b983b46d249aaae6f8fde4296e, type: 3}
+  - {fileID: 5996176539675871880, guid: 0cf9b4298fbfde0439cf117ad61ba117, type: 3}
+  - {fileID: 5996176539675871880, guid: 1f5344f2cb829d747b8ccbac3830c63a, type: 3}
+  - {fileID: 5996176539675871880, guid: 7783484a0aebdce4e84926498747b4c6, type: 3}
+  - {fileID: 5996176539675871880, guid: b584580f79fd2184d9379f84294a7527, type: 3}
+  - {fileID: 5996176539675871880, guid: a2d7cea89a5e6a54087b9d28ef8fec62, type: 3}
+  - {fileID: 5996176539675871880, guid: 6e66c715c20466a4faf809e48dc8e1b7, type: 3}
+  - {fileID: 5996176539675871880, guid: 4ede0d4989ae466468fad0aa02b497b4, type: 3}
+  - {fileID: 5996176539675871880, guid: 9d98699b5fd87b043a41eee3c6153ec1, type: 3}
+  podiumText:
+  - 1er {0}<b><color=#{1}> {2}</color></b>
+  - "2\xE8me {0}<b><color=#{1}> {2}</color></b>"
+  - "3\xE8me {0}<b><color=#{1}> {2}</color></b>"
+  podiumColor:
+  - {r: 0.9559444, g: 1, b: 0, a: 1}
+  - {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  - {r: 0.6132076, g: 0.27743635, b: 0.2053667, a: 1}
+  expressions:
+  - {fileID: 21300000, guid: 204888e74b2bf4f459e9bb34e70773bb, type: 3}
+  - {fileID: 21300000, guid: aa6ff38d2f3c73743acb9b7ef9eb2bcf, type: 3}
+  - {fileID: 21300000, guid: 89704a2633beffd42b2ed639659693cb, type: 3}
+  - {fileID: 21300000, guid: 1caf431ac3ca70040abfbc1661efda69, type: 3}
+  goldSprite: {fileID: 21300000, guid: bc2acc4f35a72d7458456f5f5031ddd7, type: 3}
+  baseSprite: {fileID: 21300000, guid: 9fadd75391e6243f18f4070c61467b7a, type: 3}
+--- !u!114 &6874694756718156911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1462a31d376c04fa17a795acb1f452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  log: 0
+  swipeMaxDuration: 1
+  swipeMinLength: 500
+  tapPosition: {x: 0, y: 0}
+  tapDown: 0
+  tapHold: 0
+  tapUp: 0
+--- !u!114 &6874694756718156910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778061d068b993541ac12a182602a619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effects:
+  - name: confetti_explosion
+    particle: {fileID: 8203379145854940177, guid: 0358d3e1637ef9a4289f77682e7eb350,
+      type: 3}
+  - name: explosion
+    particle: {fileID: 8785339198257481801, guid: 93ba8bb22a3783249933d40d40f6e6da,
+      type: 3}
+  - name: confetti_fountain
+    particle: {fileID: 8731330661355842323, guid: db864b17d60c29f4992e44697d5892db,
+      type: 3}
+--- !u!114 &6874694756718156897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e157f31f9166a43b5dec2fc9c82f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: falling
+    clip: {fileID: 8300000, guid: 355e919f4f8eb5b42942f03d565d4664, type: 3}
+    volume: 1
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 1
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: boop
+    clip: {fileID: 8300000, guid: a5739947d6b326d4d84aae52845ea60f, type: 3}
+    volume: 0.8
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 1
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: hit
+    clip: {fileID: 8300000, guid: b07869e89fd41014c8678c92e663cece, type: 3}
+    volume: 0.8
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 1
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: glass
+    clip: {fileID: 8300000, guid: d90dd18b1f9d0e44c9b95b245cac221b, type: 3}
+    volume: 1.5
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 1
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: game_over
+    clip: {fileID: 8300000, guid: 7c3ff9bdc3c4c5c4e934adf1883c5749, type: 3}
+    volume: 1
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 0
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: explosion
+    clip: {fileID: 8300000, guid: 3a1102cfe71d49b45b346d354ee58f42, type: 3}
+    volume: 1
+    randomVolume: 1
+    randomVolumeRange: {x: -0.1, y: 1}
+    pitch: 1
+    randomPitch: 1
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: shield_up
+    clip: {fileID: 8300000, guid: 5df93c33f97d1dc448d733ffeada2b41, type: 3}
+    volume: 1
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 0
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: shield_down
+    clip: {fileID: 8300000, guid: 5d0d26e3cc3617f448fa1f9be03bc270, type: 3}
+    volume: 1
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 0
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: bomb_activated
+    clip: {fileID: 8300000, guid: 245689906c9c8384eac61210d21f3e7a, type: 3}
+    volume: 1
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 0
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: boost_activated
+    clip: {fileID: 8300000, guid: b55202a6cff9b174abe235480b441275, type: 3}
+    volume: 1
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 0
+    randomPitchRange: {x: -0.1, y: 0.1}
+  - name: astronaut_in
+    clip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
+    volume: 1
+    randomVolume: 0
+    randomVolumeRange: {x: 0, y: 0}
+    pitch: 1
+    randomPitch: 0
+    randomPitchRange: {x: -0.1, y: 0.1}
+--- !u!114 &1215324505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7d84bede0256349ba014fabc9efd32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players:
+  - username: Fizz
+    score: 10
+  - username: Ezreal
+    score: 25
+  - username: Morgana
+    score: 15
+  currentScore: -1
+  scores: []
+--- !u!114 &1129090797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6874694756718156899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a61858c7466d8342ab2bf27bf1a77d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  right: 1
+  up: 1
+  forward: 0

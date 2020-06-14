@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_bloc.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_event.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_state.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_bloc.dart';
-import 'package:fun_prize/blocs/prize_details/prize_details_event.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/widgets/prizes/prize_rules.dart';
@@ -23,10 +21,7 @@ class PrizeDetails extends StatefulWidget {
 }
 
 class _PrizeDetailsState extends State<PrizeDetails> {
-  static const String _kPostScoreMethod = "io.github.dogganidhal.fun_prize/channel.post_score";
-
   PrizeDetailsBloc _bloc;
-  final _methodChannel = MethodChannel("io.github.dogganidhal.fun_prize/channel");
 
   @override
   void initState() {
@@ -34,16 +29,12 @@ class _PrizeDetailsState extends State<PrizeDetails> {
     _bloc = PrizeDetailsBloc(
       prize: widget.prize
     );
-    _methodChannel.setMethodCallHandler((methodCall) async {
-      switch(methodCall.method) {
-        case _kPostScoreMethod:
-          final score = methodCall.arguments as int;
-          if (score != null) {
-            _bloc.add(PostScoreEvent(score));
-          }
-          break;
-      }
-    });
+  }
+
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
   }
 
   @override
@@ -235,7 +226,7 @@ class _PrizeDetailsState extends State<PrizeDetails> {
   void _play() {
     BlocProvider.of<FunPointBloc>(context).add(FunPointUnlockOrPlayPrizeEvent(
       prize: widget.prize,
-      methodChannel: _methodChannel
+      context: context
     ));
   }
 

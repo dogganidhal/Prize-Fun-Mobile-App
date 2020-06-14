@@ -1,14 +1,16 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_event.dart';
 import 'package:fun_prize/blocs/fun_point/fun_point_state.dart';
 import 'package:fun_prize/service/auth_service.dart';
 import 'package:fun_prize/service/user_service.dart';
+import 'package:fun_prize/widgets/game/unity_game.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 class FunPointBloc extends Bloc<FunPointEvent, FunPointState> {
   static String _kLastClaimedFunPointDateKey = "io.github.dogganidhal.fun_prize.last_claimed_fun_point_date";
-  static const String _kStartGameMethod = "io.github.dogganidhal.fun_prize/channel.start_game";
 
   final AuthService authService = AuthService();
   final UserService userService = UserService();
@@ -55,7 +57,9 @@ class FunPointBloc extends Bloc<FunPointEvent, FunPointState> {
      if (event is FunPointUnlockOrPlayPrizeEvent) {
        final currentState = state as FunPointReadyState;
        if (currentState.user.prizeParticipationIds.contains(event.prize.id)) {
-         event.methodChannel.invokeMethod(_kStartGameMethod);
+         Navigator.of(event.context).push(MaterialPageRoute(
+           builder: (context) => UnityGame(prize: event.prize)
+         ));
        } else {
          try {
            await userService.unlockPrizeAndBillFunPoints((state as FunPointReadyState).user, event.prize);

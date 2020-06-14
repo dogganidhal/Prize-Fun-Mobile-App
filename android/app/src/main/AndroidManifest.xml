@@ -4,7 +4,6 @@
     package="io.github.dogganidhal.fun_prize">
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         tools:replace="android:icon,android:label">
@@ -29,9 +28,6 @@
         </activity>
 
         <activity
-            android:name=".UnityGameActivity"
-            android:process=":unity" />
-        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
@@ -46,21 +42,26 @@
                  defined in @style/LaunchTheme).
             -->
             <meta-data
+                android:name="flutterEmbedding"
+                android:value="2" />
+            <meta-data
                 android:name="unityplayer.ForwardNativeEventsToDalvik"
                 android:value="false" />
             <meta-data
-                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
-                android:value="true" />
+                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@drawable/launch_background" />
+
+            <!-- Theme to apply as soon as Flutter begins rendering frames -->
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+                />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver
-            android:name=".GameScoreReceiver"
-            android:enabled="true"
-            android:exported="false" />
     </application>
 
 </manifest>
