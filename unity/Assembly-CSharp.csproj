@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\MonoBehaviors\Statics\Aperture.cs" />
      <Compile Include="Assets\Scripts\MonoBehaviors\Statics\Chronos.cs" />
      <Compile Include="Assets\Scripts\MonoBehaviors\Statics\Extensions.cs" />
+     <Compile Include="Assets\Scripts\MonoBehaviors\Statics\FlutterUnityMessage.cs" />
      <Compile Include="Assets\Scripts\MonoBehaviors\Statics\FlutterUnityPlugin.cs" />
      <Compile Include="Assets\Scripts\MonoBehaviors\Statics\Game.cs" />
      <Compile Include="Assets\Scripts\MonoBehaviors\Statics\GameData.cs" />

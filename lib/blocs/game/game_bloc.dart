@@ -15,7 +15,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (event is UnityGameCreatedEvent) {
       _unityViewController = event.controller;
       _unityViewController.send(
-        'Camera',
+        'Game',
         'SetTargetScore',
         '${event.prize.rankings[event.prize.targetPosition].score}'
       );

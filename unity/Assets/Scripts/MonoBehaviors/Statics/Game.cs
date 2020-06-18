@@ -66,16 +66,9 @@ public class Game : MonoBehaviour
         Load();
     }
 
-    public void SetTargetScore(string data)
+    public void SetTargetScore(string message)
     {
-        Console.Out.WriteLine($"Received message {data}");
-        Messages.Send(new Message
-        {
-            id = 0,
-            data = "{\"_type\": \"post_score\", \"score\": " + $"{this.data.GetHigherScoreValue():0}" + "}"
-        });
-        // var message = JsonUtility.FromJson<SetTargetScoreMessage>(Messages.Receive(data).data);
-        // requiredScore = float.Parse(message.data.targetScore);
+        requiredScore = float.Parse(Messages.Receive(message).data);
     }
 
     public void Update()
