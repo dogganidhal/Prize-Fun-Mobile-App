@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FlutterUnityPlugin;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -49,11 +50,23 @@ public class Game : MonoBehaviour
 
     public void Start()
     {
-        HUD.i.restart.onClick.AddListener(() => Load());
+        HUD.i.restart.onClick.AddListener(Load);
         HUD.i.restartText.text = settings.texts.replayButtonText;
-        HUD.i.quit.onClick.AddListener(() => {/* CALL QUIT FUNCTION HERE */});
+        HUD.i.quit.onClick.AddListener(() =>
+        {
+            Messages.Send(new Message
+            {
+                id = 0,
+                data = "{\"_type\": \"post_score\", \"score\": " + $"{data.GetHigherScoreValue():0}" + "}"
+            });
+        });
         HUD.i.quitText.text = settings.texts.quitButtonText;
         Load();
+    }
+
+    public void SetTargetScore(string message)
+    {
+        requiredScore = float.Parse((Messages.Receive(message).data));
     }
 
     public void Update()
@@ -142,6 +155,7 @@ public class Game : MonoBehaviour
             HUD.i.disconnectedHolder.SetActive(false);
         }
 
+        player = null;
         Woofer.i.Play("game_over");
     }
 
