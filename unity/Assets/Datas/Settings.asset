@@ -23,28 +23,30 @@ MonoBehaviour:
     damageSlowPercentage: 25
     screenShakeIntensity: 4
     screenShakeDuration: 0.25
-    takeoffSSIntensity: 4
-    takeoffSSDuration: 0.25
   texts:
-    disconnetedText: Disconnected
+    disconnetedText: "Veuillez vous reconnecter \xE0 internet afin que votre score
+      soit pris en compte"
     highscoreMessageText: NEW HIGHSCORE!
     quitButtonText: Quitter
     replayButtonText: Rejouer
     inGameScoreText: '{0}'
+    requireScoreText: "Score \xE0 battre {0}"
     currentScoreText: Score {0}
-    highscoreText: Highscore {0}
+    highScoreText: 'Highscore : {0}'
     requiredScoreText: "Score \xE0 atteindre : {0}"
   boost:
-    durationRandomRange: {x: 2, y: 6}
+    durationRandomRange: {x: 2, y: 50}
     speedMultiplier: 2
-    decreasingChanceFactor: 4
+    decreasingChanceFactor: 8
     visualsDeformation: 0.05
     color: {r: 0.9245283, g: 0.9245283, b: 0.46662515, a: 1}
     showCharge: 0
   game:
+    horizontalChunkShiftRange: 1
     verticalSpeedMultiplierByMilestone: 0.05
     distanceBetweenMilestone: 11
-    boostChance: 10
+    bonusChance: 70.1
+    boostChance: 36.4
     bombChance: 50
     shieldChance: 25
-    astronautChance: 10
+    astronautChance: 25
