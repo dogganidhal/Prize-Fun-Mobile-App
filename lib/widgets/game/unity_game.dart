@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unity/flutter_unity.dart';
 import 'package:fun_prize/blocs/game/game_bloc.dart';
 import 'package:fun_prize/blocs/game/game_event.dart';
+import 'package:fun_prize/blocs/navigation/navigation_bloc.dart';
 import 'package:fun_prize/model/prize.dart';
 
 
@@ -15,7 +17,16 @@ class UnityGame extends StatefulWidget {
 }
 
 class _UnityGameState extends State<UnityGame> {
-  final GameBloc _bloc = GameBloc();
+  GameBloc _bloc;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _bloc = GameBloc(
+      prize: widget.prize,
+      navigationBloc: BlocProvider.of<NavigationBloc>(context)
+    );
+  }
 
   @override
   void dispose() {

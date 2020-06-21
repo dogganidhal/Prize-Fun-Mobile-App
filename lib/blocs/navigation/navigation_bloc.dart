@@ -21,4 +21,8 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
     }
 
   }
+
+  void pop() {
+    navigatorState.currentState.pop();
+  }
 }

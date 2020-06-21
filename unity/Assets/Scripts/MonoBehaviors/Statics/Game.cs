@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     public static Game i;
     private void Awake()
     {
+        SendFlutterMessage("lifecycle", "event", "awake");
         if (Game.i != null) Destroy(gameObject);
         else
         {
@@ -50,15 +51,13 @@ public class Game : MonoBehaviour
 
     public void Start()
     {
+        SendFlutterMessage("lifecycle", "event", "start");
         HUD.i.restart.onClick.AddListener(Load);
         HUD.i.restartText.text = settings.texts.replayButtonText;
         HUD.i.quit.onClick.AddListener(() =>
         {
-            Messages.Send(new Message
-            {
-                id = 0,
-                data = "{\"_type\": \"post_score\", \"score\": " + $"{data.GetHigherScoreValue():0}" + "}"
-            });
+            SendFlutterMessage("post_score", "score", $"{data.GetHigherScoreValue():0}");
+            Destroy(gameObject);   
         });
         HUD.i.quitText.text = settings.texts.quitButtonText;
         Load();
@@ -83,6 +82,7 @@ public class Game : MonoBehaviour
 
     public void ReachMilestone()
     {
+        SendFlutterMessage("lifecycle", "event", "reach_milestone");
         milestoneHeight += Game.i.settings.game.distanceBetweenMilestone;
         SpawnChunk();
         player.DivideSpeed(1f + Game.i.settings.game.verticalSpeedMultiplierByMilestone * (milestoneCount + 1));
@@ -92,6 +92,7 @@ public class Game : MonoBehaviour
 
     public void SpawnChunk()
     {
+        SendFlutterMessage("lifecycle", "event", "spawn_chunk");
         if (generateChunks)
         {
             Random.InitState(System.DateTime.Now.Millisecond);
@@ -119,6 +120,7 @@ public class Game : MonoBehaviour
 
     public void Load()
     {
+        SendFlutterMessage("lifecycle", "event", "load");
         milestoneHeight = 0f;
         data.NewScore();
         ClearChunks();
@@ -131,6 +133,7 @@ public class Game : MonoBehaviour
     
     public void Loose()
     {
+        SendFlutterMessage("lifecycle", "event", "loose");
         HUD.i.requiredScore.text = string.Format(settings.texts.requireScoreText, requiredScore.ToString("0"));
         if(data.GetHigherScoreValue() > requiredScore) requiredScore = data.GetHigherScoreValue();
         
@@ -155,12 +158,13 @@ public class Game : MonoBehaviour
             HUD.i.disconnectedHolder.SetActive(false);
         }
 
-        player = null;
+        // player = null;
         Woofer.i.Play("game_over");
     }
 
     public void Spawn()
     {
+        SendFlutterMessage("lifecycle", "event", "spawn");
         if (player != null) Destroy(player.gameObject);
         player = Instantiate(Library.i.shuttlePrefab, new Vector3(), Quaternion.identity).GetComponent<Shuttle>();
         player.Freeze();
@@ -178,5 +182,14 @@ public class Game : MonoBehaviour
         float height = Camera.main.orthographicSize * 2.0f;
         float width = height * Camera.main.aspect;
         return new Vector2(width, height);
+    }
+
+    private void SendFlutterMessage(string type, string payloadKey, string payload)
+    {
+        Messages.Send(new Message
+        {
+            id = 0,
+            data = "{" + $"\"_type\": \"{type}\", \"{payloadKey}\": \"{payload}\"}}"
+        });
     }
 }
