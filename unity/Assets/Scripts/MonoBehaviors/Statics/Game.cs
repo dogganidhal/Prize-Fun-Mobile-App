@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using FlutterUnityPlugin;
-using Random = UnityEngine.Random;
+using UnityEngine;
 
 public class Game : MonoBehaviour
 {
@@ -54,13 +52,13 @@ public class Game : MonoBehaviour
     {
         HUD.i.restart.onClick.AddListener(Load);
         HUD.i.restartText.text = settings.texts.replayButtonText;
-        HUD.i.quit.onClick.AddListener(() => {
-          /* CALL QUIT FUNCTION HERE */
-          Messages.Send(new Message
-          {
-              id = 0,
-              data = "{\"_type\": \"post_score\", \"score\": " + $"{data.GetHigherScoreValue():0}" + "}"
-          });
+        HUD.i.quit.onClick.AddListener(() =>
+        {
+            Messages.Send(new Message
+            {
+                id = 0,
+                data = "{\"_type\": \"post_score\", \"score\": " + $"{data.GetHigherScoreValue():0}" + "}"
+            });
         });
         HUD.i.quitText.text = settings.texts.quitButtonText;
         Load();
@@ -68,7 +66,7 @@ public class Game : MonoBehaviour
 
     public void SetTargetScore(string message)
     {
-        requiredScore = float.Parse(Messages.Receive(message).data);
+        requiredScore = float.Parse((Messages.Receive(message).data));
     }
 
     public void Update()
