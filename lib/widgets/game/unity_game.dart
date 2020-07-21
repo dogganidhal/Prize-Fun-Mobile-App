@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unity/flutter_unity.dart';
 import 'package:fun_prize/blocs/game/game_bloc.dart';
@@ -26,20 +27,24 @@ class _UnityGameState extends State<UnityGame> {
       prize: widget.prize,
       navigationBloc: BlocProvider.of<NavigationBloc>(context)
     );
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override
   void dispose() {
     _bloc.close();
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return UnityView(
-      onCreated: _onCreated,
-      onMessage: _onMessage,
-      onReattached: _onReattached,
+    return Scaffold(
+      body: UnityView(
+        onCreated: _onCreated,
+        onMessage: _onMessage,
+        onReattached: _onReattached,
+      ),
     );
   }
 
