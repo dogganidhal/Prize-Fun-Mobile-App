@@ -9,7 +9,7 @@ public class Pyromancer : MonoBehaviour
         else
         {
             i = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
     }
 

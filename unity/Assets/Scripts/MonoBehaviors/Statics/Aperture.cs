@@ -10,7 +10,7 @@ public class Aperture : MonoBehaviour
         else
         {
             i = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
 
         cam = GetComponent<Camera>();

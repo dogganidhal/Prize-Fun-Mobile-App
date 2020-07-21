@@ -12,7 +12,7 @@ public class Woofer : MonoBehaviour
         else
         {
             i = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
     }
 

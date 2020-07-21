@@ -10,7 +10,7 @@ public class Library : MonoBehaviour
         else
         {
             i = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
     }
 

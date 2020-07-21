@@ -11,7 +11,7 @@ public class MobileInputs : MonoBehaviour
         else
         {
             i = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
     }
 

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FlutterUnityPlugin;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
@@ -12,7 +15,7 @@ public class Game : MonoBehaviour
         else
         {
             i = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -29,6 +32,7 @@ public class Game : MonoBehaviour
     [HideInInspector] public bool generateChunks = true;
     private List<GameObject> chunks = new List<GameObject>();
     public ParticleSystem stars;
+    private static int _UnityViewId = 0;
 
     [System.Serializable]
     public class Vector3Key
@@ -57,7 +61,10 @@ public class Game : MonoBehaviour
         HUD.i.quit.onClick.AddListener(() =>
         {
             SendFlutterMessage("post_score", "score", $"{data.GetHigherScoreValue():0}");
-            Destroy(gameObject);   
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            _UnityViewId++;
+            // Destroy(data);
+            // Destroy(Camera.current);
         });
         HUD.i.quitText.text = settings.texts.quitButtonText;
         Load();
@@ -184,11 +191,11 @@ public class Game : MonoBehaviour
         return new Vector2(width, height);
     }
 
-    private void SendFlutterMessage(string type, string payloadKey, string payload)
+    private static void SendFlutterMessage(string type, string payloadKey, string payload)
     {
         Messages.Send(new Message
         {
-            id = 0,
+            id = _UnityViewId,
             data = "{" + $"\"_type\": \"{type}\", \"{payloadKey}\": \"{payload}\"}}"
         });
     }
