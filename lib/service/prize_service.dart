@@ -6,6 +6,7 @@ import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/model/prize_category.dart';
 import 'package:fun_prize/model/prize_participation.dart';
 import 'package:fun_prize/model/rankings.dart';
+import 'package:fun_prize/model/user.dart';
 
 class PrizeService {
   static String _kUsersCollection = "users";
@@ -43,7 +44,22 @@ class PrizeService {
   Stream<Rankings> rankings(Prize prize) => _firestore.collection(_kRankingsCollection)
     .where(_kRankingsCollection_PrizeIdField, isEqualTo: prize.id)
     .snapshots()
-    .map((snapshot) => Rankings.fromDocumentList(snapshot.documents));
+    .asyncMap((snapshot) => snapshot.documents
+      .map((participationDocument) async {
+        final userDocument = await _firestore
+          .document("$_kUsersCollection/${participationDocument.data['uid']}")
+          .get();
+        final user = User.fromDocument(userDocument);
+        return PrizeParticipation.fromDocument(participationDocument, user: user);
+      })
+      .toList()
+    )
+    .asyncMap((futures) => Future.wait(futures))
+    .map((participations) {
+      participations.sort((lhs, rhs) => rhs.score - lhs.score);
+      return participations;
+    })
+    .map((participations) => Rankings.fromParticipations(participations));
 
   Future<Null> postScore(int score, Prize prize, FirebaseUser user) async {
     final userDocument = await _firestore

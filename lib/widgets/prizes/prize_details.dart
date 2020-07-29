@@ -7,6 +7,7 @@ import 'package:fun_prize/blocs/prize_details/prize_details_bloc.dart';
 import 'package:fun_prize/blocs/prize_details/prize_details_state.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/widgets/prizes/prize_rules.dart';
+import 'package:fun_prize/widgets/prizes/ranking_table.dart';
 import 'package:fun_prize/widgets/prizes/rankings_card.dart';
 import 'package:fun_prize/widgets/prizes/webview_scaffold.dart';
 
@@ -141,7 +142,12 @@ class _PrizeDetailsState extends State<PrizeDetails> {
                                 ],
                               Divider(height: 1),
                               InkWell(
-                                onTap: () {},
+                                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RankingTable(
+                                    prize: widget.prize,
+                                    userFuture: state.userFuture,
+                                  )
+                                )),
                                 child: Padding(
                                   padding: EdgeInsets.all(16),
                                   child: Row(

@@ -31,6 +31,9 @@ class Rankings extends ListBase<PrizeParticipation> {
         ..sort((lhs, rhs) => rhs.score - lhs.score)
     );
 
+  factory Rankings.fromParticipations(List<PrizeParticipation> participations) =>
+    Rankings._(participations);
+
   PrizeParticipation operator [](int index) => _winners[index];
 
   @override
