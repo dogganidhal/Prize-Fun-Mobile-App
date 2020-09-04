@@ -46,23 +46,6 @@ class PrizeCard extends StatelessWidget {
                   _minWinnerPoints(context)
                 ],
               ),
-            ),
-            FutureBuilder<User>(
-              future: userFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasData && prize.rankings.rankOfUser(snapshot.data) != null)
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 16, left: 8, right: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        _userScore(context, snapshot.data),
-                        _userPosition(context, snapshot.data),
-                      ],
-                    ),
-                  );
-                return Container();
-              }
             )
           ],
         ),

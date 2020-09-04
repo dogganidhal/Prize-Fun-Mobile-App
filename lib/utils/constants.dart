@@ -30,7 +30,6 @@ abstract class PFTheme {
     colorScheme: ColorScheme.light(
       primary: kLightPrimaryColor,
       background: kLightColor,
-      brightness: Brightness.dark
     ),
     fontFamily: 'GoogleSans',
     scaffoldBackgroundColor: kLightColor,
@@ -59,7 +58,6 @@ abstract class PFTheme {
     errorColor: kErrorColor,
     colorScheme: ColorScheme.dark(
       primary: kDarkPrimaryColor,
-      brightness: Brightness.light,
     ),
     splashColor: kDarkColor.withOpacity(0.4),
     fontFamily: 'GoogleSans',

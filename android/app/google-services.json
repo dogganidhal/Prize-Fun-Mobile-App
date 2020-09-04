@@ -8,6 +8,78 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:500053096187:android:48fed05f0f47c3d75c625e",
+        "android_client_info": {
+          "package_name": "com.prize_and_fun.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500053096187-5n7cprkhffvd1thpkj9k5f1vmbm817sc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9gur5ONqzYB7zS6hghhCodP69hU5yZfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500053096187-5n7cprkhffvd1thpkj9k5f1vmbm817sc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "500053096187-cpss4fpbkeg9imf36fo0lbuu35ksel81.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.github.dogganidhal.funprize"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500053096187:android:7d233f79b7e973ed5c625e",
+        "android_client_info": {
+          "package_name": "io.github.dogganidhal.fun_prize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500053096187-5n7cprkhffvd1thpkj9k5f1vmbm817sc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9gur5ONqzYB7zS6hghhCodP69hU5yZfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500053096187-5n7cprkhffvd1thpkj9k5f1vmbm817sc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "500053096187-cpss4fpbkeg9imf36fo0lbuu35ksel81.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.github.dogganidhal.funprize"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:500053096187:android:a7a11dfa50c5f58d5c625e",
         "android_client_info": {
           "package_name": "io.github.dogganidhal.funprize"
