@@ -92,7 +92,7 @@ Merci de votre compréhension""",
                       ) :
                       PrizeCard(
                         prize: snapshot.data[index - 1],
-                        onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index]),
+                        onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index - 1]),
                         userFuture: state.userFuture,
                       ),
                       separatorBuilder: (context, index) => SizedBox(height: 8),

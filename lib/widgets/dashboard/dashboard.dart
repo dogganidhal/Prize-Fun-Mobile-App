@@ -94,11 +94,15 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget _participationCard(PrizeParticipation participation) => GestureDetector(
-    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => PrizeDetails(
-        prize: participation.prize
-      )
-    )),
+    onTap: () {
+      if (participation.prize.dueDate.compareTo(DateTime.now()) > 0) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => PrizeDetails(
+            prize: participation.prize
+          )
+        ));
+      }
+    },
     child: Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 0,
@@ -135,12 +139,14 @@ class _DashboardState extends State<Dashboard> {
                       color: Theme.of(context).textTheme.display3.color
                     ),
                     Text(
-                      prettyDuration(
-                        participation.prize.dueDate.difference(DateTime.now()),
-                        tersity: DurationTersity.minute,
-                        abbreviated: true,
-                        locale: FrenchDurationLocale()
-                      ).replaceAll(",", ""),
+                      participation.prize.dueDate.isAfter(DateTime.now()) ?
+                        prettyDuration(
+                          participation.prize.dueDate.difference(DateTime.now()),
+                          tersity: DurationTersity.minute,
+                          abbreviated: true,
+                          locale: FrenchDurationLocale()
+                        ).replaceAll(",", "") :
+                        "Lot clôturé",
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).textTheme.display3.color
