@@ -39,11 +39,14 @@ class _UnityGameState extends State<UnityGame> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: UnityView(
-        onCreated: _onCreated,
-        onMessage: _onMessage,
-        onReattached: _onReattached,
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: Scaffold(
+        body: UnityView(
+          onCreated: _onCreated,
+          onMessage: _onMessage,
+          onReattached: _onReattached,
+        ),
       ),
     );
   }
