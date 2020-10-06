@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fun_prize/model/prize.dart';
 import 'package:fun_prize/model/prize_category.dart';
 import 'package:fun_prize/model/prize_participation.dart';
@@ -32,6 +33,15 @@ class PrizeService {
       .toList()
     )
     .asyncMap((futures) => Future.wait(futures))
+    .map((prizeList) => prizeList
+      .where((element) {
+        final diff = DateTime.now().difference(element.dueDate).inDays;
+        // debugPrint("Diff in days : $diff");
+        debugPrint("Diff $diff : ${diff <= 0 ? "YES" : "NO"}");
+        return diff <= 0;
+      })
+      .toList()
+    )
     .map((prizeList) {
       final sortedPrizes = List<Prize>.from(prizeList
         .where((element) => element.dueDate.compareTo(DateTime.now()) > 0)

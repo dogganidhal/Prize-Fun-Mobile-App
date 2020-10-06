@@ -63,7 +63,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   Widget _requestCode(BuildContext context) => FormBuilder(
     key: _formKey,
-    autovalidate: false,
+    autovalidateMode: AutovalidateMode.onUserInteraction,
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(

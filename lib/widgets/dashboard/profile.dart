@@ -46,7 +46,7 @@ class Profile extends StatelessWidget {
       ),
       body: FormBuilder(
         key: _formKey,
-        autovalidate: false,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: BlocBuilder<ProfileBloc, ProfileState>(
           bloc: _profileBloc,
           builder: (context, state) {

@@ -22,19 +22,34 @@ class PrizeCard extends StatelessWidget {
         side: BorderSide(color: Theme.of(context).dividerColor, width: 0.4),
         borderRadius: BorderRadius.circular(4),
       ),
+      color: prize.dueDate.difference(DateTime.now()).isNegative ?
+        Theme.of(context).disabledColor :
+        null,
       child: InkWell(
         onTap: prize.closed ?
           null :
           onPlayPressed,
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 192,
-              child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image: prize.imageUrl,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              children: [
+                SizedBox(
+                  child: AspectRatio(
+                    aspectRatio: 16/9,
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: prize.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                if (prize.dueDate.difference(DateTime.now()).isNegative)
+                  Positioned.fill(
+                    child: Container(
+                      color: Theme.of(context).disabledColor,
+                    ),
+                  )
+              ],
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),

@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
             child: Center(
               child: FormBuilder(
                 key: _formKey,
-                autovalidate: false,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(

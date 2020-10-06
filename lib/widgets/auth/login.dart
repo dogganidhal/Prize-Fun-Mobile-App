@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
           child: Center(
             child: FormBuilder(
               key: _formKey,
-              autovalidate: false,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(

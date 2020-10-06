@@ -115,8 +115,8 @@ class _DashboardState extends State<Dashboard> {
       ),
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 192,
+          AspectRatio(
+            aspectRatio: 16/9,
             child: FadeInImage.memoryNetwork(
               placeholder: kTransparentImage,
               image: participation.prize.imageUrl,
