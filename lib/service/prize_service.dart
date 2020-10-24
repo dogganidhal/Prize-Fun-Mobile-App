@@ -35,10 +35,10 @@ class PrizeService {
     .asyncMap((futures) => Future.wait(futures))
     .map((prizeList) => prizeList
       .where((element) {
-        final diff = DateTime.now().difference(element.dueDate).inDays;
-        // debugPrint("Diff in days : $diff");
-        debugPrint("Diff $diff : ${diff <= 0 ? "YES" : "NO"}");
-        return diff <= 0;
+        final yesterday = DateTime.now().subtract(Duration(days: 1));
+        final dueDateDiff = DateTime.now().difference(element.dueDate).inDays;
+        final startDateDiff = (element.startDate ?? yesterday).difference(DateTime.now()).inDays;
+        return dueDateDiff <= 0 && startDateDiff <= 0;
       })
       .toList()
     )

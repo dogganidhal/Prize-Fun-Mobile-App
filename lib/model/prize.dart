@@ -7,6 +7,7 @@ class Prize {
   final String id;
   final int winnerCount;
   final DateTime dueDate;
+  final DateTime startDate;
   final String imageUrl;
   final String title;
   final String subTitle;
@@ -32,13 +33,17 @@ class Prize {
     this.winnerCount, this.dueDate, this.imageUrl,
     this.title, this.subTitle, this.description,
     this.minWinnerScore, this.rankings, this.id,
-    this.categoryId, this.merchantWebsite, this.prizeRules
+    this.categoryId, this.merchantWebsite, this.prizeRules,
+    this.startDate
   });
 
   factory Prize.fromDocument(DocumentSnapshot document, [List<DocumentSnapshot> rankings]) => Prize(
     id: document.documentID,
     winnerCount: document.data["winnerCount"],
     dueDate: _formatTimestamp(document.data["dueDate"] as Timestamp),
+    startDate: document.data["startDate"] != null ?
+      _formatTimestamp(document.data["startDate"] as Timestamp) :
+      null,
     imageUrl: document.data["imageUrl"],
     title: document.data["title"],
     subTitle: document.data["subTitle"],
