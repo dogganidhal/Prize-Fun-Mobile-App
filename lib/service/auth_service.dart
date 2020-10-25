@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show AdditionalUserInfo,
   AuthResult, FirebaseAuth, FirebaseUser;
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show EmailAuthCredential, FacebookAuthCredential;
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart' show FacebookAuthCredential;
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:fun_prize/exceptions/auth.dart';
@@ -37,6 +37,13 @@ class AuthService {
     String username, String password
   }) async {
     try {
+      final usersWithUsername = await _firestore
+      .collection(_kUsersCollection)
+      .where('username', isEqualTo: username)
+      .getDocuments();
+      if (usersWithUsername.documents.length > 0) {
+        throw AuthException('Ce pseudo est déjà utilisé');
+      }
       final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password

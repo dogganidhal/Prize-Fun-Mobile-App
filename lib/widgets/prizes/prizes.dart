@@ -69,41 +69,17 @@ class _PrizesState extends State<Prizes> {
                       child: LinearProgressIndicator()
                     ),
                   if (snapshot.hasData)
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            margin: EdgeInsets.only(top: 12, left: 12, right: 12),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                color: Theme.of(context).primaryColor
-                              )
-                            ),
-                            child: Text("""Tous les concours affichés actuellement sont factices et ont pour but de présenter le concept de l’application.
-Les vrais concours seront lancés à partir de Novembre.
-Merci de votre compréhension""",
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor
-                              ),
-                            ),
-                          ),
-                          ListView.separated(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.all(8),
-                            itemBuilder: (context, index) => PrizeCard(
-                              prize: snapshot.data[index],
-                              onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index]),
-                              userFuture: state.userFuture,
-                            ),
-                            separatorBuilder: (context, index) => SizedBox(height: 8),
-                            itemCount: snapshot.data.length
-                          ),
-                        ],
-                      ),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.all(8),
+                        itemBuilder: (context, index) => PrizeCard(
+                          prize: snapshot.data[index],
+                          onPlayPressed: () => _launchPrizeDetails(context, snapshot.data[index]),
+                          userFuture: state.userFuture,
+                        ),
+                        separatorBuilder: (context, index) => SizedBox(height: 8),
+                        itemCount: snapshot.data.length
                     ),
                 ],
               );

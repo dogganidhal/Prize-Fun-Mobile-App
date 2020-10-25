@@ -25,6 +25,8 @@ class AuthException implements Exception {
         return "Connexion non autorisée";
       case 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL':
         return "Compte existe avec une autre méthode de connexion";
+      case 'ERROR_EMAIL_ALREADY_IN_USE':
+        return "Cet e-mail est déjà associé à un compte. Si vous avez perdu votre mot de passe cliquez sur MDP oublié dans l'interface de connexion";
       default:
         return null;
     }
