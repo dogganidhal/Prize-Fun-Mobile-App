@@ -71,7 +71,6 @@ class _PrizesState extends State<Prizes> {
                   if (snapshot.hasData)
                     ListView.separated(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.all(8),
                         itemBuilder: (context, index) => PrizeCard(
                           prize: snapshot.data[index],

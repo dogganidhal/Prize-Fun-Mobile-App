@@ -169,13 +169,10 @@ class PrizeCard extends StatelessWidget {
   Stream<String> get _countdownDuration async* {
     Duration duration = prize.dueDate.difference(DateTime.now());
     while (!duration.isNegative) {
-
-      yield prettyDuration(
-        duration,
-        tersity: DurationTersity.second,
-        abbreviated: true,
-        locale: FrenchDurationLocale()
-      ).replaceAll(",", "");
+      final hours = duration.inHours;
+      final minutes = (duration - Duration(hours: hours)).inMinutes;
+      final seconds = (duration - Duration(hours: hours) - Duration(minutes: minutes)).inSeconds;
+      yield "$hours:$minutes:$seconds";
       await Future.delayed(Duration(seconds: 1));
       duration -= Duration(seconds: 1);
     }
