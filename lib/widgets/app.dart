@@ -60,6 +60,7 @@ class _AppState extends State<App> {
         theme: PFTheme.kLightTheme,
         darkTheme: PFTheme.kDarkTheme,
         navigatorKey: _navigatorKey,
+        debugShowCheckedModeBanner: false,
         home: BlocBuilder<AuthBloc, AuthState>(
           bloc: _authBloc,
           builder: (context, state) {

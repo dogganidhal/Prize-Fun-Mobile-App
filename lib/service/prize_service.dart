@@ -42,11 +42,16 @@ class PrizeService {
       .toList()
     )
     .map((prizeList) {
+      final now = DateTime.now();
       final sortedPrizes = List<Prize>.from(prizeList
-        .where((element) => element.dueDate.compareTo(DateTime.now()) > 0)
+        .where((element) => element.dueDate.compareTo(now) > 0)
       );
-      sortedPrizes.sort((lhs, rhs) => lhs.dueDate.compareTo(rhs.dueDate));
-      sortedPrizes.addAll(prizeList.where((element) => element.dueDate.compareTo(DateTime.now()) <= 0));
+      sortedPrizes.sort((lhs, rhs) {
+        final rhsDiff =  rhs.startDate.difference(now);
+        final lhsDiff = lhs.startDate.difference(now);
+        return (rhsDiff - lhsDiff).inSeconds;
+      });
+      sortedPrizes.addAll(prizeList.where((element) => element.dueDate.compareTo(now) <= 0));
       return sortedPrizes;
     });
 

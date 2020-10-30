@@ -39,7 +39,7 @@ class Prize {
 
   factory Prize.fromDocument(DocumentSnapshot document, [List<DocumentSnapshot> rankings]) => Prize(
     id: document.documentID,
-    winnerCount: document.data["winnerCount"],
+    winnerCount: document.data["winnerCount"].toString() == "NaN" ? 0 : document.data["winnerCount"],
     dueDate: _formatTimestamp(document.data["dueDate"] as Timestamp),
     startDate: document.data["startDate"] != null ?
       _formatTimestamp(document.data["startDate"] as Timestamp) :
