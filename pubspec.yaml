@@ -24,6 +24,8 @@ dependencies:
   webview_flutter: ^0.3.22+1
   shared_preferences: ^0.5.12
   flutter_unity: ^0.2.1
+  flutter_full_pdf_viewer: ^1.0.4
+  path_provider: ^0.4.1
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +49,8 @@ flutter:
     - assets/refer.png
     - assets/buy-fun-point.png
     - assets/user-score.png
+    - pdf/cgu.pdf
+    - pdf/privacy-policy.pdf
 
 
   fonts:

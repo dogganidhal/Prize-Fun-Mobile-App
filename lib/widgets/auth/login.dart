@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fun_prize/blocs/auth/auth_bloc.dart';
 import 'package:fun_prize/blocs/auth/auth_event.dart';
 import 'package:fun_prize/utils/constants.dart';
+import 'package:fun_prize/widgets/auth/cgu_privacy_policy_link.dart';
 import 'package:fun_prize/widgets/auth/reset_password.dart';
 
 
@@ -151,6 +152,7 @@ class _LoginState extends State<Login> {
                         child: Text("Mot de passe oublié ?"),
                       ),
                     ),
+                    CGUPrivacyPolicyLink()
                   ],
                 ),
               ),

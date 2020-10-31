@@ -44,14 +44,12 @@ class _BetaWarningListenerState extends State<BetaWarningListener> {
                   ),
                   title: Text("Infos importantes!"),
                   content: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                          "Nunc ex urna, elementum eu mollis quis, auctor sed "
-                          "nunc. Vivamus tempus placerat risus eget pharetra. "
-                          "Suspendisse rutrum placerat sapien, sed scelerisque "
-                          "risus ullamcorper eu. Donec a enim turpis. "
-                          "Nam pulvinar consectetur bibendum. Nam tristique "
-                          "porta dolor in volutpat. Praesent vitae vulputate "
-                          "ligula, quis volutpat lorem."
+                    "Merci d’avoir installé Prize&Fun !\n"
+                    "Cette version est une démo de l’application qui sortira début 2021.\n"
+                    "Nous nous excusons d’avance pour les éventuelles erreurs que vous rencontrerez.\n"
+                    "Nous comptons sur votre compréhension et votre soutien pour nous améliorer 😅\n"
+                    "Pour toute réclamation, contactez : antonin@prize-and-fun.com\n"
+                    "Amusez vous bien !"
                   ),
                   actions: <Widget>[
                     FlatButton(

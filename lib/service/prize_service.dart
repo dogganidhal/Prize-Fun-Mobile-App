@@ -35,8 +35,8 @@ class PrizeService {
     .map((prizeList) => prizeList
       .where((element) {
         final yesterday = DateTime.now().subtract(Duration(days: 1));
-        final dueDateDiff = DateTime.now().difference(element.dueDate).inDays;
-        final startDateDiff = (element.startDate ?? yesterday).difference(DateTime.now()).inDays;
+        final dueDateDiff = DateTime.now().difference(element.dueDate).inSeconds;
+        final startDateDiff = (element.startDate ?? yesterday).difference(DateTime.now()).inSeconds;
         return dueDateDiff <= 0 && startDateDiff <= 0;
       })
       .toList()
