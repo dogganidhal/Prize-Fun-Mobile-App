@@ -42,13 +42,15 @@ class _BetaWarningListenerState extends State<BetaWarningListener> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)
                   ),
-                  title: Text("Infos importantes!"),
+                  title: Center(
+                    child: Text("Information importante"),
+                  ),
                   content: Text(
-                    "Merci d’avoir installé Prize&Fun !\n"
-                    "Cette version est une démo de l’application qui sortira début 2021.\n"
-                    "Nous nous excusons d’avance pour les éventuelles erreurs que vous rencontrerez.\n"
-                    "Nous comptons sur votre compréhension et votre soutien pour nous améliorer 😅\n"
-                    "Pour toute réclamation, contactez : antonin@prize-and-fun.com\n"
+                    "Merci d’avoir installé Prize&Fun !\n\n"
+                    "Cette version est une démo de l’application qui sortira début 2021.\n\n"
+                    "Nous nous excusons d’avance pour les éventuelles erreurs que vous rencontrerez.\n\n"
+                    "Nous comptons sur votre compréhension et votre soutien pour nous améliorer 🙂\n\n"
+                    "Pour toute réclamation, contactez : antonin@prize-and-fun.com\n\n"
                     "Amusez vous bien !"
                   ),
                   actions: <Widget>[

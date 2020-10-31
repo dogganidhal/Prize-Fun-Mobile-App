@@ -169,13 +169,16 @@ class PrizeCard extends StatelessWidget {
   Stream<String> get _countdownDuration async* {
     Duration duration = prize.dueDate.difference(DateTime.now());
     while (!duration.isNegative) {
-      final hours = duration.inHours;
-      final minutes = (duration - Duration(hours: hours)).inMinutes;
-      final seconds = (duration - Duration(hours: hours) - Duration(minutes: minutes)).inSeconds;
-      yield "$hours:$minutes:$seconds";
+      yield _formatDuration(duration);
       await Future.delayed(Duration(seconds: 1));
       duration -= Duration(seconds: 1);
     }
     yield "Lot clôturé";
+  }
+
+  String _formatDuration (Duration duration) {
+    return [duration.inHours, duration.inMinutes, duration.inSeconds]
+        .map((seg) => seg.remainder(60).toString().padLeft(2, '0'))
+        .join(':');
   }
 }

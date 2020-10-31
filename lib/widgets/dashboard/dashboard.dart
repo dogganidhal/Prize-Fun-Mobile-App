@@ -140,12 +140,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     Text(
                       participation.prize.dueDate.isAfter(DateTime.now()) ?
-                        prettyDuration(
-                          participation.prize.dueDate.difference(DateTime.now()),
-                          tersity: DurationTersity.minute,
-                          abbreviated: true,
-                          locale: FrenchDurationLocale()
-                        ).replaceAll(",", "") :
+                        _formatDuration(participation.prize.dueDate.difference(DateTime.now())) :
                         "Lot clôturé",
                       style: TextStyle(
                         fontSize: 16,
@@ -200,4 +195,10 @@ class _DashboardState extends State<Dashboard> {
       ),
     ),
   );
+
+  String _formatDuration(Duration duration) {
+    return [duration.inHours, duration.inMinutes, duration.inSeconds]
+        .map((seg) => seg.remainder(60).toString().padLeft(2, '0'))
+        .join(':');
+  }
 }

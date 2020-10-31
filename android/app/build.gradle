@@ -49,7 +49,7 @@ android {
             keyAlias 'prize_fun'
             keyPassword '687396'
         }
-        relase {
+        release {
             storeFile file("prize_fun_key.keystore")
             storePassword '687396'
             keyAlias 'prize_fun'
@@ -60,6 +60,9 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
         }
     }
 }
