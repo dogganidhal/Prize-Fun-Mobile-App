@@ -37,6 +37,7 @@ class _WebviewScaffoldState extends State<WebviewScaffold> {
         child: WebView(
           onWebViewCreated: (controller) => _webViewController = controller,
           initialUrl: widget.url,
+          javascriptMode: JavascriptMode.unrestricted,
         ),
       )
     );

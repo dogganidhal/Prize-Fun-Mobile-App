@@ -40,36 +40,38 @@ class _RankingTableState extends State<RankingTable> {
           child: Divider(height: 1)
         ),
       ),
-      body: StreamBuilder<Rankings>(
-        stream: rankingStream,
-        builder: (context, rankingSnapshot) {
-          if (rankingSnapshot.connectionState == ConnectionState.waiting || rankingSnapshot.data == null)
-            return Center(
-              child: CircularProgressIndicator()
-            );
-          if (rankingSnapshot.hasData)
-            return FutureBuilder<User>(
-              future: widget.userFuture,
-              builder: (context, userSnapshot) {
-                if (userSnapshot.connectionState == ConnectionState.waiting || !userSnapshot.hasData)
-                  return Center(
-                    child: CircularProgressIndicator()
+      body: SingleChildScrollView(
+        child: StreamBuilder<Rankings>(
+          stream: rankingStream,
+          builder: (context, rankingSnapshot) {
+            if (rankingSnapshot.connectionState == ConnectionState.waiting || rankingSnapshot.data == null)
+              return Center(
+                child: CircularProgressIndicator()
+              );
+            if (rankingSnapshot.hasData)
+              return FutureBuilder<User>(
+                future: widget.userFuture,
+                builder: (context, userSnapshot) {
+                  if (userSnapshot.connectionState == ConnectionState.waiting || !userSnapshot.hasData)
+                    return Center(
+                      child: CircularProgressIndicator()
+                    );
+                  return Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Table(
+                      children: <TableRow>[
+                        _header(context),
+                        ...(rankingSnapshot.data)
+                          .map((row) => _row(rankingSnapshot.data, row, userSnapshot.data))
+                          .toList()
+                      ],
+                    ),
                   );
-                return Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Table(
-                    children: <TableRow>[
-                      _header(context),
-                      ...(rankingSnapshot.data)
-                        .map((row) => _row(rankingSnapshot.data, row, userSnapshot.data))
-                        .toList()
-                    ],
-                  ),
-                );
-              }
-            );
-          return Container();
-        }
+                }
+              );
+            return Container();
+          }
+        ),
       ),
     );
   }

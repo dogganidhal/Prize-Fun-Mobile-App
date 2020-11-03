@@ -177,8 +177,8 @@ class PrizeCard extends StatelessWidget {
   }
 
   String _formatDuration (Duration duration) {
-    return [duration.inHours, duration.inMinutes, duration.inSeconds]
-        .map((seg) => seg.remainder(60).toString().padLeft(2, '0'))
+    return [duration.inHours, duration.inMinutes.remainder(60), duration.inSeconds.remainder(60)]
+        .map((seg) => seg.toString().padLeft(2, '0'))
         .join(':');
   }
 }
