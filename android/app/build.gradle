@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '2'
+    flutterVersionCode = '3'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '0.1.0'
+    flutterVersionName = '0.1.1'
 }
 
 apply plugin: 'com.android.application'
@@ -33,7 +33,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "io.prizy.android"
+        applicationId "com.prize_and_fun.app"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
@@ -44,16 +44,10 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("prize_fun_key.keystore")
-            storePassword '687396'
-            keyAlias 'prize_fun'
-            keyPassword '687396'
+
         }
         release {
-            storeFile file("prize_fun_key.keystore")
-            storePassword '687396'
-            keyAlias 'prize_fun'
-            keyPassword '687396'
+
         }
     }
 

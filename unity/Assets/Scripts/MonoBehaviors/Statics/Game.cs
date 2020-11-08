@@ -145,14 +145,14 @@ public class Game : MonoBehaviour
         if(data.GetHigherScoreValue() > requiredScore) requiredScore = data.GetHigherScoreValue();
         
         // Affichage de NEW HIGHSCORE
-        if (data.currentScore == data.GetHigherScoreIndex()) HUD.i.newhighscore.gameObject.SetActive(true);
+        if (data.currentScore == data.highScore) HUD.i.newhighscore.gameObject.SetActive(true);
         else HUD.i.newhighscore.gameObject.SetActive(false);
 
         Aperture.i.target = null;
         HUD.i.distance.gameObject.SetActive(false);
         HUD.i.end.gameObject.SetActive(true);
-        HUD.i.score.text = string.Format(settings.texts.currentScoreText, data.GetCurrentScore().ToString("0"));
-        HUD.i.highscore.text = string.Format(settings.texts.highScoreText, data.GetHigherScoreValue().ToString("0"));
+        HUD.i.score.text = string.Format(settings.texts.currentScoreText, data.GetCurrentScore().ToString());
+        HUD.i.highscore.text = string.Format(settings.texts.highScoreText, data.GetHigherScoreValue().ToString());
 
         // Affichage de la connectivité ou non
         if (!connectedToInternet)
@@ -176,7 +176,7 @@ public class Game : MonoBehaviour
         player = Instantiate(Library.i.shuttlePrefab, new Vector3(), Quaternion.identity).GetComponent<Shuttle>();
         player.Freeze();
 
-        if(data.scores.Count > 1) player.StartWithoutAnimation();
+        if(data.firstScore) player.StartWithoutAnimation();
         else player.StartWithAnimation();
 
         Aperture.i.position.offset = new Vector3(0f, 2f, -100f);
