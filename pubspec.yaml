@@ -1,6 +1,6 @@
 name: fun_prize
 description: Fun prize mobile application
-version: 0.1.1+3
+version: 0.1.2+4
 
 environment:
   sdk: ">=2.2.2 <3.0.0"

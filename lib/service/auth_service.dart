@@ -122,7 +122,7 @@ class AuthService {
         "lastName": lastName,
         "address": address,
         "age": age
-      });
+      }, merge: true);
     } on PlatformException catch (exception) {
       throw AuthException.fromPlatformException(exception);
     }
